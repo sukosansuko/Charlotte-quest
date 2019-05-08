@@ -10,13 +10,13 @@
 [text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
 [text_show name="_sp_chara_name"]
 
-[chara_new name="シャルロット" storage="シャルロット" jname = "シャルロット" tag = 1 x = -3.5]
-[chara_new name="カーラ" storage="カーラ" jname = "カーラ" tag = 1 x = -0.5]
+[chara_new name="シャルロット" storage="シャルロット" jname = "シャルロット" tag = 1 x = -3.5 scale_x = -1]
+[chara_new name="カーラ" storage="カーラ" jname = "カーラ" tag = 1 x = -0.5 scale_x = -1]
 [chara_new name="リリー" storage="リリー" jname = "リリー" tag = 1 x = 3.5]
 
 [show tag = 1]
 #シャルロット
-そういえば、エリザが住んでる屋敷って確かこの変じゃなかった？[p]
+そういえば、エリザが住んでる屋敷って確かこの辺じゃなかった？[p]
 
 #カーラ
 言われてみればそうだね[r]
