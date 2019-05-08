@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
 
-public class EnemyStatus : MonoBehaviour
+public class Status : MonoBehaviour
 {
+    [SerializeField] private int LV;             //  レベル
     [SerializeField] private int HP;             //  体力
     [SerializeField] private int SP;             //  技の発動に必要
     [SerializeField] private int ATK;            //  物理攻撃力
@@ -13,22 +16,50 @@ public class EnemyStatus : MonoBehaviour
     [SerializeField] private int MDF;            //  魔法防御力
     [SerializeField] private int LUK;            //  幸運値
 
-    GameObject enemy;
-    Enemy body;
+    public enum STATE
+    {
+        ST_NON,
+        ST_ALIVE,                   //  生きている
+        ST_ACT,                     //  行動中
+        ST_DEAD,                    //  死亡
+        ST_MAX
+    }
+
+    public STATE state;
+    public GameObject chara;
 
     void Start()
     {
-        enemy = GameObject.Find("enemy1");
-        body = enemy.GetComponent<Enemy>();
+        state = STATE.ST_ALIVE;
+        SetHP(4);
     }
-     
+
+    void Update()
+    {
+        if (state == STATE.ST_DEAD)
+        {
+            Destroy(this.gameObject);
+        }
+        SetHP(GetHP());
+    }
+
+    public void Dead()
+    {
+        SetState(STATE.ST_DEAD);
+        //animator.SetTrigger("Dead");
+    }
+
+    public void SetState(STATE st)
+    {
+        this.state = st;
+    }
+
     public void SetHP(int hp)
     {
         this.HP = hp;
         if (HP <= 0)
         {
-            body.Dead();
-            Destroy(this.gameObject);
+            Dead();
         }
     }
 
