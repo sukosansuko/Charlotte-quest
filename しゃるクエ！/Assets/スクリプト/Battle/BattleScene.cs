@@ -5,25 +5,57 @@ using UnityEngine.UI;
 
 public class BattleScene : MonoBehaviour
 {
-    private List<GameObject> playerList = new List<GameObject>();
-    private List<GameObject> enemyList = new List<GameObject>();
+    Queue<Action> battleQueue;
+    [SerializeField] private GameObject attackObj;
+    [SerializeField] private GameObject receiveObj;
 
-    Enemy enemy = new Enemy();
+    public struct Action
+    {
+        //public Performance p;
+        public Damage damage;
+    }
+
     void Start()
     {
-        BattleInit();
+        battleQueue = new Queue<Action>();
     }
 
     void Update()
     {
-        //if(playerList)
+        if (Input.GetMouseButtonDown(0))
         {
+            Action action1 = new Action()
+            {
+                damage = new Damage { attackChara = attackObj, receiveChara = receiveObj, mpCost = 1, atk = 1}
+            };
+            battleQueue.Enqueue(action1);
 
+            Action action = battleQueue.Dequeue();
+
+            action.damage.processing();
+            //StartCoroutine(ActionCoroutine());
         }
     }
 
-    void BattleInit()
+    public class Damage
     {
-        //playerList.Add();
+        public GameObject attackChara;
+        public GameObject receiveChara;
+        public int mpCost;
+        public int atk;
+
+        public void processing()
+        {
+            attackChara.GetComponent<Status>().SetSP(attackChara.GetComponent<Status>().GetSP() - mpCost);
+            receiveChara.GetComponent<Status>().SetHP(receiveChara.GetComponent<Status>().GetHP() - atk);
+            Debug.Log(receiveChara.GetComponent<Status>().GetHP());
+            //if (abnormalState != AbnormalState.None)
+            //{
+            //List<AbnormalState> temp = receiveChara.GetComponent<Status>().abnormalSet;
+            //temp.Add(abnormalState);
+            //receiveChara.GetComponent<Status>().abnormalSet = temp;
+            //}
+        }
     }
+
 }
