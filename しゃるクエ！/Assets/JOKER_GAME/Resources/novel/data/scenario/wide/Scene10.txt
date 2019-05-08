@@ -10,10 +10,39 @@
 [text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
 [text_show name="_sp_chara_name"]
 
-[chara_new name="アーデン" storage="アーデン" jname = "アーデン" tag = 2 x = 3.5]
-[chara_new name="シャルロット" storage="シャルロット" jname = "シャルロット" tag = 2 x = -3.5 scale_x = -1]
-[chara_new name="カーラ" storage="カーラ" jname = "カーラ" tag = 1 x = 3.5 ]
-[chara_new name="リリー" storage=リリー"" jname = "リリー" tag = 1 x = 1.5]
-[chara_new name="ディアナ" storage="ディアナ" jname = "ディアナ" tag = 2 x = -1.5 scale_x = -1]
+[chara_new name="シャルロット" storage="シャルロット" jname = "シャルロット" tag = 1 x = -3.5]
+[chara_new name="カーラ" storage="カーラ" jname = "カーラ" tag = 1 x = -0.5]
+[chara_new name="リリー" storage="リリー" jname = "リリー" tag = 1 x = 3.5]
 
- 
+[show tag = 1]
+#シャルロット
+そういえば、エリザが住んでる屋敷って確かこの変じゃなかった？[p]
+
+#カーラ
+言われてみればそうだね[r]
+エリザちゃん、元気かなぁ？[p]
+
+#リリー
+エリザ？[r]
+友達なの？[p]
+
+#カーラ
+私の幼馴染なんだ[p]
+
+#シャルロット
+あの子カーラのこと大好きよね[p]
+
+#カーラ
+そう？[r]
+普通じゃないかなぁ[p]
+
+#シャルロット
+いいえ！[r]
+あれはまるで保護者よ[p]
+
+#リリー
+シャルちゃんとカーラちゃんとリリーちゃんは仲良しさんなんだね～☆[p]
+
+#シャルロット
+まぁ、教育機関でも同じクラスだったしね[l][r]
+さ、おしゃべりもこの辺にしてそろそろ行きましょうか[p]
