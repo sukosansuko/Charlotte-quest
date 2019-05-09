@@ -256,6 +256,21 @@
     <Reference Include="NCalc">
       <HintPath>Assets/Plugins/JOKER/NCalc.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Assets/Terasurware/Editor/npoi/ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>Assets/Terasurware/Editor/npoi/NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>Assets/Terasurware/Editor/npoi/NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>Assets/Terasurware/Editor/npoi/NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>Assets/Terasurware/Editor/npoi/NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>C:/Users/1701322/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@1.0.7/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
@@ -280,6 +295,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\Exporter.cs" />
+    <Compile Include="Assets\Terasurware\Classes\Editor\enemySkill_importer.cs" />
+    <Compile Include="Assets\Terasurware\Classes\Editor\playerSkill_importer.cs" />
+    <Compile Include="Assets\Terasurware\Editor\ExcelImporterMaker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\JOKER_GAME\Resources\novel\data\config\config.txt" />
@@ -290,14 +308,32 @@
     <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\tall\scene1.txt" />
     <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\tall\system.txt" />
     <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\tall\title.txt" />
+    <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\Scene10.txt" />
+    <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\Scene11.txt" />
+    <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\Scene12.txt" />
+    <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\Scene6.txt" />
+    <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\Scene7.txt" />
+    <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\Scene8.txt" />
+    <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\Scene9.txt" />
     <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\before vsTurner.txt" />
     <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\libs\menu.txt" />
     <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\libs\save.txt" />
     <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\libs\utils.txt" />
     <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\scene1.txt" />
+    <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\scene2.txt" />
+    <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\scene3.txt" />
+    <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\scene4.txt" />
+    <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\scene5.txt" />
     <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\system.txt" />
     <None Include="Assets\JOKER_GAME\Resources\novel\data\scenario\wide\title.txt" />
     <None Include="Assets\Resources\Story\Scenario\試し.txt" />
+    <None Include="Assets\Terasurware\Editor\EntityTemplate.txt" />
+    <None Include="Assets\Terasurware\Editor\EntityTemplate2.txt" />
+    <None Include="Assets\Terasurware\Editor\ExportTemplate.txt" />
+    <None Include="Assets\Terasurware\Editor\ExportTemplate2.txt" />
+    <None Include="Assets\Terasurware\Editor\npoi\NPOI.OOXML.XML" />
+    <None Include="Assets\Terasurware\Editor\npoi\NPOI.OpenXml4Net.XML" />
+    <None Include="Assets\Terasurware\Editor\npoi\NPOI.XML" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
