@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Player_skillList : ScriptableObject
+public class player_SkillNumberList : ScriptableObject
 {	
 	public List<Sheet> sheets = new List<Sheet> ();
 
@@ -18,17 +18,8 @@ public class Player_skillList : ScriptableObject
 	{
 		
 		public double ID;
-		public string charName;
-		public string skillName;
-		public double Lv;
-		public double power;
-		public string target;
-		public double sp;
-		public double period;
-		public string influence1;
-		public string influence2;
-		public string Time;
-		public string effect;
+		public string Name;
+		public double AttackSkill;
 	}
 }
 
