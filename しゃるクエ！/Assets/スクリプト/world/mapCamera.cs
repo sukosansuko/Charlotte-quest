@@ -13,7 +13,7 @@ public class mapCamera : MonoBehaviour
     public static int moveCnt = -2;     // カメラの移動制御
     int movePos = 10;                   // moveCntが1動くたびにカメラが移動する大きさ
 
-    int moveMax = 2;                    // 移動範囲最大値
+    int moveMax = 1;                    // 移動範囲最大値
     // Start is called before the first frame update
     void Start()
     {
