@@ -18,9 +18,9 @@ public class enemySkill_importer : AssetPostprocessor {
 			if (!filePath.Equals (asset))
 				continue;
 				
-			Enemy_skillList data = (Enemy_skillList)AssetDatabase.LoadAssetAtPath (exportPath, typeof(Enemy_skillList));
+			enemy_skillList data = (enemy_skillList)AssetDatabase.LoadAssetAtPath (exportPath, typeof(enemy_skillList));
 			if (data == null) {
-				data = ScriptableObject.CreateInstance<Enemy_skillList> ();
+				data = ScriptableObject.CreateInstance<enemy_skillList> ();
 				AssetDatabase.CreateAsset ((ScriptableObject)data, exportPath);
 				data.hideFlags = HideFlags.NotEditable;
 			}
@@ -41,14 +41,14 @@ public class enemySkill_importer : AssetPostprocessor {
 						continue;
 					}
 
-					Enemy_skillList.Sheet s = new Enemy_skillList.Sheet ();
+					enemy_skillList.Sheet s = new enemy_skillList.Sheet ();
 					s.name = sheetName;
 				
 					for (int i=1; i<= sheet.LastRowNum; i++) {
 						IRow row = sheet.GetRow (i);
 						ICell cell = null;
 						
-						Enemy_skillList.Param p = new Enemy_skillList.Param ();
+						enemy_skillList.Param p = new enemy_skillList.Param ();
 						
 					cell = row.GetCell(0); p.ID = (cell == null ? 0.0 : cell.NumericCellValue);
 					cell = row.GetCell(1); p.skillName = (cell == null ? "" : cell.StringCellValue);

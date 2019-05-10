@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using System.IO;
 
 public class Status : MonoBehaviour
 {
@@ -145,7 +144,6 @@ public class Status : MonoBehaviour
 
     public void SetChara()
     {
-        //image = GetComponent<Image>();
         var Name = this.gameObject.name;
         int charID;
         player_charaList PC;

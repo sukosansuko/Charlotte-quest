@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Enemy_skillList : ScriptableObject
+public class enemy_skillList : ScriptableObject
 {	
 	public List<Sheet> sheets = new List<Sheet> ();
 

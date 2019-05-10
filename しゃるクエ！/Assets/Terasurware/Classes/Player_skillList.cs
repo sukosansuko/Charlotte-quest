@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Player_skillList : ScriptableObject
+public class player_skillList : ScriptableObject
 {	
 	public List<Sheet> sheets = new List<Sheet> ();
 
@@ -26,9 +26,10 @@ public class Player_skillList : ScriptableObject
 		public double sp;
 		public double period;
 		public string influence1;
-		public string influence2;
+		public bool influence2;
 		public string Time;
 		public string effect;
+		public string etc;
 	}
 }
 
