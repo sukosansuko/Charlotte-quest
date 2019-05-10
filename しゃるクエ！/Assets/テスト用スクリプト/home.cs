@@ -21,6 +21,6 @@ public class home : MonoBehaviour
     }
     public void click()
     {
-        SceneNavigator.Instance.Change("マップ");
+        SceneNavigator.Instance.Change("ワールドマップ");
     }
 }

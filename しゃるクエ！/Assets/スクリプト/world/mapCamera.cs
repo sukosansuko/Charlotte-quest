@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class mapCamera2 : MonoBehaviour
+public class mapCamera : MonoBehaviour
 {
-    private Vector3 touchStartPos;
-    private Vector3 touchEndPos;
-    private Vector3 nowPos;
-    private Vector3 afterPos;
+    private Vector3 touchStartPos;      // タップ開始位置
+    private Vector3 touchEndPos;        // タップ終了位置
+    private Vector3 nowPos;             // 現在ののカメラ位置
+    private Vector3 afterPos;           // 移動終了後のカメラ位置
 
 
-   public int moveCnt;
-    int moveMax = 2;
+    public static int moveCnt = -2;     // カメラの移動制御
+    int movePos = 10;                   // moveCntが1動くたびにカメラが移動する大きさ
+
+    int moveMax = 2;                    // 移動範囲最大値
     // Start is called before the first frame update
     void Start()
     {
-        moveCnt = -2;
+        nowPos.x = moveCnt * movePos;
+        nowPos.z = -10;
     }
 
     // Update is called once per frame
@@ -58,12 +61,10 @@ public class mapCamera2 : MonoBehaviour
                 Debug.Log("ひだり");
                 moveCnt++;
             }
-
         }
     }
     void CameraMove()
     {
-        int movePos = 10;
         this.transform.position = nowPos;
 
         afterPos.x = moveCnt * movePos;

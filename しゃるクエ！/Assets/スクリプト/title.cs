@@ -13,6 +13,7 @@ public class title : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        WorldmapChar.SavePos = WorldmapChar.InitCharPos;
         FlashingCnt = 0;
         image = GetComponent<Image>();
 	}
