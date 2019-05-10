@@ -1,24 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class mapCamera : MonoBehaviour
+public class stageMapCamera : MonoBehaviour
 {
     private Vector3 touchStartPos;      // タップ開始位置
     private Vector3 touchEndPos;        // タップ終了位置
     private Vector3 nowPos;             // 現在ののカメラ位置
     private Vector3 afterPos;           // 移動終了後のカメラ位置
 
-
-    public static int moveCnt = -1;     // カメラの移動制御
+    string activScene;                  // 現在のｼｰﾝ名
+    public static int moveCnt;          // カメラの移動制御
     int movePos = 10;                   // moveCntが1動くたびにカメラが移動する大きさ
-    int moveMax = 1;                    // 移動範囲最大値
 
+    int moveMax;                        // 移動範囲最大値
     // Start is called before the first frame update
     void Start()
     {
         nowPos.x = moveCnt * movePos;
         nowPos.z = -10;
+        activScene = SceneManager.GetActiveScene().name;
+
+        if ((activScene == "W1") || (activScene == "W2"))
+        {
+            moveCnt = 0;
+            moveMax = 1;
+        }
+        if (activScene == "W3" || (activScene == "W4"))
+        {
+            moveCnt = 0;
+            moveMax = 2;
+        }
     }
 
     // Update is called once per frame
@@ -29,11 +42,11 @@ public class mapCamera : MonoBehaviour
     }
     void Flick()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             touchStartPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
         }
-        if(Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
             touchEndPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
             GetDir();
@@ -72,7 +85,7 @@ public class mapCamera : MonoBehaviour
         {
             nowPos.x--;
         }
-        else if(nowPos.x < afterPos.x)
+        else if (nowPos.x < afterPos.x)
         {
             nowPos.x++;
         }
