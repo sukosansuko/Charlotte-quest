@@ -28,7 +28,6 @@ public class Status : MonoBehaviour
     Image image;
     
     public STATE state;
-    public GameObject chara;
 
     void Start()
     {
@@ -146,7 +145,7 @@ public class Status : MonoBehaviour
 
     public void SetChara()
     {
-        image = GetComponent<Image>();
+        //image = GetComponent<Image>();
         var Name = this.gameObject.name;
         int charID;
         player_charaList PC;
