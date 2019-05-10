@@ -54,6 +54,6 @@ public class BGMselect : SingletonMonoBehaviour<BGMselect>
         {
             AudioManager.Instance.PlayBGM("ゲームオーバー3");
         }
-        prevScene = activScene;
+        //prevScene = activScene;
     }
 }
