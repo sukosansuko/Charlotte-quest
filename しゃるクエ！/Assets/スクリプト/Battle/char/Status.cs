@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.IO;
 
 public class Status : MonoBehaviour
 {
@@ -24,14 +25,14 @@ public class Status : MonoBehaviour
         ST_DEAD,                    //  死亡
         ST_MAX
     }
-
+    Image image;
+    
     public STATE state;
     public GameObject chara;
 
     void Start()
     {
-        state = STATE.ST_ALIVE;
-        SetHP(4);
+        SetChara();
     }
 
     void Update()
@@ -141,5 +142,56 @@ public class Status : MonoBehaviour
     public int GetLUK()
     {
         return LUK;
+    }
+
+    public void SetChara()
+    {
+        image = GetComponent<Image>();
+        var Name = this.gameObject.name;
+        int charID;
+        player_charaList PC;
+
+        //  データベースからステータスを取得
+        if (Name.StartsWith("p"))
+        {
+            PC = Resources.Load("ExcelData/player_chara") as player_charaList;
+            if (Name.Contains("1"))
+            {
+                charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetPID(1);
+            }
+            else if (Name.Contains("2"))
+            {
+                charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetPID(2);
+            }
+            else
+            {
+                charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetPID(3);
+            }
+            Debug.Log("charIDは" + charID);
+            if(charID != 0)
+            {
+                Debug.Log(PC.sheets[0].list[charID - 1].Name);
+            }
+            Debug.Log("player");
+        }
+        else
+        {
+            if (Name.Contains("1"))
+            {
+                charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetEID(1);
+            }
+            else if (Name.Contains("2"))
+            {
+                charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetEID(2);
+            }
+            else
+            {
+                charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetEID(3);
+            }
+            Debug.Log("enemy");
+        }
+
+        state = STATE.ST_ALIVE;
+        SetHP(4);
     }
 }
