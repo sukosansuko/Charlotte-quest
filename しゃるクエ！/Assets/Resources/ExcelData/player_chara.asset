@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: player_chara
   m_EditorClassIdentifier: 
   sheets:
-  - name: player_StatusList
+  - name: player_statusList
     list:
     - ID: 1
       Name: "\u30B7\u30E3\u30EB\u30ED\u30C3\u30C8"

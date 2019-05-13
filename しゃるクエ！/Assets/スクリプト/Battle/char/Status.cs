@@ -25,7 +25,9 @@ public class Status : MonoBehaviour
         ST_MAX
     }
     Image image;
-    
+
+    private GameObject battleManager;
+
     public STATE state;
 
     void Start()
@@ -190,5 +192,12 @@ public class Status : MonoBehaviour
 
         state = STATE.ST_ALIVE;
         SetHP(4);
+    }
+
+    public void SetTarget()
+    {
+        battleManager = GameObject.Find("BattleManager");
+        battleManager.GetComponent<command>().SetTarget(gameObject.name);
+        battleManager.GetComponent<command>().SkillDescription();
     }
 }
