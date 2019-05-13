@@ -18,9 +18,9 @@ public class playerSkill_importer : AssetPostprocessor {
 			if (!filePath.Equals (asset))
 				continue;
 				
-			Player_skillList data = (Player_skillList)AssetDatabase.LoadAssetAtPath (exportPath, typeof(Player_skillList));
+			player_skillList data = (player_skillList)AssetDatabase.LoadAssetAtPath (exportPath, typeof(player_skillList));
 			if (data == null) {
-				data = ScriptableObject.CreateInstance<Player_skillList> ();
+				data = ScriptableObject.CreateInstance<player_skillList> ();
 				AssetDatabase.CreateAsset ((ScriptableObject)data, exportPath);
 				data.hideFlags = HideFlags.NotEditable;
 			}
@@ -41,14 +41,14 @@ public class playerSkill_importer : AssetPostprocessor {
 						continue;
 					}
 
-					Player_skillList.Sheet s = new Player_skillList.Sheet ();
+					player_skillList.Sheet s = new player_skillList.Sheet ();
 					s.name = sheetName;
 				
 					for (int i=1; i<= sheet.LastRowNum; i++) {
 						IRow row = sheet.GetRow (i);
 						ICell cell = null;
 						
-						Player_skillList.Param p = new Player_skillList.Param ();
+						player_skillList.Param p = new player_skillList.Param ();
 						
 					cell = row.GetCell(0); p.ID = (cell == null ? 0.0 : cell.NumericCellValue);
 					cell = row.GetCell(1); p.charName = (cell == null ? "" : cell.StringCellValue);
@@ -59,9 +59,10 @@ public class playerSkill_importer : AssetPostprocessor {
 					cell = row.GetCell(6); p.sp = (cell == null ? 0.0 : cell.NumericCellValue);
 					cell = row.GetCell(7); p.period = (cell == null ? 0.0 : cell.NumericCellValue);
 					cell = row.GetCell(8); p.influence1 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(9); p.influence2 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(9); p.influence2 = (cell == null ? false : cell.BooleanCellValue);
 					cell = row.GetCell(10); p.Time = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(11); p.effect = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(12); p.etc = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class player_SkillNumberList : ScriptableObject
+public class enemy_skillList : ScriptableObject
 {	
 	public List<Sheet> sheets = new List<Sheet> ();
 
@@ -18,8 +18,12 @@ public class player_SkillNumberList : ScriptableObject
 	{
 		
 		public double ID;
-		public string Name;
-		public double AttackSkill;
+		public string skillName;
+		public double power;
+		public string target;
+		public double sp;
+		public string time;
+		public string referenceStatus;
 	}
 }
 

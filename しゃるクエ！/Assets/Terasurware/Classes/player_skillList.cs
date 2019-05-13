@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Enemy_skillList : ScriptableObject
+public class player_skillList : ScriptableObject
 {	
 	public List<Sheet> sheets = new List<Sheet> ();
 
@@ -18,12 +18,18 @@ public class Enemy_skillList : ScriptableObject
 	{
 		
 		public double ID;
+		public string charName;
 		public string skillName;
+		public double Lv;
 		public double power;
 		public string target;
 		public double sp;
-		public string time;
-		public string referenceStatus;
+		public double period;
+		public string influence1;
+		public bool influence2;
+		public string Time;
+		public string effect;
+		public string etc;
 	}
 }
 

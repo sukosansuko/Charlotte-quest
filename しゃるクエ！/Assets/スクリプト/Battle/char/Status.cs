@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using System.IO;
 
 public class Status : MonoBehaviour
 {
@@ -26,7 +25,9 @@ public class Status : MonoBehaviour
         ST_MAX
     }
     Image image;
-    
+
+    private GameObject battleManager;
+
     public STATE state;
 
     void Start()
@@ -145,7 +146,6 @@ public class Status : MonoBehaviour
 
     public void SetChara()
     {
-        //image = GetComponent<Image>();
         var Name = this.gameObject.name;
         int charID;
         player_charaList PC;
@@ -192,5 +192,12 @@ public class Status : MonoBehaviour
 
         state = STATE.ST_ALIVE;
         SetHP(4);
+    }
+
+    public void SetTarget()
+    {
+        battleManager = GameObject.Find("BattleManager");
+        battleManager.GetComponent<command>().SetTarget(gameObject.name);
+        battleManager.GetComponent<command>().SkillDescription();
     }
 }

@@ -29,7 +29,8 @@ public class BattleScene : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+
+        if (Input.GetMouseButtonDown(1))
         {
             Action action1 = new Action()
             {
