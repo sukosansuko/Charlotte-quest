@@ -10,93 +10,42 @@
 [text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
 [text_show name="_sp_chara_name"]
 
-[chara_new name="モブシルエット1" storage="モブシルエット1" jname = "モブ1" tag = mob x=-3.5 scale_x=-1]
+[chara_new name="ターナー" storage="ターナー" jname = "ターナー" tag = enemy x=3]
 
-[chara_new name="モブシルエット2" storage="モブシルエット2" jname = "モブ2" tag = mob x=-1.5 scale_x=-1]
+[chara_new name="パンドラリーダーシルエット" storage="パンドラリーダーシルエット" jname = "モルタリア" tag = enemy x=-3.5 scale_x = -1]
 
-[chara_new name="モブシルエット3" storage="モブシルエット3" jname = "モブ3" tag = mob x=1]
 
-[chara_new name="モブシルエット4" storage="モブシルエット4" jname = "モブ4" tag = mob x=3]
 
-[chara_new name="リリー" storage="リリー" jname = "リリー" x=0 scale_x = -1]
+[show name = "ターナー"]
 
-[show name = "リリー"]
-#？？？
-～～～♪[l][r]
-～♪～～♪[p]
+#ターナー
+くっ、まさかあのような小娘に後れをとるとは……[p]
 
-[chara_hide name = "リリー"]
+#???
+そういう風に侮るから負けるのだ戯けが[p]
 
-[show tag = mob]
+[show name = "パンドラリーダーシルエット"]
+#ターナー
+お前は...！[p]
 
-#通行人A
-いいぞー！[p]
+#???
+しくじったようじゃなターナー[p]
 
-#通行人B
-リリーちゃん！！[p]
+#ターナー
+た、確かに遅れは取ったがあの遺跡に例のブツはなかった！[l][r]
+次はこうはいかん！！[p]
 
-#通行人C
-敗北者...？[p]
+#???
+貴様......何故次があると思うておる？[p]
 
-#通行人D
-いったいどうやって戦えばいいんだ！[p]
+#ターナー
+なに？[p]
 
-[chara_hide tag = mob]
-[chara_remove tag = mob]
+がッ！......きさ...[p]
 
-[show name = "リリー"]
-#？？？
-みんなー！[r]
-ありがとう！！[r]
-これからも応援よろしくね☆[p]
+[chara_remove name = "ターナー"]
 
-[chara_hide name = "リリー"]
-[chara_remove name = "リリー"]
+#???
+フン......下郎が...[p]
 
-[chara_new name="シャルロット" storage="シャルロット" jname="シャルロット" tag = buddy x=-3.5 scale_x = -1]
-[chara_new name="カーラ" storage="カーラ" jname="カーラ" tag = buddy x=-1 scale_x = -1]
-[chara_new name="ディアナ" storage="ディアナ" jname="ディアナ" tag = buddy x=2.5 ]
-
-[show tag = buddy]
-
-#シャルロット
-なんだか賑やかね[p]
-
-#カーラ
-お祭りでもやってるのかな？[p]
-
-#ディアナ
-...お祭り？[p]
-
-#シャルロット
-簡単に言うと、人がたくさん集まって大騒ぎするのよ[p]
-
-#ディアナ
-そういえば、私が封印される前にもそう言うのはあった[p]
-
-#シャルロット
-へー、やっぱり昔からそういうのはあるのね[p]
-
-#カーラ
-ちなみにどんなお祭りだったの？[p]
-
-#ディアナ
-牛の生き血を全身にまんべんなく塗って[r]
-全員で輪になって踊る[p]
-
-#カーラ
-それお祭りじゃなくて儀式だよ！？[p]
-
-#ディアナ
-確か『喰血の儀』って呼んでた[p]
-
-#カーラ
-100%儀式だよそれ！！[p]
-
-#ディアナ
-あれは...お祭りじゃなかった......？？[p]
-
-#シャルロット
-とりあえず、情報収集して遺跡に行くわよ！[p]
-
-[scene file = "W3"]
+[scene file = "W2"]

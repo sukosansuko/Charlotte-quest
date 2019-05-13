@@ -21,8 +21,6 @@ public class mapChar : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        activScene = SceneManager.GetActiveScene().name;
-
         if (SavePos == new Vector3(0, 0, 0))
         {
             SavePos = InitCharPos;

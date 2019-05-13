@@ -28,5 +28,9 @@ public class WorldmapChar : MonoBehaviour
         }
         charImage.transform.position = SavePos;
         activScene = SceneManager.GetActiveScene().name;
+        if (activScene == "ワールドマップ")
+        {
+            mapChar.SavePos = new Vector3(0, 0, 0);
+        }
     }
 }

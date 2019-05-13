@@ -11,9 +11,9 @@ public class stageMapCamera : MonoBehaviour
     private Vector3 afterPos;           // 移動終了後のカメラ位置
 
     string activScene;                  // 現在のｼｰﾝ名
-    public static int moveCnt;          // カメラの移動制御
+    public static int moveCnt = 0;      // カメラの移動制御
     int movePos = 10;                   // moveCntが1動くたびにカメラが移動する大きさ
-
+    
     int moveMax;                        // 移動範囲最大値
     // Start is called before the first frame update
     void Start()
@@ -22,15 +22,21 @@ public class stageMapCamera : MonoBehaviour
         nowPos.z = -10;
         activScene = SceneManager.GetActiveScene().name;
 
-        if ((activScene == "W1") || (activScene == "W2"))
+        if (activScene == "W1")
         {
-            moveCnt = 0;
             moveMax = 1;
         }
-        if (activScene == "W3" || (activScene == "W4"))
+        if(activScene == "W2")
         {
-            moveCnt = 0;
             moveMax = 2;
+        }
+        if (activScene == "W3")
+        {
+            moveMax = 3;
+        }
+        if(activScene == "W4")
+        {
+            moveMax = 4;
         }
     }
 
@@ -57,12 +63,12 @@ public class stageMapCamera : MonoBehaviour
         float FlickSize = 30;       // フリックを認知させる大きさ
 
         float dirX = touchEndPos.x - touchStartPos.x;
-        if (moveCnt > -moveMax)
+        if (moveCnt > 0)
         {
             if (FlickSize < dirX)
             {
                 //  右向きの時の処理
-                Debug.Log("みぎ");
+
                 moveCnt--;
             }
         }
@@ -71,7 +77,6 @@ public class stageMapCamera : MonoBehaviour
             if (-FlickSize > dirX)
             {
                 //  左向きの時の処理
-                Debug.Log("ひだり");
                 moveCnt++;
             }
         }

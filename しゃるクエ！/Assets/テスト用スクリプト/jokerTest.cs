@@ -16,7 +16,7 @@ public class jokerTest : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.A))
         {
-            NovelSingleton.StatusManager.callJoker("wide/scene12", "");
+            NovelSingleton.StatusManager.callJoker("wide/scene10", "");
         }
     }
 }
