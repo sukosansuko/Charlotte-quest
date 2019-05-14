@@ -28,10 +28,17 @@ public class Status : MonoBehaviour
 
     private GameObject battleManager;
 
+    //  TL上の進行度
+    public int TLProgress;
+    private bool progressEnd;
+
     public STATE state;
 
     void Start()
     {
+        battleManager = GameObject.Find("BattleManager");
+        TLProgress = 0;
+        progressEnd = false;
         SetChara();
     }
 
@@ -42,12 +49,35 @@ public class Status : MonoBehaviour
             Destroy(this.gameObject);
         }
         SetHP(GetHP());
+        TLManager();
     }
 
     public void Dead()
     {
         SetState(STATE.ST_DEAD);
         //animator.SetTrigger("Dead");
+    }
+
+    private void TLManager()
+    {
+        //  ActiveChooseがtrueの間は進行度は増えない
+        if (!battleManager.GetComponent<BattleScene>().GetComponent<BattleScene>().GetActiveChoose())
+        {
+            TLProgress++;
+            //  行動選択開始
+            if (TLProgress >= 100 && !progressEnd)
+            {
+                battleManager.GetComponent<BattleScene>().SetActiveChoose(true);
+                progressEnd = true;
+            }
+            //  行動開始
+            if (TLProgress >= 200)
+            {
+                Debug.Log("攻撃開始ィ！！");
+                TLProgress = 0;
+                progressEnd = false;
+            }
+        }
     }
 
     public void SetState(STATE st)
@@ -150,6 +180,7 @@ public class Status : MonoBehaviour
         int charID;
         player_charaList PC;
 
+        Debug.Log(Name);
         //  データベースからステータスを取得
         if (Name.StartsWith("p"))
         {
@@ -166,12 +197,11 @@ public class Status : MonoBehaviour
             {
                 charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetPID(3);
             }
-            Debug.Log("charIDは" + charID);
-            if(charID != 0)
-            {
-                Debug.Log(PC.sheets[0].list[charID - 1].Name);
-            }
-            Debug.Log("player");
+            //Debug.Log("charIDは" + charID);
+            //if(charID != 0)
+            //{
+            //    Debug.Log(PC.sheets[0].list[charID - 1].Name);
+            //}
         }
         else
         {
@@ -187,17 +217,22 @@ public class Status : MonoBehaviour
             {
                 charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetEID(3);
             }
-            Debug.Log("enemy");
         }
 
         state = STATE.ST_ALIVE;
         SetHP(4);
     }
 
+    //  ターゲットの切り替え用
     public void SetTarget()
     {
-        battleManager = GameObject.Find("BattleManager");
         battleManager.GetComponent<command>().SetTarget(gameObject.name);
         battleManager.GetComponent<command>().SkillDescription();
+    }
+
+    public void SetRayCast(bool flag)
+    {
+        image = GetComponent<Image>();
+        image.raycastTarget = flag;
     }
 }

@@ -32,18 +32,23 @@ public class command : MonoBehaviour
     public Transform playerTarget;
     public Transform enemyTarget;
 
+    public Transform player;
+    public Transform enemy;
+
     private int charID;
     private int target;
     private TYPE skillType;
-    private string SkillName;
+    private int SkillName;
 
     player_charaList PC;
     player_skillList PS;
 
     private GameObject TextTarget;
+    private GameObject battleManager;
 
     void Start()
     {
+        battleManager = GameObject.Find("BattleManager");
         Init();
     }
 
@@ -54,9 +59,9 @@ public class command : MonoBehaviour
 
     private void Init()
     {
-        Attack.GetComponent<Image>().enabled = true;
-        Support.GetComponent<Image>().enabled = true;
-        Item.GetComponent<Image>().enabled = true;
+        Attack.GetComponent<Image>().enabled = false;
+        Support.GetComponent<Image>().enabled = false;
+        Item.GetComponent<Image>().enabled = false;
 
         SkillList.GetComponent<Image>().enabled = false;
         Back.GetComponent<Image>().enabled = false;
@@ -84,6 +89,27 @@ public class command : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
+
+        foreach (Transform child in player)
+        {
+            child.gameObject.GetComponent<Status>().SetRayCast(false);
+        }
+        foreach (Transform child in enemy)
+        {
+            child.gameObject.GetComponent<Status>().SetRayCast(false);
+        }
+
+    }
+
+    public void commandDisplay()
+    {
+        Attack.GetComponent<Image>().enabled = false;
+        Support.GetComponent<Image>().enabled = false;
+        Item.GetComponent<Image>().enabled = false;
+
+        Attack.GetComponent<Image>().enabled = true;
+        Support.GetComponent<Image>().enabled = true;
+        Item.GetComponent<Image>().enabled = true;
     }
 
     //  攻撃テキストの表示
@@ -128,6 +154,7 @@ public class command : MonoBehaviour
         skillType = TYPE.TYPE_ITEM;
     }
 
+    //  攻撃テキストの読み込み
     private void getAttackList()
     {
         PC = Resources.Load("ExcelData/player_chara") as player_charaList;
@@ -151,6 +178,7 @@ public class command : MonoBehaviour
         }
     }
 
+    //  支援テキストの読み込み
     private void getSupportList()
     {
         PC = Resources.Load("ExcelData/player_chara") as player_charaList;
@@ -174,6 +202,7 @@ public class command : MonoBehaviour
         }
     }
 
+    //  アイテムテキストの読み込み
     private void getItemList()
     {
         //PC = Resources.Load("ExcelData/player_chara") as player_charaList;
@@ -197,39 +226,18 @@ public class command : MonoBehaviour
         //}
     }
 
+    //  戻るボタンを押したときの処理
     public void BackInput()
     {
+        Init();
         Attack.GetComponent<Image>().enabled = true;
         Support.GetComponent<Image>().enabled = true;
         Item.GetComponent<Image>().enabled = true;
 
-        Description.GetComponent<Image>().enabled = false;
-        DescriptionText.GetComponent<Text>().enabled = false;
-        SkillList.GetComponent<Image>().enabled = false;
-        Back.GetComponent<Image>().enabled = false;
-        foreach (Transform child in attackText)
-        {
-            child.gameObject.SetActive(false);
-        }
-        foreach (Transform child in supportText)
-        {
-            child.gameObject.SetActive(false);
-        }
-        foreach (Transform child in itemText)
-        {
-            child.gameObject.SetActive(false);
-        }
-        foreach (Transform child in playerTarget)
-        {
-            child.gameObject.SetActive(false);
-        }
-        foreach (Transform child in enemyTarget)
-        {
-            child.gameObject.SetActive(false);
-        }
         skillType = TYPE.TYPE_NON;
     }
 
+    //  技の説明&ターゲットの表示
     public void SkillDescription()
     {
         //  技の説明表示
@@ -247,7 +255,6 @@ public class command : MonoBehaviour
         Description.GetComponent<Image>().enabled = true;
         DescriptionText.GetComponent<Text>().enabled = true;
 
-        Debug.Log(SkillName);
         int skillNumber = 0;
 
         //  技ごとにターゲット表示
@@ -257,28 +264,28 @@ public class command : MonoBehaviour
         {
             switch(SkillName)
             {
-                case "1":
+                case 1:
                     skillNumber = (int)PC.sheets[0].list[charID].AttackSkill1;
                     break;
-                case "2":
+                case 2:
                     skillNumber = (int)PC.sheets[0].list[charID].AttackSkill2;
                     break;
-                case "3":
+                case 3:
                     skillNumber = (int)PC.sheets[0].list[charID].AttackSkill3;
                     break;
-                case "4":
+                case 4:
                     skillNumber = (int)PC.sheets[0].list[charID].AttackSkill4;
                     break;
-                case "5":
+                case 5:
                     skillNumber = (int)PC.sheets[0].list[charID].AttackSkill5;
                     break;
-                case "6":
+                case 6:
                     skillNumber = (int)PC.sheets[0].list[charID].AttackSkill6;
                     break;
-                case "7":
+                case 7:
                     skillNumber = (int)PC.sheets[0].list[charID].AttackSkill7;
                     break;
-                case "8":
+                case 8:
                     skillNumber = (int)PC.sheets[0].list[charID].AttackSkill8;
                     break;
                 default:
@@ -289,28 +296,28 @@ public class command : MonoBehaviour
         {
             switch(SkillName)
             {
-                case "1":
+                case 1:
                     skillNumber = (int)PC.sheets[0].list[charID].SupportSkill1;
                     break;
-                case "2":
+                case 2:
                     skillNumber = (int)PC.sheets[0].list[charID].SupportSkill2;
                     break;
-                case "3":
+                case 3:
                     skillNumber = (int)PC.sheets[0].list[charID].SupportSkill3;
                     break;
-                case "4":
+                case 4:
                     skillNumber = (int)PC.sheets[0].list[charID].SupportSkill4;
                     break;
-                case "5":
+                case 5:
                     skillNumber = (int)PC.sheets[0].list[charID].SupportSkill5;
                     break;
-                case "6":
+                case 6:
                     skillNumber = (int)PC.sheets[0].list[charID].SupportSkill6;
                     break;
-                case "7":
+                case 7:
                     skillNumber = (int)PC.sheets[0].list[charID].SupportSkill7;
                     break;
-                case "8":
+                case 8:
                     skillNumber = (int)PC.sheets[0].list[charID].SupportSkill8;
                     break;
                 default:
@@ -322,12 +329,24 @@ public class command : MonoBehaviour
 
         }
 
+        //  playerSkillのtargetから、ターゲットを取得
         string Name = PS.sheets[0].list[skillNumber - 1].target;
-        if (Name.StartsWith("p"))
+        int ActivePlayer = GetComponent<BattleScene>().GetActivePlayer() - 1;
+
+        //  味方に対する技
+        if (Name.StartsWith("P"))
         {
-            if (Name.Contains("0") || Name.Contains("1"))
+            if (Name.Contains("0"))
+            {
+                playerTarget.GetChild(ActivePlayer).gameObject.SetActive(true);
+            }
+            else if(Name.Contains("1"))
             {
                 playerTarget.GetChild(target).gameObject.SetActive(true);
+                foreach (Transform child in player)
+                {
+                    child.gameObject.GetComponent<Status>().SetRayCast(true);
+                }
             }
             else
             {
@@ -337,11 +356,16 @@ public class command : MonoBehaviour
                 }
             }
         }
+        //  敵に対する技  
         else
         {
-            if (Name.Contains("0") || Name.Contains("1"))
+            if (Name.Contains("1"))
             {
                 enemyTarget.GetChild(target).gameObject.SetActive(true);
+                foreach (Transform child in enemy)
+                {
+                    child.gameObject.GetComponent<Status>().SetRayCast(true);
+                }
             }
             else
             {
@@ -356,11 +380,23 @@ public class command : MonoBehaviour
     public void SetSkillName(string name)
     {
         //  文字列中の数字を取得
-        SkillName = Regex.Replace(name, @"[^0-9]", "");
+        SkillName = int.Parse(Regex.Replace(name, @"[^0-9]", ""));
     }
 
     public void SetTarget(string id)
     {
         target = int.Parse(Regex.Replace(id, @"[^0-9]", "")) - 1;
+    }
+
+    public void InitTarget()
+    {
+        target = 0;
+    }
+
+    //  ターゲット確定時の処理
+    public void TargetDecided()
+    {
+        Init();
+        battleManager.GetComponent<BattleScene>().SetActiveChoose(false);
     }
 }
