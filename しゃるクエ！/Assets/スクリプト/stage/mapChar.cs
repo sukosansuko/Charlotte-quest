@@ -16,6 +16,7 @@ public class mapChar : MonoBehaviour {
         charImage = GetComponent<SpriteRenderer>();
         InitCharPos = new Vector3(GameObject.Find("talk1").transform.position.x, GameObject.Find("talk1").transform.position.y + 1.4f, 0);
         charImage.transform.position = InitCharPos;
+        activScene = SceneManager.GetActiveScene().name;
     }
     
 	// Update is called once per frame

@@ -34,7 +34,10 @@ public class changeImage : MonoBehaviour
         //{
         //    image.sprite = sp2;
         //}
-
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            ChangeImage();
+        }
         switch (imageCnt)
         {
             case 1:
