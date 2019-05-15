@@ -59,7 +59,7 @@ public class playerSkill_importer : AssetPostprocessor {
 					cell = row.GetCell(6); p.sp = (cell == null ? 0.0 : cell.NumericCellValue);
 					cell = row.GetCell(7); p.period = (cell == null ? 0.0 : cell.NumericCellValue);
 					cell = row.GetCell(8); p.influence1 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(9); p.influence2 = (cell == null ? false : cell.BooleanCellValue);
+					cell = row.GetCell(9); p.influence2 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(10); p.Time = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(11); p.effect = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(12); p.etc = (cell == null ? "" : cell.StringCellValue);

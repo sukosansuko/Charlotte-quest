@@ -26,7 +26,7 @@ public class player_skillList : ScriptableObject
 		public double sp;
 		public double period;
 		public string influence1;
-		public bool influence2;
+		public string influence2;
 		public string Time;
 		public string effect;
 		public string etc;

@@ -101,6 +101,7 @@ public class command : MonoBehaviour
 
     }
 
+    //  行動選択時に表示
     public void commandDisplay()
     {
         Attack.GetComponent<Image>().enabled = false;
@@ -375,6 +376,7 @@ public class command : MonoBehaviour
                 }
             }
         }
+        DescriptionText.GetComponent<Text>().text = PS.sheets[0].list[skillNumber - 1].effect;
     }
 
     public void SetSkillName(string name)
@@ -386,6 +388,11 @@ public class command : MonoBehaviour
     public void SetTarget(string id)
     {
         target = int.Parse(Regex.Replace(id, @"[^0-9]", "")) - 1;
+    }
+
+    public void SetCharID(int id)
+    {
+        charID = id;
     }
 
     public void InitTarget()

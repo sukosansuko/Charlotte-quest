@@ -16,6 +16,9 @@ public class Status : MonoBehaviour
     [SerializeField] private int MDF;            //  魔法防御力
     [SerializeField] private int LUK;            //  幸運値
 
+    [SerializeField]
+    public int TLProgress;
+
     public enum STATE
     {
         ST_NON,
@@ -28,8 +31,12 @@ public class Status : MonoBehaviour
 
     private GameObject battleManager;
 
+    //  アタッチしているオブジェクトの名前
+    public string Name;
+    public int charID;
+
     //  TL上の進行度
-    public int TLProgress;
+    //public int TLProgress;
     private bool progressEnd;
 
     public STATE state;
@@ -37,7 +44,8 @@ public class Status : MonoBehaviour
     void Start()
     {
         battleManager = GameObject.Find("BattleManager");
-        TLProgress = 0;
+        Name = this.gameObject.name;
+        //TLProgress = 0;
         progressEnd = false;
         SetChara();
     }
@@ -61,23 +69,85 @@ public class Status : MonoBehaviour
     private void TLManager()
     {
         //  ActiveChooseがtrueの間は進行度は増えない
-        if (!battleManager.GetComponent<BattleScene>().GetComponent<BattleScene>().GetActiveChoose())
+        if (battleManager.GetComponent<BattleScene>().GetComponent<BattleScene>().GetActiveChoose() == false)
         {
             TLProgress++;
             //  行動選択開始
-            if (TLProgress >= 100 && !progressEnd)
+            if (TLProgress / 2 >= 100 && !progressEnd)
             {
+                battleManager.GetComponent<command>().SetCharID(charID - 1);
                 battleManager.GetComponent<BattleScene>().SetActiveChoose(true);
+                battleManager.GetComponent<command>().commandDisplay();
                 progressEnd = true;
             }
             //  行動開始
-            if (TLProgress >= 200)
+            if (TLProgress / 2 >= 200)
             {
                 Debug.Log("攻撃開始ィ！！");
                 TLProgress = 0;
                 progressEnd = false;
             }
         }
+    }
+
+    public void SetChara()
+    {
+        player_charaList PC;
+
+        Debug.Log(Name);
+        //  データベースからステータスを取得
+        if (Name.StartsWith("p"))
+        {
+            PC = Resources.Load("ExcelData/player_chara") as player_charaList;
+            if (Name.Contains("1"))
+            {
+                charID = battleManager.GetComponent<BattleScene>().GetPID(1);
+            }
+            else if (Name.Contains("2"))
+            {
+                charID = battleManager.GetComponent<BattleScene>().GetPID(2);
+            }
+            else
+            {
+                charID = battleManager.GetComponent<BattleScene>().GetPID(3);
+            }
+            //Debug.Log("charIDは" + charID);
+            //if(charID != 0)
+            //{
+            //    Debug.Log(PC.sheets[0].list[charID - 1].Name);
+            //}
+        }
+        else
+        {
+            if (Name.Contains("1"))
+            {
+                charID = battleManager.GetComponent<BattleScene>().GetEID(1);
+            }
+            else if (Name.Contains("2"))
+            {
+                charID = battleManager.GetComponent<BattleScene>().GetEID(2);
+            }
+            else
+            {
+                charID = battleManager.GetComponent<BattleScene>().GetEID(3);
+            }
+        }
+
+        state = STATE.ST_ALIVE;
+        SetHP(4);
+    }
+
+    //  ターゲットの切り替え用
+    public void SetTarget()
+    {
+        battleManager.GetComponent<command>().SetTarget(gameObject.name);
+        battleManager.GetComponent<command>().SkillDescription();
+    }
+
+    public void SetRayCast(bool flag)
+    {
+        image = GetComponent<Image>();
+        image.raycastTarget = flag;
     }
 
     public void SetState(STATE st)
@@ -172,67 +242,5 @@ public class Status : MonoBehaviour
     public int GetLUK()
     {
         return LUK;
-    }
-
-    public void SetChara()
-    {
-        var Name = this.gameObject.name;
-        int charID;
-        player_charaList PC;
-
-        Debug.Log(Name);
-        //  データベースからステータスを取得
-        if (Name.StartsWith("p"))
-        {
-            PC = Resources.Load("ExcelData/player_chara") as player_charaList;
-            if (Name.Contains("1"))
-            {
-                charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetPID(1);
-            }
-            else if (Name.Contains("2"))
-            {
-                charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetPID(2);
-            }
-            else
-            {
-                charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetPID(3);
-            }
-            //Debug.Log("charIDは" + charID);
-            //if(charID != 0)
-            //{
-            //    Debug.Log(PC.sheets[0].list[charID - 1].Name);
-            //}
-        }
-        else
-        {
-            if (Name.Contains("1"))
-            {
-                charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetEID(1);
-            }
-            else if (Name.Contains("2"))
-            {
-                charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetEID(2);
-            }
-            else
-            {
-                charID = GameObject.Find("BattleManager").GetComponent<BattleScene>().GetEID(3);
-            }
-        }
-
-        state = STATE.ST_ALIVE;
-        SetHP(4);
-    }
-
-    //  ターゲットの切り替え用
-    public void SetTarget()
-    {
-        battleManager.GetComponent<command>().SetTarget(gameObject.name);
-        battleManager.GetComponent<command>().SkillDescription();
-    }
-
-    public void SetRayCast(bool flag)
-    {
-        image = GetComponent<Image>();
-        image.raycastTarget = flag;
     }
 }

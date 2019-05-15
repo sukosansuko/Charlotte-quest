@@ -36,7 +36,7 @@ public class BattleScene : MonoBehaviour
     {
         if(ActionChoose)
         {
-            GetComponent<command>().commandDisplay();
+            
         }
         if (Input.GetMouseButtonDown(1))
         {
