@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TextTarget : MonoBehaviour
 {
     private GameObject battleManager;
+
     void Start()
     {
         
@@ -19,6 +20,7 @@ public class TextTarget : MonoBehaviour
     public void SetName()
     {
         battleManager = GameObject.Find("BattleManager");
+        battleManager.GetComponent<command>().InitTarget();
         battleManager.GetComponent<command>().SetSkillName(gameObject.name);
     }
 }

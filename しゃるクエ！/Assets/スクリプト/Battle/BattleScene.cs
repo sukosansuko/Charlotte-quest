@@ -16,6 +16,11 @@ public class BattleScene : MonoBehaviour
     [SerializeField] private int eID2;
     [SerializeField] private int eID3;
 
+    private command co;
+
+    //  コマンド選択開始用フラグ
+    private bool ActionChoose;
+
     public struct Action
     {
         //public Performance p;
@@ -29,12 +34,15 @@ public class BattleScene : MonoBehaviour
 
     void Update()
     {
-
+        if(ActionChoose)
+        {
+            
+        }
         if (Input.GetMouseButtonDown(1))
         {
             Action action1 = new Action()
             {
-                damage = new Damage { attackChara = attackObj, receiveChara = receiveObj, mpCost = 1, atk = 1}
+                damage = new Damage { attackChara = attackObj, receiveChara = receiveObj, mpCost = 1, atk = 1 }
             };
             battleQueue.Enqueue(action1);
 
@@ -43,6 +51,8 @@ public class BattleScene : MonoBehaviour
             action.damage.processing();
             //StartCoroutine(ActionCoroutine());
         }
+        
+
     }
 
     public class Damage
@@ -99,5 +109,20 @@ public class BattleScene : MonoBehaviour
         {
             return eID3;
         }
+    }
+
+    public int GetActivePlayer()
+    {
+        return 1;
+    }
+
+    public void SetActiveChoose(bool flag)
+    {
+        ActionChoose = flag;
+    }
+
+    public bool GetActiveChoose()
+    {
+        return ActionChoose;
     }
 }
