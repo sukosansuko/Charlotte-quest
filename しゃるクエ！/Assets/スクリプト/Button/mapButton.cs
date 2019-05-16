@@ -34,7 +34,7 @@ public class mapButton : MonoBehaviour {
 
         if (actFlag)
         {
-            SceneNavigator.Instance.Change("ホーム");
+            SceneNavigator.Instance.Change("ワールドマップ");
         }
     }
 }
