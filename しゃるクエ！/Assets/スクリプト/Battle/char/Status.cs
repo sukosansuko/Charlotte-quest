@@ -16,8 +16,10 @@ public class Status : MonoBehaviour
     [SerializeField] private int MDF;            //  魔法防御力
     [SerializeField] private int LUK;            //  幸運値
 
-    [SerializeField]
-    public int TLProgress;
+    [SerializeField] public int TLProgress;
+    public GameObject TLIcon;
+
+    private Vector3 tmp;
 
     public enum STATE
     {
@@ -45,6 +47,11 @@ public class Status : MonoBehaviour
     {
         battleManager = GameObject.Find("BattleManager");
         Name = this.gameObject.name;
+
+        TLIcon.GetComponent<Image>().enabled = false;
+
+        tmp = TLIcon.transform.position;
+        TLIcon.transform.position = new Vector3(tmp.x,tmp.y,tmp.z);
         //TLProgress = 0;
         progressEnd = false;
         SetChara();
@@ -55,6 +62,7 @@ public class Status : MonoBehaviour
         if (state == STATE.ST_DEAD)
         {
             Destroy(this.gameObject);
+            Destroy(TLIcon);
         }
         SetHP(GetHP());
         TLManager();
@@ -68,12 +76,16 @@ public class Status : MonoBehaviour
 
     private void TLManager()
     {
+        Vector3 pos = TLIcon.transform.position;
+        pos = new Vector3(tmp.x + TLProgress,tmp.y,tmp.z);
+        TLIcon.transform.position = pos;
+
         //  ActiveChooseがtrueの間は進行度は増えない
         if (battleManager.GetComponent<BattleScene>().GetComponent<BattleScene>().GetActiveChoose() == false)
         {
             TLProgress++;
             //  行動選択開始
-            if (TLProgress / 2 >= 100 && !progressEnd)
+            if (TLProgress >= 200 && !progressEnd)
             {
                 battleManager.GetComponent<command>().SetCharID(charID - 1);
                 battleManager.GetComponent<BattleScene>().SetActiveChoose(true);
@@ -81,7 +93,7 @@ public class Status : MonoBehaviour
                 progressEnd = true;
             }
             //  行動開始
-            if (TLProgress / 2 >= 200)
+            if (TLProgress >= 300)
             {
                 Debug.Log("攻撃開始ィ！！");
                 TLProgress = 0;
@@ -101,15 +113,19 @@ public class Status : MonoBehaviour
             PC = Resources.Load("ExcelData/player_chara") as player_charaList;
             if (Name.Contains("1"))
             {
+
                 charID = battleManager.GetComponent<BattleScene>().GetPID(1);
+                TLIcon.GetComponent<Image>().enabled = true;
             }
             else if (Name.Contains("2"))
             {
                 charID = battleManager.GetComponent<BattleScene>().GetPID(2);
+                TLIcon.GetComponent<Image>().enabled = true;
             }
             else
             {
                 charID = battleManager.GetComponent<BattleScene>().GetPID(3);
+                TLIcon.GetComponent<Image>().enabled = true;
             }
             //Debug.Log("charIDは" + charID);
             //if(charID != 0)
@@ -122,14 +138,17 @@ public class Status : MonoBehaviour
             if (Name.Contains("1"))
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(1);
+                TLIcon.GetComponent<Image>().enabled = true;
             }
             else if (Name.Contains("2"))
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(2);
+                TLIcon.GetComponent<Image>().enabled = true;
             }
             else
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(3);
+                TLIcon.GetComponent<Image>().enabled = true;
             }
         }
 
@@ -154,6 +173,16 @@ public class Status : MonoBehaviour
     {
         this.state = st;
     }
+
+    //private void SetTLIconPlayer(int id)
+    //{
+    //    TLIcon.GetChild(id - 1).gameObject.GetComponent<Image>().enabled = true;
+    //}
+
+    //private void SetIconEnemy(int id)
+    //{
+    //    TLIcon.GetChild(id + 2).gameObject.GetComponent<Image>().enabled = true;
+    //}
 
     public void SetHP(int hp)
     {
