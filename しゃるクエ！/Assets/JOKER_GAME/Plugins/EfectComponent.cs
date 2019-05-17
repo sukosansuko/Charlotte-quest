@@ -8,17 +8,22 @@ namespace Novel
 
     public class EfectComponent : AbstractComponent
     {
+        Sprite[] sprites;   // アニメーションに使うスプライト
+        int cnt;    // フレームのカウント用
+        int spCnt;
+        int nowSp;  // 現在のスプライト番号
+        SpriteRenderer myRenderer;  // キャッシュ
+        [System.NonSerialized] public bool active;
         public EfectComponent()
         {
             /*
              [param]
             name=識別するための名前を指定します
             storage=画像ファイルを指定します
-            divX=画像の横の分割数を指定します
-            divY=画像の縦の分割数を指定します
             tag=タグ名を指定できます
             layer=表示させるレイヤを指定します。画面の背面から順に、background,Default,character,message,front が指定できます。デフォルトはDefaultが指定されます
             sort=同一レイヤ内の表示順を整数で指定してください
+            offset=何個目のスプライトから始めるか指定します
             x=中心からのx位置を指定します
             y=中心からのy位置を指定します
             z=中心からのz位置を指定します
@@ -26,24 +31,23 @@ namespace Novel
             scale_y=Y方向へのイメージの拡大率を指定します。
             scale_z=Z方向へのイメージの拡大率を指定します。
             scale=イメージの拡大率を指定します。つまり2と指定すると大きさが２倍になります
+            loop=アニメーションをループさせるかを指定します
              */
             this.arrayVitalParam = new List<string>
             {
                 "name",
                 "storage",
-                "divX",
-                "divY"
             };
             this.originalParam = new Dictionary<string, string>
             {
                 { "name",""},
                 { "storage",""},
-                { "divX",""},
-                { "divY", "" },
                 { "tag",""},
                 { "layer","Default"},
                 { "sort","0"},
                 { "imagePath",GameSetting.PATH_IMAGE},
+                { "flame", "2" },
+                { "offset","0" },
                 { "x","0"},
                 { "y","0"},
                 { "z","-3.2"},
@@ -51,10 +55,18 @@ namespace Novel
                 { "scale_x","1"},
                 { "scale_y","1"},
                 { "scale_z","1"},
+                { "loop","false" },
+                { "playAwake","false" },
                 { "path","false"}, //trueにすると、pathを補完しない
             };
         }
 
+        void Awake()
+        {
+            //myRenderer = GetComponent();
+            //spCnt = sprites.Length;
+            //nowSp = 
+        }
         public override void start()
         {
 
