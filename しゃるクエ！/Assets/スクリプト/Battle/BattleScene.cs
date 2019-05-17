@@ -21,6 +21,8 @@ public class BattleScene : MonoBehaviour
     //  コマンド選択開始用フラグ
     private bool ActionChoose;
 
+    public Transform TL;
+
     public struct Action
     {
         //public Performance p;
@@ -30,6 +32,10 @@ public class BattleScene : MonoBehaviour
     void Start()
     {
         battleQueue = new Queue<Action>();
+        foreach (Transform child in TL)
+        {
+            child.gameObject.SetActive(true);
+        }
     }
 
     void Update()
