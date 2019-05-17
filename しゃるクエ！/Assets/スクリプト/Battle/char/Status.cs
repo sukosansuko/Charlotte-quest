@@ -6,19 +6,26 @@ using System;
 
 public class Status : MonoBehaviour
 {
-    [SerializeField] private int LV;             //  レベル
-    [SerializeField] private int HP;             //  体力
-    [SerializeField] private int SP;             //  技の発動に必要
-    [SerializeField] private int ATK;            //  物理攻撃力
-    [SerializeField] private int DEF;            //  物理防御力
-    [SerializeField] private int SPD;            //  素早さ
-    [SerializeField] private int MAT;            //  魔法攻撃力
-    [SerializeField] private int MDF;            //  魔法防御力
-    [SerializeField] private int LUK;            //  幸運値
+    private string CharName;                    //  キャラクターの名前
+    [SerializeField] private int LV;            //  レベル
+    [SerializeField] private int HP;            //  体力
+    [SerializeField] private int SP;            //  技の発動に必要
+    [SerializeField] private int ATK;           //  物理攻撃力
+    [SerializeField] private int DEF;           //  物理防御力
+    [SerializeField] private int SPD;           //  素早さ
+    [SerializeField] private int MAT;           //  魔法攻撃力
+    [SerializeField] private int MDF;           //  魔法防御力
+    [SerializeField] private int LUK;           //  幸運値
+    private string AResistance;                 //  物理耐性(基本は敵のみ)
+    private string MResistance;                 //  魔法耐性(基本は敵のみ)
+    private string weakAttribute;               //  弱点属性(基本は敵のみ)
 
-    [SerializeField] public int TLProgress;
     public GameObject TLIcon;
+    public GameObject turnPointer;
 
+    enemy_charaList EC;
+
+    //  TLのアイコン位置計算用
     private Vector3 tmp;
 
     public enum STATE
@@ -32,13 +39,17 @@ public class Status : MonoBehaviour
     Image image;
 
     private GameObject battleManager;
+    private GameObject sceneNavigator;
+
+    //  プレイヤーかどうか判断するために使用する
+    private bool playerProof;
 
     //  アタッチしているオブジェクトの名前
     public string Name;
     public int charID;
 
     //  TL上の進行度
-    //public int TLProgress;
+    public int TLProgress;
     private bool progressEnd;
 
     public STATE state;
@@ -46,13 +57,17 @@ public class Status : MonoBehaviour
     void Start()
     {
         battleManager = GameObject.Find("BattleManager");
+
+        sceneNavigator = GameObject.Find("SceneNavigator");
+
         Name = this.gameObject.name;
 
         TLIcon.GetComponent<Image>().enabled = false;
+        turnPointer.GetComponent<Image>().enabled = false;
 
         tmp = TLIcon.transform.position;
         TLIcon.transform.position = new Vector3(tmp.x,tmp.y,tmp.z);
-        //TLProgress = 0;
+        TLProgress = 0;
         progressEnd = false;
         SetChara();
     }
@@ -83,13 +98,25 @@ public class Status : MonoBehaviour
         //  ActiveChooseがtrueの間は進行度は増えない
         if (battleManager.GetComponent<BattleScene>().GetComponent<BattleScene>().GetActiveChoose() == false)
         {
-            TLProgress++;
+            int ProgressSPD = SPD / 20;
+            if(ProgressSPD <= 0)
+            {
+                ProgressSPD = 1;
+            }
+
+            TLProgress += ProgressSPD;
             //  行動選択開始
             if (TLProgress >= 200 && !progressEnd)
             {
                 battleManager.GetComponent<command>().SetCharID(charID - 1);
                 battleManager.GetComponent<BattleScene>().SetActiveChoose(true);
                 battleManager.GetComponent<command>().commandDisplay();
+
+                if (playerProof)
+                {
+                    //  ポインターの表示
+                    turnPointer.GetComponent<Image>().enabled = true;
+                }
                 progressEnd = true;
             }
             //  行動開始
@@ -99,21 +126,35 @@ public class Status : MonoBehaviour
                 TLProgress = 0;
                 progressEnd = false;
             }
+
+            if(battleManager.GetComponent<command>().GetCommandEnd())
+            {
+                if (playerProof)
+                {
+                    //  ポインターの表示
+                    turnPointer.GetComponent<Image>().enabled = false;
+                }
+            }
         }
     }
 
     public void SetChara()
     {
-        player_charaList PC;
-
         Debug.Log(Name);
         //  データベースからステータスを取得
         if (Name.StartsWith("p"))
         {
-            PC = Resources.Load("ExcelData/player_chara") as player_charaList;
+            playerProof = true;
+        }
+        else
+        {
+            playerProof = false;
+        }
+
+        if (playerProof)
+        {
             if (Name.Contains("1"))
             {
-
                 charID = battleManager.GetComponent<BattleScene>().GetPID(1);
                 TLIcon.GetComponent<Image>().enabled = true;
             }
@@ -127,11 +168,7 @@ public class Status : MonoBehaviour
                 charID = battleManager.GetComponent<BattleScene>().GetPID(3);
                 TLIcon.GetComponent<Image>().enabled = true;
             }
-            //Debug.Log("charIDは" + charID);
-            //if(charID != 0)
-            //{
-            //    Debug.Log(PC.sheets[0].list[charID - 1].Name);
-            //}
+            sceneNavigator.GetComponent<StatusControl>().SetStatus(charID - 1,ref CharName,ref LV,ref HP,ref SP,ref ATK,ref DEF,ref SPD,ref MAT,ref MDF,ref LUK);
         }
         else
         {
@@ -150,6 +187,21 @@ public class Status : MonoBehaviour
                 charID = battleManager.GetComponent<BattleScene>().GetEID(3);
                 TLIcon.GetComponent<Image>().enabled = true;
             }
+            SetEnemyStatus(charID - 1,ref CharName, ref LV, ref HP, ref SP, ref ATK, ref DEF, ref SPD, ref MAT, ref MDF, ref LUK);
+        }
+        Debug.Log("charIDは" + charID);
+        if (charID != 0)
+        {
+            Debug.Log(CharName);
+            Debug.Log("LV" + LV);
+            Debug.Log("HP" + HP);
+            Debug.Log("SP" + SP);
+            Debug.Log("ATK" + ATK);
+            Debug.Log("DEF" + DEF);
+            Debug.Log("SPD" + SPD);
+            Debug.Log("MAT" + MAT);
+            Debug.Log("MDF" + MDF);
+            Debug.Log("LUK" + LUK);
         }
 
         state = STATE.ST_ALIVE;
@@ -174,15 +226,22 @@ public class Status : MonoBehaviour
         this.state = st;
     }
 
-    //private void SetTLIconPlayer(int id)
-    //{
-    //    TLIcon.GetChild(id - 1).gameObject.GetComponent<Image>().enabled = true;
-    //}
+    private void SetEnemyStatus(int id,ref string charName,ref int lv, ref int hp, ref int sp, ref int atk, ref int def, ref int spd, ref int mat, ref int mdf, ref int luk)
+    {
+        EC = Resources.Load("ExcelData/enemy_chara") as enemy_charaList;
 
-    //private void SetIconEnemy(int id)
-    //{
-    //    TLIcon.GetChild(id + 2).gameObject.GetComponent<Image>().enabled = true;
-    //}
+        lv = 1;
+        ////  レベルによってステータスを加算する
+        charName = EC.sheets[0].list[id].Name;
+        hp = (int)EC.sheets[0].list[id].HP;
+        sp = (int)EC.sheets[0].list[id].SP;
+        atk = (int)EC.sheets[0].list[id].ATK;
+        def = (int)EC.sheets[0].list[id].DEF;
+        spd = (int)EC.sheets[0].list[id].SPD;
+        mat = (int)EC.sheets[0].list[id].MAT;
+        mdf = (int)EC.sheets[0].list[id].MDF;
+        luk = (int)EC.sheets[0].list[id].LUK;
+    }
 
     public void SetHP(int hp)
     {

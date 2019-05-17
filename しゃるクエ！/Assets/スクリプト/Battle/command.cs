@@ -35,6 +35,8 @@ public class command : MonoBehaviour
     public Transform player;
     public Transform enemy;
 
+    private bool commandEnd;
+
     private int charID;
     private int target;
     private TYPE skillType;
@@ -59,6 +61,8 @@ public class command : MonoBehaviour
 
     private void Init()
     {
+        commandEnd = true;
+
         Attack.GetComponent<Image>().enabled = false;
         Support.GetComponent<Image>().enabled = false;
         Item.GetComponent<Image>().enabled = false;
@@ -104,6 +108,7 @@ public class command : MonoBehaviour
     //  行動選択時に表示
     public void commandDisplay()
     {
+        commandEnd = false;
         Attack.GetComponent<Image>().enabled = false;
         Support.GetComponent<Image>().enabled = false;
         Item.GetComponent<Image>().enabled = false;
@@ -405,5 +410,11 @@ public class command : MonoBehaviour
     {
         Init();
         battleManager.GetComponent<BattleScene>().SetActiveChoose(false);
+        commandEnd = true;
+    }
+
+    public bool GetCommandEnd()
+    {
+        return commandEnd;
     }
 }
