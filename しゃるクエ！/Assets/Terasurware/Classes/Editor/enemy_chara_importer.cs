@@ -64,9 +64,9 @@ public class enemy_chara_importer : AssetPostprocessor {
 					cell = row.GetCell(11); p.MResistance = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(12); p.weakAttribute = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(13); p.Skill1 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(14); p.Skill2 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(15); p.Skill3 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(16); p.Skill4 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(14); p.Skill2 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(15); p.Skill3 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(16); p.Skill4 = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

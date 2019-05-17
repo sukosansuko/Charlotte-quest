@@ -31,9 +31,9 @@ public class enemy_charaList : ScriptableObject
 		public string MResistance;
 		public string weakAttribute;
 		public int Skill1;
-		public string Skill2;
-		public string Skill3;
-		public string Skill4;
+		public int Skill2;
+		public int Skill3;
+		public int Skill4;
 	}
 }
 
