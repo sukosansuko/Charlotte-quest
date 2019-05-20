@@ -19,7 +19,12 @@ public class BattleScene : MonoBehaviour
     private command co;
 
     //  コマンド選択開始用フラグ
-    private bool ActionChoose;
+    private bool ActiveChoose;
+
+    //  行動中かどうかのフラグ
+    private bool ActionFlag;
+
+    private int ActivePlayer;
 
     public Transform TL;
 
@@ -40,7 +45,7 @@ public class BattleScene : MonoBehaviour
 
     void Update()
     {
-        if(ActionChoose)
+        if(ActionFlag)
         {
             
         }
@@ -55,7 +60,6 @@ public class BattleScene : MonoBehaviour
             Action action = battleQueue.Dequeue();
 
             action.damage.processing();
-            //StartCoroutine(ActionCoroutine());
         }
         
 
@@ -117,18 +121,46 @@ public class BattleScene : MonoBehaviour
         }
     }
 
+    public void SetActivePlayer(int number)
+    {
+        ActivePlayer = number;
+    }
+
     public int GetActivePlayer()
     {
-        return 1;
+        return ActivePlayer;
     }
 
     public void SetActiveChoose(bool flag)
     {
-        ActionChoose = flag;
+        ActiveChoose = flag;
     }
 
     public bool GetActiveChoose()
     {
-        return ActionChoose;
+        return ActiveChoose;
     }
+
+    //  攻撃するキャラをセット
+    public void SetAttackObj(GameObject obj)
+    {
+        attackObj = obj;
+    }
+
+    //  攻撃を受けるキャラをセット
+    public void SetReceiveObj(GameObject obj)
+    {
+        receiveObj = obj;
+    }
+
+    public void SetActionFlag(bool flag)
+    {
+        ActionFlag = flag;
+    }
+
+    public bool GetActionFlag()
+    {
+        return ActionFlag;
+    }
+
 }

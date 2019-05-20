@@ -47,7 +47,7 @@ MonoBehaviour:
       Lv: 1
       power: 1
       target: P0
-      sp: 0
+      sp: -30
       period: 2
       influence1: DEF
       influence2: MDF

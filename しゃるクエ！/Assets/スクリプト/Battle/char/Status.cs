@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
@@ -20,6 +21,9 @@ public class Status : MonoBehaviour
     private string MResistance;                 //  魔法耐性(基本は敵のみ)
     private string weakAttribute;               //  弱点属性(基本は敵のみ)
 
+    private string skillText;
+
+    public GameObject MyTarget;
     public GameObject TLIcon;
     public GameObject turnPointer;
 
@@ -41,7 +45,10 @@ public class Status : MonoBehaviour
     private GameObject battleManager;
     private GameObject sceneNavigator;
 
-    //  プレイヤーかどうか判断するために使用する
+    //  行動選択時に攻撃または支援を与える相手格納用
+    private GameObject TargetChar;
+
+    //  プレイヤーかどうか判断するために使用する(プレイヤーならtrue)
     private bool playerProof;
 
     //  アタッチしているオブジェクトの名前
@@ -53,6 +60,10 @@ public class Status : MonoBehaviour
     private bool progressEnd;
 
     public STATE state;
+
+    private bool actionFlag = false;
+    private int testTime = 0;
+
 
     void Start()
     {
@@ -76,8 +87,10 @@ public class Status : MonoBehaviour
     {
         if (state == STATE.ST_DEAD)
         {
+            //battleManager.GetComponent<command>().SetTargetStart(Name);
             Destroy(this.gameObject);
             Destroy(TLIcon);
+            Destroy(MyTarget);
         }
         SetHP(GetHP());
         TLManager();
@@ -98,13 +111,17 @@ public class Status : MonoBehaviour
         //  ActiveChooseがtrueの間は進行度は増えない
         if (battleManager.GetComponent<BattleScene>().GetComponent<BattleScene>().GetActiveChoose() == false)
         {
-            int ProgressSPD = SPD / 20;
-            if(ProgressSPD <= 0)
+            if (battleManager.GetComponent<BattleScene>().GetComponent<BattleScene>().GetActionFlag() == false)
             {
-                ProgressSPD = 1;
+                //  移動
+                int ProgressSPD = SPD / 20;
+                if (ProgressSPD <= 0)
+                {
+                    ProgressSPD = 1;
+                }
+                TLProgress += ProgressSPD;
             }
 
-            TLProgress += ProgressSPD;
             //  行動選択開始
             if (TLProgress >= 200 && !progressEnd)
             {
@@ -114,17 +131,37 @@ public class Status : MonoBehaviour
 
                 if (playerProof)
                 {
+                    battleManager.GetComponent<BattleScene>().SetActivePlayer(int.Parse(Regex.Replace(gameObject.name, @"[^0-9]", "")));
                     //  ポインターの表示
                     turnPointer.GetComponent<Image>().enabled = true;
                 }
                 progressEnd = true;
             }
+
+
+
             //  行動開始
             if (TLProgress >= 300)
             {
-                Debug.Log("攻撃開始ィ！！");
-                TLProgress = 0;
-                progressEnd = false;
+                testTime++;
+                if (!actionFlag)
+                {
+                    battleManager.GetComponent<BattleScene>().SetAttackObj(this.gameObject);
+                    battleManager.GetComponent<command>().ActionStart(skillText);
+
+                    battleManager.GetComponent<BattleScene>().SetActionFlag(true);
+
+                    actionFlag = true;
+                }
+
+                if(testTime >= 200)
+                {
+                    battleManager.GetComponent<command>().ActionEnd();
+                    TLProgress = 0;
+                    actionFlag = false;
+                    battleManager.GetComponent<BattleScene>().SetActionFlag(false);
+                    testTime = 0;
+                }
             }
 
             if(battleManager.GetComponent<command>().GetCommandEnd())
@@ -213,6 +250,7 @@ public class Status : MonoBehaviour
     {
         battleManager.GetComponent<command>().SetTarget(gameObject.name);
         battleManager.GetComponent<command>().SkillDescription();
+        skillText = battleManager.GetComponent<command>().GetSkillText();
     }
 
     public void SetRayCast(bool flag)
