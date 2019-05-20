@@ -7,7 +7,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] GameObject ClickParticle;
 
     Vector3 mousePos;
-    Vector3 screenWorldPos;
+    Vector2 screenWorldPos;
 
     private GameObject m_ClickParticle;
     private ParticleSystem m_ClickParticleSystem;
@@ -27,9 +27,10 @@ public class InputManager : MonoBehaviour
         mousePos = Input.mousePosition;
 
         mousePos.z = 20;
-        if(Input.GetMouseButtonDown(0))
+        screenWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        if (Input.GetMouseButtonDown(0))
         {
-            screenWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
+            //Debug.Log("アカン");
             m_ClickParticle.transform.position = screenWorldPos;
             m_ClickParticleSystem.Play();
         }

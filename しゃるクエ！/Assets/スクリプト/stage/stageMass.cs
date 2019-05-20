@@ -27,6 +27,6 @@ public class stageMass : MonoBehaviour
         stageName = this.gameObject.transform.name;
         mapChar.SavePos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1.4f, 0);
         MassName = transform.name;
-        Debug.Log("今日のゆうちゃん");
+        Debug.Log(MassName);
     }
 }
