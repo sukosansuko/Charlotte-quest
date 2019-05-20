@@ -30,7 +30,7 @@ public class InputManager : MonoBehaviour
         screenWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("アカン");
+            //Debug.Log("アカン");
             m_ClickParticle.transform.position = screenWorldPos;
             m_ClickParticleSystem.Play();
         }
