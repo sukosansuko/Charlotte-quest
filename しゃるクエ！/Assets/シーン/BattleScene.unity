@@ -228,8 +228,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1829247572}
-        m_MethodName: TargetDecided
+      - m_Target: {fileID: 1829247571}
+        m_MethodName: ActionSelectEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 130951728}
   - component: {fileID: 130951727}
   m_Layer: 5
-  m_Name: player1
+  m_Name: pIcon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,8 +430,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1829247572}
-        m_MethodName: TargetDecided
+      - m_Target: {fileID: 1829247571}
+        m_MethodName: ActionSelectEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1345,7 +1345,7 @@ GameObject:
   - component: {fileID: 297634869}
   - component: {fileID: 297634868}
   m_Layer: 5
-  m_Name: player3
+  m_Name: pIcon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1733,7 +1733,7 @@ GameObject:
   - component: {fileID: 502830989}
   - component: {fileID: 502830988}
   m_Layer: 5
-  m_Name: player2
+  m_Name: pIcon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2664,8 +2664,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1829247572}
-        m_MethodName: TargetDecided
+      - m_Target: {fileID: 1829247571}
+        m_MethodName: ActionSelectEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3175,7 +3175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &987204160
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4735,7 +4735,7 @@ GameObject:
   - component: {fileID: 1277958346}
   - component: {fileID: 1277958345}
   m_Layer: 5
-  m_Name: enemy2
+  m_Name: eIcon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5462,7 +5462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1341968958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5693,7 +5693,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1365196435
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5873,7 +5873,7 @@ GameObject:
   - component: {fileID: 1404411907}
   - component: {fileID: 1404411906}
   m_Layer: 5
-  m_Name: enemy1
+  m_Name: eIcon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6468,8 +6468,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1829247572}
-        m_MethodName: TargetDecided
+      - m_Target: {fileID: 1829247571}
+        m_MethodName: ActionSelectEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6873,8 +6873,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1829247572}
-        m_MethodName: TargetDecided
+      - m_Target: {fileID: 1829247571}
+        m_MethodName: ActionSelectEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7426,8 +7426,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1829247572}
-        m_MethodName: TargetDecided
+      - m_Target: {fileID: 1829247571}
+        m_MethodName: ActionSelectEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7522,12 +7522,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackObj: {fileID: 168461903}
   receiveObj: {fileID: 168461903}
+  Player1: {fileID: 0}
+  Player2: {fileID: 0}
+  Player3: {fileID: 0}
+  Enemy1: {fileID: 0}
+  Enemy2: {fileID: 0}
+  Enemy3: {fileID: 0}
   pID1: 1
   pID2: 2
   pID3: 3
   eID1: 1
   eID2: 1
   eID3: 1
+  ActivePlayer: {fileID: 0}
   TL: {fileID: 1591509935}
 --- !u!114 &1829247572
 MonoBehaviour:
@@ -7663,7 +7670,7 @@ GameObject:
   - component: {fileID: 1870959853}
   - component: {fileID: 1870959852}
   m_Layer: 5
-  m_Name: enemy3
+  m_Name: eIcon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7897,7 +7904,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1881078116
 RectTransform:
   m_ObjectHideFlags: 0

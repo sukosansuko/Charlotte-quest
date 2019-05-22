@@ -17,6 +17,7 @@ public class command : MonoBehaviour
         TYPE_MAX
     }
 
+    //  オブジェクトの取得用
     public GameObject Attack;
     public GameObject Support;
     public GameObject Item;
@@ -44,7 +45,11 @@ public class command : MonoBehaviour
     private int target;
     private TYPE skillType;
     private int SkillName;
-    private string SkillText;
+
+    //  行動保存用
+    private int SkillID;
+
+    private string ActiveSkillText;
 
     player_charaList PC;
     player_skillList PS;
@@ -53,6 +58,8 @@ public class command : MonoBehaviour
     private GameObject battleManager;
 
     private GameObject TargetChar;
+
+    private List<int> SaveSkillIDList = new List<int>();
 
     void Start()
     {
@@ -191,6 +198,7 @@ public class command : MonoBehaviour
                 attackText.GetChild(count).gameObject.GetComponent<Text>().text = PS.sheets[0].list[IDList[count] - 1].skillName;
             }
         }
+        SkillID = (int)PC.sheets[0].list[charID].AttackSkill1 - 1;
     }
 
     //  支援テキストの読み込み
@@ -215,6 +223,7 @@ public class command : MonoBehaviour
                 supportText.GetChild(count).gameObject.GetComponent<Text>().text = PS.sheets[0].list[IDList[count] - 1].skillName;
             }
         }
+        SkillID = (int)PC.sheets[0].list[charID].SupportSkill1 - 1;
     }
 
     //  アイテムテキストの読み込み
@@ -392,25 +401,20 @@ public class command : MonoBehaviour
             }
         }
         DescriptionText.GetComponent<Text>().text = PS.sheets[0].list[skillNumber - 1].effect;
-        SkillText = PS.sheets[0].list[skillNumber - 1].effect;
+        SkillID = skillNumber - 1;
     }
 
-    public void ActionStart(string text)
+    public void ActionStart()
     {
         actionDescription.GetComponent<Image>().enabled = true;
         actionDescriptionText.GetComponent<Text>().enabled = true;
-        actionDescriptionText.GetComponent<Text>().text = text;
+        actionDescriptionText.GetComponent<Text>().text = ActiveSkillText;
     }
 
     public void ActionEnd()
     {
         actionDescription.GetComponent<Image>().enabled = false;
         actionDescriptionText.GetComponent<Text>().enabled = false;
-    }
-
-    public string GetSkillText()
-    {
-        return SkillText;
     }
 
     public void SetSkillName(string name)
@@ -541,12 +545,53 @@ public class command : MonoBehaviour
     }
 
     //  ターゲット確定時の処理
-    public void TargetDecided()
+    public void TargetDecided(GameObject ID)
     {
+        string Iname = ID.name;
+        Debug.Log(Iname);
+        GameObject characterID;
+        if (Iname.StartsWith("p"))
+        {
+            if (Iname.Contains("1"))
+            {
+                characterID = GameObject.Find("player1");
+            }
+            else if (Iname.Contains("2"))
+            {
+                characterID = GameObject.Find("player2");
+            }
+            else
+            {
+                characterID = GameObject.Find("player3");
+            }
+        }
+        else
+        {
+            if (Iname.Contains("1"))
+            {
+                characterID = GameObject.Find("enemy1");
+            }
+            else if (Iname.Contains("2"))
+            {
+                characterID = GameObject.Find("enemy2");
+            }
+            else
+            {
+                characterID = GameObject.Find("enemy3");
+            }
+        }
+        Debug.Log("SkillID " + SkillID);
+        characterID.GetComponent<Status>().SaveSkill(SkillID);
+
         SetTarget();
         Init();
         battleManager.GetComponent<BattleScene>().SetActiveChoose(false);
         commandEnd = true;
+    }
+
+    public void SetActiveSkillText(string text)
+    {
+        ActiveSkillText = text;
     }
 
     private void SetTarget()
@@ -630,4 +675,6 @@ public class command : MonoBehaviour
         }
         return ID - correction;
     }
+
+
 }

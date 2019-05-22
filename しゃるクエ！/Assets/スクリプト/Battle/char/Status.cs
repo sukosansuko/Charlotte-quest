@@ -21,13 +21,16 @@ public class Status : MonoBehaviour
     private string MResistance;                 //  魔法耐性(基本は敵のみ)
     private string weakAttribute;               //  弱点属性(基本は敵のみ)
 
-    private string skillText;
-
     public GameObject MyTarget;
     public GameObject TLIcon;
     public GameObject turnPointer;
 
+    player_charaList PC;
+    player_skillList PS;
+
     enemy_charaList EC;
+
+    private List<int> SaveSkillIDList = new List<int>();
 
     //  TLのアイコン位置計算用
     private Vector3 tmp;
@@ -56,17 +59,23 @@ public class Status : MonoBehaviour
     public int charID;
 
     //  TL上の進行度
-    public int TLProgress;
+    public float TLProgress;
     private bool progressEnd;
 
     public STATE state;
 
     private bool actionFlag = false;
     private int testTime = 0;
-
+    private bool skillInputFlag = false;
 
     void Start()
     {
+        //  技リストの初期化
+        for (int count = 0; count < 6; count++)
+        {
+            SaveSkillIDList.Add(0);
+        }
+
         battleManager = GameObject.Find("BattleManager");
 
         sceneNavigator = GameObject.Find("SceneNavigator");
@@ -92,7 +101,6 @@ public class Status : MonoBehaviour
             Destroy(TLIcon);
             Destroy(MyTarget);
         }
-        SetHP(GetHP());
         TLManager();
     }
 
@@ -114,7 +122,7 @@ public class Status : MonoBehaviour
             if (battleManager.GetComponent<BattleScene>().GetComponent<BattleScene>().GetActionFlag() == false)
             {
                 //  移動
-                int ProgressSPD = SPD / 20;
+                float ProgressSPD = SPD / 20;
                 if (ProgressSPD <= 0)
                 {
                     ProgressSPD = 1;
@@ -125,20 +133,25 @@ public class Status : MonoBehaviour
             //  行動選択開始
             if (TLProgress >= 200 && !progressEnd)
             {
+                TLProgress = 200;
                 battleManager.GetComponent<command>().SetCharID(charID - 1);
                 battleManager.GetComponent<BattleScene>().SetActiveChoose(true);
                 battleManager.GetComponent<command>().commandDisplay();
 
                 if (playerProof)
                 {
-                    battleManager.GetComponent<BattleScene>().SetActivePlayer(int.Parse(Regex.Replace(gameObject.name, @"[^0-9]", "")));
+                    battleManager.GetComponent<BattleScene>().SetActivePlayer(this.gameObject);
                     //  ポインターの表示
                     turnPointer.GetComponent<Image>().enabled = true;
                 }
                 progressEnd = true;
             }
 
-
+            //if(TLProgress > 200 && !skillInputFlag)
+            //{
+            //    SaveSkill();
+            //    skillInputFlag = true;
+            //}
 
             //  行動開始
             if (TLProgress >= 300)
@@ -146,19 +159,21 @@ public class Status : MonoBehaviour
                 testTime++;
                 if (!actionFlag)
                 {
+                    LoadSkill();
                     battleManager.GetComponent<BattleScene>().SetAttackObj(this.gameObject);
-                    battleManager.GetComponent<command>().ActionStart(skillText);
+                    battleManager.GetComponent<command>().ActionStart();
 
                     battleManager.GetComponent<BattleScene>().SetActionFlag(true);
 
                     actionFlag = true;
                 }
 
-                if(testTime >= 200)
+                if(testTime >= 100)
                 {
                     battleManager.GetComponent<command>().ActionEnd();
                     TLProgress = 0;
                     actionFlag = false;
+                    progressEnd = false;
                     battleManager.GetComponent<BattleScene>().SetActionFlag(false);
                     testTime = 0;
                 }
@@ -177,7 +192,7 @@ public class Status : MonoBehaviour
 
     public void SetChara()
     {
-        Debug.Log(Name);
+        //Debug.Log(Name);
         //  データベースからステータスを取得
         if (Name.StartsWith("p"))
         {
@@ -226,23 +241,22 @@ public class Status : MonoBehaviour
             }
             SetEnemyStatus(charID - 1,ref CharName, ref LV, ref HP, ref SP, ref ATK, ref DEF, ref SPD, ref MAT, ref MDF, ref LUK);
         }
-        Debug.Log("charIDは" + charID);
+
         if (charID != 0)
         {
-            Debug.Log(CharName);
-            Debug.Log("LV" + LV);
-            Debug.Log("HP" + HP);
-            Debug.Log("SP" + SP);
-            Debug.Log("ATK" + ATK);
-            Debug.Log("DEF" + DEF);
-            Debug.Log("SPD" + SPD);
-            Debug.Log("MAT" + MAT);
-            Debug.Log("MDF" + MDF);
-            Debug.Log("LUK" + LUK);
+            //Debug.Log(CharName);
+            //Debug.Log("LV" + LV);
+            //Debug.Log("HP" + HP);
+            //Debug.Log("SP" + SP);
+            //Debug.Log("ATK" + ATK);
+            //Debug.Log("DEF" + DEF);
+            //Debug.Log("SPD" + SPD);
+            //Debug.Log("MAT" + MAT);
+            //Debug.Log("MDF" + MDF);
+            //Debug.Log("LUK" + LUK);
         }
 
         state = STATE.ST_ALIVE;
-        SetHP(4);
     }
 
     //  ターゲットの切り替え用
@@ -250,7 +264,6 @@ public class Status : MonoBehaviour
     {
         battleManager.GetComponent<command>().SetTarget(gameObject.name);
         battleManager.GetComponent<command>().SkillDescription();
-        skillText = battleManager.GetComponent<command>().GetSkillText();
     }
 
     public void SetRayCast(bool flag)
@@ -279,6 +292,83 @@ public class Status : MonoBehaviour
         mat = (int)EC.sheets[0].list[id].MAT;
         mdf = (int)EC.sheets[0].list[id].MDF;
         luk = (int)EC.sheets[0].list[id].LUK;
+    }
+
+    //  行動選択が完了したら、行動するまで行動の内容を保存しておく
+    public void SaveSkill(int SkillID)
+    {
+        if (playerProof)
+        {
+            if (Name.Contains("1"))
+            {
+                SaveSkillIDList.Insert(0, SkillID);
+            }
+            else if (Name.Contains("2"))
+            {
+                SaveSkillIDList.Insert(1, SkillID);
+            }
+            else
+            {
+                SaveSkillIDList.Insert(2, SkillID);
+            }
+        }
+        else
+        {
+            if (Name.Contains("1"))
+            {
+                SaveSkillIDList.Insert(3, SkillID);
+            }
+            else if (Name.Contains("2"))
+            {
+                SaveSkillIDList.Insert(4, SkillID);
+            }
+            else
+            {
+                SaveSkillIDList.Insert(5, SkillID);
+            }
+        }
+    }
+
+    //  保存しておいた行動を呼び出す
+    public void LoadSkill()
+    {
+        int skillID;
+        if (playerProof)
+        {
+            if (Name.Contains("1"))
+            {
+                skillID = SaveSkillIDList[0];
+            }
+            else if (Name.Contains("2"))
+            {
+                skillID = SaveSkillIDList[1];
+            }
+            else
+            {
+                skillID = SaveSkillIDList[2];
+            }
+        }
+        else
+        {
+            if (Name.Contains("1"))
+            {
+                skillID = SaveSkillIDList[3];
+            }
+            else if (Name.Contains("2"))
+            {
+                skillID = SaveSkillIDList[4];
+            }
+            else
+            {
+                skillID = SaveSkillIDList[5];
+            }
+        }
+
+        PC = Resources.Load("ExcelData/player_chara") as player_charaList;
+        PS = Resources.Load("ExcelData/playerSkill") as player_skillList;
+
+        battleManager.GetComponent<command>().SetActiveSkillText(PS.sheets[0].list[skillID].skillName);
+
     }
 
     public void SetHP(int hp)

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,14 @@ public class BattleScene : MonoBehaviour
     Queue<Action> battleQueue;
     [SerializeField] private GameObject attackObj;
     [SerializeField] private GameObject receiveObj;
+
+    public GameObject Player1;
+    public GameObject Player2;
+    public GameObject Player3;
+    public GameObject Enemy1;
+    public GameObject Enemy2;
+    public GameObject Enemy3;
+
 
     [SerializeField] private int pID1;
     [SerializeField] private int pID2;
@@ -24,7 +33,7 @@ public class BattleScene : MonoBehaviour
     //  行動中かどうかのフラグ
     private bool ActionFlag;
 
-    private int ActivePlayer;
+    public GameObject ActivePlayer;
 
     public Transform TL;
 
@@ -36,6 +45,13 @@ public class BattleScene : MonoBehaviour
 
     void Start()
     {
+        Player1 = GameObject.Find("player1");
+        Player2 = GameObject.Find("player2");
+        Player3 = GameObject.Find("player3");
+        Enemy1 = GameObject.Find("enemy1");
+        Enemy2 = GameObject.Find("enemy2");
+        Enemy3 = GameObject.Find("enemy3");
+
         battleQueue = new Queue<Action>();
         foreach (Transform child in TL)
         {
@@ -53,7 +69,7 @@ public class BattleScene : MonoBehaviour
         {
             Action action1 = new Action()
             {
-                damage = new Damage { attackChara = attackObj, receiveChara = receiveObj, mpCost = 1, atk = 1 }
+                damage = new Damage { attackChara = attackObj, receiveChara = receiveObj, mpCost = 1, atk = 100 }
             };
             battleQueue.Enqueue(action1);
 
@@ -89,6 +105,11 @@ public class BattleScene : MonoBehaviour
         }
     }
 
+    public void ActionSelectEnd()
+    {
+        GetComponent<command>().TargetDecided(ActivePlayer);
+    }
+
     public int GetPID(int name)
     {
         if(name == 1)
@@ -121,14 +142,14 @@ public class BattleScene : MonoBehaviour
         }
     }
 
-    public void SetActivePlayer(int number)
+    public void SetActivePlayer(GameObject obj)
     {
-        ActivePlayer = number;
+        ActivePlayer = obj;
     }
 
     public int GetActivePlayer()
     {
-        return ActivePlayer;
+        return int.Parse(Regex.Replace(ActivePlayer.name, @"[^0-9]", ""));
     }
 
     public void SetActiveChoose(bool flag)
