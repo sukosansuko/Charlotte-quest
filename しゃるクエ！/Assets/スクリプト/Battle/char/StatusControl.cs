@@ -60,27 +60,27 @@ public class StatusControl : MonoBehaviour
                                                  };
         }
 
-        Debug.Log(StatusList[1].LV);
-        Debug.Log(StatusList[1].HP);
-        Debug.Log(StatusList[1].SP);
-        Debug.Log(StatusList[1].ATK);
-        Debug.Log(StatusList[1].DEF);
-        Debug.Log(StatusList[1].SPD);
-        Debug.Log(StatusList[1].MAT);
-        Debug.Log(StatusList[1].MDF);
-        Debug.Log(StatusList[1].LUK);
-        Debug.Log(StatusList[1].EXP);
+        //Debug.Log(StatusList[1].LV);
+        //Debug.Log(StatusList[1].HP);
+        //Debug.Log(StatusList[1].SP);
+        //Debug.Log(StatusList[1].ATK);
+        //Debug.Log(StatusList[1].DEF);
+        //Debug.Log(StatusList[1].SPD);
+        //Debug.Log(StatusList[1].MAT);
+        //Debug.Log(StatusList[1].MDF);
+        //Debug.Log(StatusList[1].LUK);
+        //Debug.Log(StatusList[1].EXP);
 
-        Debug.Log("StatusGrow   " + StatusGrowList[1].LV);
-        Debug.Log(StatusGrowList[1].HP);
-        Debug.Log(StatusGrowList[1].SP);
-        Debug.Log(StatusGrowList[1].ATK);
-        Debug.Log(StatusGrowList[1].DEF);
-        Debug.Log(StatusGrowList[1].SPD);
-        Debug.Log(StatusGrowList[1].MAT);
-        Debug.Log(StatusGrowList[1].MDF);
-        Debug.Log(StatusGrowList[1].LUK);
-        Debug.Log(StatusGrowList[1].EXP);
+        //Debug.Log("StatusGrow   " + StatusGrowList[1].LV);
+        //Debug.Log(StatusGrowList[1].HP);
+        //Debug.Log(StatusGrowList[1].SP);
+        //Debug.Log(StatusGrowList[1].ATK);
+        //Debug.Log(StatusGrowList[1].DEF);
+        //Debug.Log(StatusGrowList[1].SPD);
+        //Debug.Log(StatusGrowList[1].MAT);
+        //Debug.Log(StatusGrowList[1].MDF);
+        //Debug.Log(StatusGrowList[1].LUK);
+        //Debug.Log(StatusGrowList[1].EXP);
     }
 
     void Update()

@@ -17,6 +17,7 @@ public class command : MonoBehaviour
         TYPE_MAX
     }
 
+    //  オブジェクトの取得用
     public GameObject Attack;
     public GameObject Support;
     public GameObject Item;
@@ -35,6 +36,9 @@ public class command : MonoBehaviour
     public Transform player;
     public Transform enemy;
 
+    public GameObject actionDescription;
+    public GameObject actionDescriptionText;
+
     private bool commandEnd;
 
     private int charID;
@@ -42,11 +46,20 @@ public class command : MonoBehaviour
     private TYPE skillType;
     private int SkillName;
 
+    //  行動保存用
+    private int SkillID;
+
+    private string ActiveSkillText;
+
     player_charaList PC;
     player_skillList PS;
 
     private GameObject TextTarget;
     private GameObject battleManager;
+
+    private GameObject TargetChar;
+
+    private List<int> SaveSkillIDList = new List<int>();
 
     void Start()
     {
@@ -71,6 +84,9 @@ public class command : MonoBehaviour
         Back.GetComponent<Image>().enabled = false;
         Description.GetComponent<Image>().enabled = false;
         DescriptionText.GetComponent<Text>().enabled = false;
+
+        actionDescription.GetComponent<Image>().enabled = false;
+        actionDescriptionText.GetComponent<Text>().enabled = false;
 
         foreach (Transform child in attackText)
         {
@@ -182,6 +198,7 @@ public class command : MonoBehaviour
                 attackText.GetChild(count).gameObject.GetComponent<Text>().text = PS.sheets[0].list[IDList[count] - 1].skillName;
             }
         }
+        SkillID = (int)PC.sheets[0].list[charID].AttackSkill1 - 1;
     }
 
     //  支援テキストの読み込み
@@ -206,6 +223,7 @@ public class command : MonoBehaviour
                 supportText.GetChild(count).gameObject.GetComponent<Text>().text = PS.sheets[0].list[IDList[count] - 1].skillName;
             }
         }
+        SkillID = (int)PC.sheets[0].list[charID].SupportSkill1 - 1;
     }
 
     //  アイテムテキストの読み込み
@@ -242,6 +260,7 @@ public class command : MonoBehaviour
 
         skillType = TYPE.TYPE_NON;
     }
+
 
     //  技の説明&ターゲットの表示
     public void SkillDescription()
@@ -337,7 +356,7 @@ public class command : MonoBehaviour
 
         //  playerSkillのtargetから、ターゲットを取得
         string Name = PS.sheets[0].list[skillNumber - 1].target;
-        int ActivePlayer = GetComponent<BattleScene>().GetActivePlayer() - 1;
+        int ActivePlayer = SetActivePlayer();
 
         //  味方に対する技
         if (Name.StartsWith("P"))
@@ -382,6 +401,20 @@ public class command : MonoBehaviour
             }
         }
         DescriptionText.GetComponent<Text>().text = PS.sheets[0].list[skillNumber - 1].effect;
+        SkillID = skillNumber - 1;
+    }
+
+    public void ActionStart()
+    {
+        actionDescription.GetComponent<Image>().enabled = true;
+        actionDescriptionText.GetComponent<Text>().enabled = true;
+        actionDescriptionText.GetComponent<Text>().text = ActiveSkillText;
+    }
+
+    public void ActionEnd()
+    {
+        actionDescription.GetComponent<Image>().enabled = false;
+        actionDescriptionText.GetComponent<Text>().enabled = false;
     }
 
     public void SetSkillName(string name)
@@ -392,8 +425,114 @@ public class command : MonoBehaviour
 
     public void SetTarget(string id)
     {
-        target = int.Parse(Regex.Replace(id, @"[^0-9]", "")) - 1;
+        int IdNumber = int.Parse(Regex.Replace(id, @"[^0-9]", ""));
+        //  補正
+        int correction = 1;
+
+        if (id.StartsWith("p"))
+        {
+            //  残っているプレイヤーの数
+            int ObjCount = player.transform.childCount;
+            switch (IdNumber)
+            {
+                case 1:
+                    break;
+                case 2:
+                    if (ObjCount == 1)
+                    {
+                        correction += 1;
+                    }
+                    else if (ObjCount == 2)
+                    {
+                        if (player.GetChild(0).gameObject.name == "player2")
+                        {
+                            correction += 1;
+                        }
+                    }
+                    else
+                    {
+                    }
+                    break;
+                case 3:
+                    if (ObjCount == 1)
+                    {
+                        correction += 2;
+                    }
+                    else if (ObjCount == 2)
+                    {
+                        correction += 1;
+                    }
+                    else
+                    {
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            //  残っている敵の数
+            int ObjCount = enemy.transform.childCount;
+            switch (IdNumber)
+            {
+                case 1:
+                    break;
+                case 2:
+                    if (ObjCount == 1)
+                    {
+                        correction += 1;
+                    }
+                    else if(ObjCount == 2)
+                    {
+                        if(enemy.GetChild(0).gameObject.name == "enemy2")
+                        {
+                            correction += 1;
+                        }
+                    }
+                    else
+                    {
+                    }
+                    break;
+                case 3:
+                    if(ObjCount == 1)
+                    {
+                        correction += 2;
+                    }
+                    else if(ObjCount == 2)
+                    {
+                        correction += 1;
+                    }
+                    else
+                    {
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        target = int.Parse(Regex.Replace(id, @"[^0-9]", "")) - correction;
     }
+
+    public void SetTargetStart(string id)
+    {
+        //int ID = int.Parse(Regex.Replace(id, @"[^0-9]", ""));
+        //if (id.StartsWith("p"))
+        //{
+        //    GameObject.Destroy(playerTarget.GetChild(ID - 1));
+        //    GameObject.Destroy(player.GetChild(ID - 1));
+        //    playerTarget.GetChild(ID - 1).DetachChildren();
+        //    player.GetChild(ID - 1).gameObject.SetActive(true);
+        //}
+        //else
+        //{
+        //    GameObject.Destroy(enemyTarget.GetChild(ID - 1));
+        //    GameObject.Destroy(enemy.GetChild(ID - 1));
+        //    enemyTarget.GetChild(ID - 1).gameObject.SetActive(true);
+        //    enemy.GetChild(ID - 1).gameObject.SetActive(true);
+        //}
+    }
+
 
     public void SetCharID(int id)
     {
@@ -406,15 +545,136 @@ public class command : MonoBehaviour
     }
 
     //  ターゲット確定時の処理
-    public void TargetDecided()
+    public void TargetDecided(GameObject ID)
     {
+        string Iname = ID.name;
+        Debug.Log(Iname);
+        GameObject characterID;
+        if (Iname.StartsWith("p"))
+        {
+            if (Iname.Contains("1"))
+            {
+                characterID = GameObject.Find("player1");
+            }
+            else if (Iname.Contains("2"))
+            {
+                characterID = GameObject.Find("player2");
+            }
+            else
+            {
+                characterID = GameObject.Find("player3");
+            }
+        }
+        else
+        {
+            if (Iname.Contains("1"))
+            {
+                characterID = GameObject.Find("enemy1");
+            }
+            else if (Iname.Contains("2"))
+            {
+                characterID = GameObject.Find("enemy2");
+            }
+            else
+            {
+                characterID = GameObject.Find("enemy3");
+            }
+        }
+        Debug.Log("SkillID " + SkillID);
+        characterID.GetComponent<Status>().SaveSkill(SkillID);
+
+        SetTarget();
         Init();
         battleManager.GetComponent<BattleScene>().SetActiveChoose(false);
         commandEnd = true;
+    }
+
+    public void SetActiveSkillText(string text)
+    {
+        ActiveSkillText = text;
+    }
+
+    private void SetTarget()
+    {
+        string ObjName = this.gameObject.name;
+        {
+            //  味方に対する技
+            if (ObjName.StartsWith("P"))
+            {
+                if (ObjName.Contains("0")|| ObjName.Contains("1"))
+                {
+                    TargetChar = GameObject.Find("Player" + int.Parse(Regex.Replace(this.gameObject.name, @"[^0-9]", "")));
+                }
+                else
+                {
+
+                }
+            }
+            //  敵に対する技  
+            else
+            {
+                if (ObjName.Contains("0") || ObjName.Contains("1"))
+                {
+                    TargetChar = GameObject.Find("Enemy" + int.Parse(Regex.Replace(this.gameObject.name, @"[^0-9]", "")));
+                }
+                else
+                {
+
+                }
+            }
+        }
     }
 
     public bool GetCommandEnd()
     {
         return commandEnd;
     }
+
+    public int SetActivePlayer()
+    {
+        int ID = GetComponent<BattleScene>().GetActivePlayer();
+        //  残っているプレイヤーの数
+        int ObjCount = player.transform.childCount;
+        int correction = 1;
+
+        switch (ID)
+        {
+            case 1:
+                break;
+            case 2:
+                if (ObjCount == 1)
+                {
+                    correction += 1;
+                }
+                else if (ObjCount == 2)
+                {
+                    if (player.GetChild(0).gameObject.name == "player2")
+                    {
+                        correction += 1;
+                    }
+                }
+                else
+                {
+                }
+                break;
+            case 3:
+                if (ObjCount == 1)
+                {
+                    correction += 2;
+                }
+                else if (ObjCount == 2)
+                {
+                    correction += 1;
+                }
+                else
+                {
+                }
+                break;
+            default:
+                break;
+        }
+        return ID - correction;
+    }
+
+
 }

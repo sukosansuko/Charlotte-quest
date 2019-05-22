@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,14 @@ public class BattleScene : MonoBehaviour
     Queue<Action> battleQueue;
     [SerializeField] private GameObject attackObj;
     [SerializeField] private GameObject receiveObj;
+
+    public GameObject Player1;
+    public GameObject Player2;
+    public GameObject Player3;
+    public GameObject Enemy1;
+    public GameObject Enemy2;
+    public GameObject Enemy3;
+
 
     [SerializeField] private int pID1;
     [SerializeField] private int pID2;
@@ -19,7 +28,12 @@ public class BattleScene : MonoBehaviour
     private command co;
 
     //  コマンド選択開始用フラグ
-    private bool ActionChoose;
+    private bool ActiveChoose;
+
+    //  行動中かどうかのフラグ
+    private bool ActionFlag;
+
+    public GameObject ActivePlayer;
 
     public Transform TL;
 
@@ -31,6 +45,13 @@ public class BattleScene : MonoBehaviour
 
     void Start()
     {
+        Player1 = GameObject.Find("player1");
+        Player2 = GameObject.Find("player2");
+        Player3 = GameObject.Find("player3");
+        Enemy1 = GameObject.Find("enemy1");
+        Enemy2 = GameObject.Find("enemy2");
+        Enemy3 = GameObject.Find("enemy3");
+
         battleQueue = new Queue<Action>();
         foreach (Transform child in TL)
         {
@@ -40,7 +61,7 @@ public class BattleScene : MonoBehaviour
 
     void Update()
     {
-        if(ActionChoose)
+        if(ActionFlag)
         {
             
         }
@@ -48,14 +69,13 @@ public class BattleScene : MonoBehaviour
         {
             Action action1 = new Action()
             {
-                damage = new Damage { attackChara = attackObj, receiveChara = receiveObj, mpCost = 1, atk = 1 }
+                damage = new Damage { attackChara = attackObj, receiveChara = receiveObj, mpCost = 1, atk = 100 }
             };
             battleQueue.Enqueue(action1);
 
             Action action = battleQueue.Dequeue();
 
             action.damage.processing();
-            //StartCoroutine(ActionCoroutine());
         }
         
 
@@ -83,6 +103,11 @@ public class BattleScene : MonoBehaviour
             //receiveChara.GetComponent<Status>().abnormalSet = temp;
             //}
         }
+    }
+
+    public void ActionSelectEnd()
+    {
+        GetComponent<command>().TargetDecided(ActivePlayer);
     }
 
     public int GetPID(int name)
@@ -117,18 +142,46 @@ public class BattleScene : MonoBehaviour
         }
     }
 
+    public void SetActivePlayer(GameObject obj)
+    {
+        ActivePlayer = obj;
+    }
+
     public int GetActivePlayer()
     {
-        return 1;
+        return int.Parse(Regex.Replace(ActivePlayer.name, @"[^0-9]", ""));
     }
 
     public void SetActiveChoose(bool flag)
     {
-        ActionChoose = flag;
+        ActiveChoose = flag;
     }
 
     public bool GetActiveChoose()
     {
-        return ActionChoose;
+        return ActiveChoose;
     }
+
+    //  攻撃するキャラをセット
+    public void SetAttackObj(GameObject obj)
+    {
+        attackObj = obj;
+    }
+
+    //  攻撃を受けるキャラをセット
+    public void SetReceiveObj(GameObject obj)
+    {
+        receiveObj = obj;
+    }
+
+    public void SetActionFlag(bool flag)
+    {
+        ActionFlag = flag;
+    }
+
+    public bool GetActionFlag()
+    {
+        return ActionFlag;
+    }
+
 }
