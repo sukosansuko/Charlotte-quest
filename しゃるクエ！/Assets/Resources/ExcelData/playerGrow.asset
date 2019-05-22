@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 8
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -12,66 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6dc52464824cf344b5118609014bc09, type: 3}
   m_Name: playerGrow
   m_EditorClassIdentifier: 
-  sheets:
-  - name: Sheet1
-    list:
-    - ID: 1
-      Name: "\u30B7\u30E3\u30EB\u30ED\u30C3\u30C8"
-      GROW_HP: 42
-      GROW_SP: 4
-      GROW_ATK: 9
-      GROW_DEF: 3
-      GROW_SPD: 5
-      GROW_MAT: 1
-      GROW_MDF: 3
-      GROW_LUK: 6
-    - ID: 2
-      Name: "\u30AB\u30FC\u30E9"
-      GROW_HP: 33
-      GROW_SP: 9
-      GROW_ATK: 3
-      GROW_DEF: 3
-      GROW_SPD: 3
-      GROW_MAT: 8
-      GROW_MDF: 4
-      GROW_LUK: 4
-    - ID: 3
-      Name: "\u30C7\u30A3\u30A2\u30CA"
-      GROW_HP: 60
-      GROW_SP: 3
-      GROW_ATK: 6
-      GROW_DEF: 3
-      GROW_SPD: 3
-      GROW_MAT: 1
-      GROW_MDF: 3
-      GROW_LUK: 4
-    - ID: 4
-      Name: "\u30EA\u30EA\u30FC"
-      GROW_HP: 32
-      GROW_SP: 8
-      GROW_ATK: 1
-      GROW_DEF: 3
-      GROW_SPD: 4
-      GROW_MAT: 9
-      GROW_MDF: 3
-      GROW_LUK: 5
-    - ID: 5
-      Name: "\u30A8\u30EA\u30B6"
-      GROW_HP: 44
-      GROW_SP: 7
-      GROW_ATK: 4
-      GROW_DEF: 3
-      GROW_SPD: 5
-      GROW_MAT: 7
-      GROW_MDF: 3
-      GROW_LUK: 5
-    - ID: 6
-      Name: "\u30E2\u30EB\u30BF\u30EA\u30A2"
-      GROW_HP: 55
-      GROW_SP: 7
-      GROW_ATK: 7
-      GROW_DEF: 4
-      GROW_SPD: 6
-      GROW_MAT: 8
-      GROW_MDF: 3
-      GROW_LUK: 2
+  sheets: []

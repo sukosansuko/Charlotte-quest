@@ -14,7 +14,7 @@
 
 [chara_new name="カーラ" storage="カーラ" tag = "party" jname = "カーラ" x=-0.5 scale_x=-1]
 
-[chara_new name="アーデン" storage="アーデン" jname = "？？？" x=3]
+[chara_new name="アーデン" storage="アーデン" jname = "アーデン" x=3]
 
 [chara_show tag = "party"]
 
@@ -85,8 +85,11 @@
 そういうことじゃないの。[l][r]
 ......まぁいいわ、さっさと行きましょ。[p]
 
+[anim name="シャルロット" x=15 time=2 wait = false]
+
 #カーラ
 あっ、待ってよシャルちゃん！[p]
 
+[anim name="カーラ" x=15]
 
 [scene file = "W2"]

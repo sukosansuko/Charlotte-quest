@@ -25,7 +25,7 @@ public class stageMass : MonoBehaviour
     public void Push()
     {
         stageName = this.gameObject.transform.name;
-        mapChar.SavePos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1.4f, 0);
+        mapChar.SavePos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1.4f, 10);
         MassName = transform.name;
         Debug.Log(MassName);
     }

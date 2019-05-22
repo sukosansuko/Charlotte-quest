@@ -34,7 +34,7 @@ public class title : MonoBehaviour {
         {
             //AudioManager.Instance.PlaySE("タイトルから進む時");
 
-            //SceneNavigator.Instance.Change("ホーム");
+            SceneNavigator.Instance.Change("ホーム");
             //  デバッグ用
             SceneNavigator.Instance.Change("BattleScene");
         }

@@ -19,11 +19,11 @@ public class titleLogo : MonoBehaviour {
         
         if(moveCnt / 80 % 2 == 0)
         {
-            logo.transform.position += new Vector3(0.0f, 0.2f, 0.0f);
+            logo.transform.position += new Vector3(0.0f, 0.008f, 0.0f);
         }
         else
         {
-            logo.transform.position -= new Vector3(0.0f, 0.2f, 0.0f);
+            logo.transform.position -= new Vector3(0.0f, 0.008f, 0.0f);
         }
 	}
 }
