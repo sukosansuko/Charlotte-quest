@@ -1,0 +1,25 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using System;
+
+public class HPText : MonoBehaviour
+{
+    public GameObject status;
+
+    void Start()
+    {
+        SetHP();
+    }
+
+    void Update()
+    {
+        
+    }
+
+    public void SetHP()
+    {
+        this.gameObject.GetComponent<Text>().text = "HP:" + Convert.ToString(status.GetComponent<Status>().GetHP());
+    }
+}

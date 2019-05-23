@@ -545,10 +545,9 @@ public class command : MonoBehaviour
     }
 
     //  ターゲット確定時の処理
-    public void TargetDecided(GameObject ID)
+    public void TargetDecided(GameObject ID,GameObject receive)
     {
         string Iname = ID.name;
-        Debug.Log(Iname);
         GameObject characterID;
         if (Iname.StartsWith("p"))
         {
@@ -580,10 +579,11 @@ public class command : MonoBehaviour
                 characterID = GameObject.Find("enemy3");
             }
         }
-        Debug.Log("SkillID " + SkillID);
-        characterID.GetComponent<Status>().SaveSkill(SkillID);
 
-        SetTarget();
+        //  使用するスキルの情報とスキルを向ける相手を保存する
+        characterID.GetComponent<Status>().SaveSkill(SkillID);
+        characterID.GetComponent<Status>().SaveReceive(receive);
+
         Init();
         battleManager.GetComponent<BattleScene>().SetActiveChoose(false);
         commandEnd = true;
@@ -594,36 +594,6 @@ public class command : MonoBehaviour
         ActiveSkillText = text;
     }
 
-    private void SetTarget()
-    {
-        string ObjName = this.gameObject.name;
-        {
-            //  味方に対する技
-            if (ObjName.StartsWith("P"))
-            {
-                if (ObjName.Contains("0")|| ObjName.Contains("1"))
-                {
-                    TargetChar = GameObject.Find("Player" + int.Parse(Regex.Replace(this.gameObject.name, @"[^0-9]", "")));
-                }
-                else
-                {
-
-                }
-            }
-            //  敵に対する技  
-            else
-            {
-                if (ObjName.Contains("0") || ObjName.Contains("1"))
-                {
-                    TargetChar = GameObject.Find("Enemy" + int.Parse(Regex.Replace(this.gameObject.name, @"[^0-9]", "")));
-                }
-                else
-                {
-
-                }
-            }
-        }
-    }
 
     public bool GetCommandEnd()
     {

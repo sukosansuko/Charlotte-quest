@@ -23,6 +23,9 @@ public class player_skillList : ScriptableObject
 		public double Lv;
 		public double power;
 		public string target;
+		public string useChara;
+		public double hpCtl;
+		public double attackType;
 		public double sp;
 		public double period;
 		public string influence1;
