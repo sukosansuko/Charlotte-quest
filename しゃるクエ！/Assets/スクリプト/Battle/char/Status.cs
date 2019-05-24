@@ -24,6 +24,7 @@ public class Status : MonoBehaviour
     public GameObject MyTarget;
     public GameObject TLIcon;
     public GameObject turnPointer;
+    public GameObject HPDisplay;
 
     player_charaList PC;
     player_skillList PS;
@@ -44,6 +45,21 @@ public class Status : MonoBehaviour
         ST_DEAD,                    //  死亡
         ST_MAX
     }
+
+    struct strengthenData
+    {
+        public int CHARID;          //  バフを付与しているキャラクター
+        public int ATK;             //  物理攻撃力
+        public int DEF;             //  物理防御力
+        public int SPD;             //  素早さ
+        public int MAT;             //  魔法攻撃力
+        public int MDF;             //  魔法防御力
+        public int LUK;             //  幸運値
+        public int EXP;             //  経験値
+    }
+
+    strengthenData[] changeStatus = new strengthenData[99];
+
     Image image;
 
     private GameObject battleManager;
@@ -106,9 +122,13 @@ public class Status : MonoBehaviour
         if (state == STATE.ST_DEAD)
         {
             //battleManager.GetComponent<command>().SetTargetStart(Name);
-            Destroy(this.gameObject);
             Destroy(TLIcon);
             Destroy(MyTarget);
+            if(!playerProof)
+            {
+                Destroy(HPDisplay);
+            }
+            Destroy(this.gameObject);
         }
         TLManager();
     }
@@ -134,7 +154,7 @@ public class Status : MonoBehaviour
                 float ProgressSPD = SPD / 20;
                 if (ProgressSPD <= 0)
                 {
-                    ProgressSPD = 1;
+                    ProgressSPD = 0;
                 }
                 TLProgress += ProgressSPD;
             }
@@ -155,12 +175,6 @@ public class Status : MonoBehaviour
                 }
                 progressEnd = true;
             }
-
-            //if(TLProgress > 200 && !skillInputFlag)
-            //{
-            //    SaveSkill();
-            //    skillInputFlag = true;
-            //}
 
             //  行動開始
             if (TLProgress >= 300)
@@ -184,6 +198,12 @@ public class Status : MonoBehaviour
                 if(testTime >= 100)
                 {
                     battleManager.GetComponent<command>().ActionEnd();
+
+                    if (ReceiveChara.GetComponent<Status>().GetHP() <= 0)
+                    {
+                        ReceiveChara.GetComponent<Status>().Dead();
+                    }
+
                     TLProgress = 0;
                     actionFlag = false;
                     progressEnd = false;
@@ -241,16 +261,22 @@ public class Status : MonoBehaviour
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(1);
                 TLIcon.GetComponent<Image>().enabled = true;
+                HPDisplay = GameObject.Find("enemyHP1");
+                HPDisplay.GetComponent<Text>().enabled = true;
             }
             else if (Name.Contains("2"))
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(2);
                 TLIcon.GetComponent<Image>().enabled = true;
+                HPDisplay = GameObject.Find("enemyHP2");
+                HPDisplay.GetComponent<Text>().enabled = true;
             }
             else
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(3);
                 TLIcon.GetComponent<Image>().enabled = true;
+                HPDisplay = GameObject.Find("enemyHP3");
+                HPDisplay.GetComponent<Text>().enabled = true;
             }
             SetEnemyStatus(charID - 1,ref CharName, ref LV, ref HP, ref SP, ref ATK, ref DEF, ref SPD, ref MAT, ref MDF, ref LUK);
         }
@@ -421,20 +447,17 @@ public class Status : MonoBehaviour
             if (Name.Contains("1"))
             {
                 skillID = SaveSkillIDList[0];
-                //ReceiveChara = SaveReceiveList[0];
-                battleManager.GetComponent<BattleScene>().SetReceiveObj(SaveReceiveList[0]);
+                ReceiveChara = SaveReceiveList[0];
             }
             else if (Name.Contains("2"))
             {
                 skillID = SaveSkillIDList[1];
-                //ReceiveChara = SaveReceiveList[1];
-                battleManager.GetComponent<BattleScene>().SetReceiveObj(SaveReceiveList[1]);
+                ReceiveChara = SaveReceiveList[1];
             }
             else
             {
                 skillID = SaveSkillIDList[2];
-                //ReceiveChara = SaveReceiveList[2];
-                battleManager.GetComponent<BattleScene>().SetReceiveObj(SaveReceiveList[2]);
+                ReceiveChara = SaveReceiveList[2];
             }
         }
         else
@@ -442,23 +465,21 @@ public class Status : MonoBehaviour
             if (Name.Contains("1"))
             {
                 skillID = SaveSkillIDList[3];
-                //ReceiveChara = SaveReceiveList[3];
-                battleManager.GetComponent<BattleScene>().SetReceiveObj(SaveReceiveList[3]);
+                ReceiveChara = SaveReceiveList[3];
             }
             else if (Name.Contains("2"))
             {
                 skillID = SaveSkillIDList[4];
-                //ReceiveChara = SaveReceiveList[4];
-                battleManager.GetComponent<BattleScene>().SetReceiveObj(SaveReceiveList[4]);
+                ReceiveChara = SaveReceiveList[4];
             }
             else
             {
                 skillID = SaveSkillIDList[5];
-                //ReceiveChara = SaveReceiveList[5];
-                battleManager.GetComponent<BattleScene>().SetReceiveObj(SaveReceiveList[5]);
+                ReceiveChara = SaveReceiveList[5];
             }
         }
 
+        battleManager.GetComponent<BattleScene>().SetReceiveObj(ReceiveChara);
         SkillInfluence(skillID);
 
         spCost = (int)PS.sheets[0].list[skillID].sp;
@@ -560,9 +581,9 @@ public class Status : MonoBehaviour
     public void SetHP(int hp)
     {
         this.HP = hp;
-        if (HP <= 0)
+        if(HP <= 0)
         {
-            Dead();
+            HP = 0;
         }
     }
 

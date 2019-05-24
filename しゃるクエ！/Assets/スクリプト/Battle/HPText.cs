@@ -10,12 +10,12 @@ public class HPText : MonoBehaviour
 
     void Start()
     {
-        SetHP();
+
     }
 
     void Update()
     {
-        
+        SetHP();
     }
 
     public void SetHP()
