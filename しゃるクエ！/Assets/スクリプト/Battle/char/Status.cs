@@ -17,9 +17,12 @@ public class Status : MonoBehaviour
     [SerializeField] private int MAT;           //  魔法攻撃力
     [SerializeField] private int MDF;           //  魔法防御力
     [SerializeField] private int LUK;           //  幸運値
+    private int TURN;                           //  行動回数
     private string AResistance;                 //  物理耐性(基本は敵のみ)
     private string MResistance;                 //  魔法耐性(基本は敵のみ)
     private string weakAttribute;               //  弱点属性(基本は敵のみ)
+    private int MAX_HP;                         //  HPの最大値
+    private int MAX_SP;                         //  SPの最大値
 
     public GameObject MyTarget;
     public GameObject TLIcon;
@@ -41,24 +44,24 @@ public class Status : MonoBehaviour
     {
         ST_NON,
         ST_ALIVE,                   //  生きている
-        ST_ACT,                     //  行動中
         ST_DEAD,                    //  死亡
         ST_MAX
     }
 
-    struct strengthenData
+    //  バフ、デバフの管理用
+    struct strData
     {
-        public int CHARID;          //  バフを付与しているキャラクター
+        public int TIME;            //  バフ、デバフが有効なターン数
         public int ATK;             //  物理攻撃力
         public int DEF;             //  物理防御力
         public int SPD;             //  素早さ
         public int MAT;             //  魔法攻撃力
         public int MDF;             //  魔法防御力
         public int LUK;             //  幸運値
-        public int EXP;             //  経験値
     }
 
-    strengthenData[] changeStatus = new strengthenData[99];
+    //  バフ、デバフ管理用のリスト
+    private List<strData> changeStatus = new List<strData>();
 
     Image image;
 
@@ -155,6 +158,7 @@ public class Status : MonoBehaviour
                 if (ProgressSPD <= 0)
                 {
                     ProgressSPD = 0;
+                    //ProgressSPD = 1;
                 }
                 TLProgress += ProgressSPD;
             }
@@ -209,6 +213,7 @@ public class Status : MonoBehaviour
                     progressEnd = false;
                     battleManager.GetComponent<BattleScene>().SetActionFlag(false);
                     testTime = 0;
+                    CheckBuff();
                 }
             }
 
@@ -254,6 +259,9 @@ public class Status : MonoBehaviour
                 TLIcon.GetComponent<Image>().enabled = true;
             }
             sceneNavigator.GetComponent<StatusControl>().SetStatus(charID - 1,ref CharName,ref LV,ref HP,ref SP,ref ATK,ref DEF,ref SPD,ref MAT,ref MDF,ref LUK);
+            MAX_HP = HP;
+            MAX_SP = SP;
+            TURN = 0;
         }
         else
         {
@@ -279,6 +287,9 @@ public class Status : MonoBehaviour
                 HPDisplay.GetComponent<Text>().enabled = true;
             }
             SetEnemyStatus(charID - 1,ref CharName, ref LV, ref HP, ref SP, ref ATK, ref DEF, ref SPD, ref MAT, ref MDF, ref LUK);
+            MAX_HP = HP;
+            MAX_SP = SP;
+            TURN = 0;
         }
 
         if (charID != 0)
@@ -509,7 +520,13 @@ public class Status : MonoBehaviour
         HPCtlFlag = (int)PS.sheets[0].list[skillID].hpCtl;
         //  物理攻撃か魔法攻撃か
         AttackType = (int)PS.sheets[0].list[skillID].attackType;
+        //  持続時間
+        int STime = (int)PS.sheets[0].list[skillID].period;
+
         HealPercent = 0;
+
+        DeleteBuff(AttackObj);
+        DeleteBuff(ReceiveObj);
 
         if (charaStatus == "Attack")
         {
@@ -523,64 +540,160 @@ public class Status : MonoBehaviour
         {
         }
 
+        strData str1 = new strData();
         switch (useStatus)
         {
             case ("HP"):
                 HealPercent = magnification;
                 break;
             case ("ATK"):
-                UseObj.GetComponent<Status>().SetATK((int)Math.Round(UseObj.GetComponent<Status>().GetATK() * magnification));
+                str1.ATK = (int)Math.Round(UseObj.GetComponent<Status>().GetATK() * magnification);
+                str1.TIME = STime + TURN;
+                UseObj.GetComponent<Status>().changeStatus.Add(str1);
                 break;
             case ("DEF"):
-                UseObj.GetComponent<Status>().SetDEF((int)Math.Round(UseObj.GetComponent<Status>().GetDEF() * magnification));
+                str1.DEF = (int)Math.Round(UseObj.GetComponent<Status>().GetDEF() * magnification);
+                str1.TIME = STime + TURN;
+                UseObj.GetComponent<Status>().changeStatus.Add(str1);
                 break;
             case ("SPD"):
-                UseObj.GetComponent<Status>().SetSPD((int)Math.Round(UseObj.GetComponent<Status>().GetSPD() * magnification));
+                str1.SPD = (int)Math.Round(UseObj.GetComponent<Status>().GetSPD() * magnification);
+                str1.TIME = STime + TURN;
+                UseObj.GetComponent<Status>().changeStatus.Add(str1);
                 break;
             case ("MAT"):
-                UseObj.GetComponent<Status>().SetMAT((int)Math.Round(UseObj.GetComponent<Status>().GetMAT() * magnification));
+                str1.MAT = (int)Math.Round(UseObj.GetComponent<Status>().GetMAT() * magnification);
+                str1.TIME = STime + TURN;
+                UseObj.GetComponent<Status>().changeStatus.Add(str1);
                 break;
             case ("MDF"):
-                UseObj.GetComponent<Status>().SetMDF((int)Math.Round(UseObj.GetComponent<Status>().GetMDF() * magnification));
+                str1.MDF = (int)Math.Round(UseObj.GetComponent<Status>().GetMDF() * magnification);
+                str1.TIME = STime + TURN;
+                UseObj.GetComponent<Status>().changeStatus.Add(str1);
                 break;
             case ("LUK"):
-                UseObj.GetComponent<Status>().SetLUK((int)Math.Round(UseObj.GetComponent<Status>().GetLUK() * magnification));
+                str1.LUK= (int)Math.Round(UseObj.GetComponent<Status>().GetLUK() * magnification);
+                str1.TIME = STime + TURN;
+                UseObj.GetComponent<Status>().changeStatus.Add(str1);
                 break;
             default:
                 break;
         }
 
+        strData str2 = new strData();
         switch (useStatus2)
         {
             case ("HP"):
                 HealPercent = magnification;
                 break;
             case ("ATK"):
-                UseObj.GetComponent<Status>().SetATK((int)Math.Round(UseObj.GetComponent<Status>().GetATK() * magnification));
+                str2.ATK = (int)Math.Round(UseObj.GetComponent<Status>().GetATK() * magnification);
+                str2.TIME = STime + TURN;
+                UseObj.GetComponent<Status>().changeStatus.Add(str2);
                 break;
             case ("DEF"):
-                UseObj.GetComponent<Status>().SetDEF((int)Math.Round(UseObj.GetComponent<Status>().GetDEF() * magnification));
+                str2.DEF = (int)Math.Round(UseObj.GetComponent<Status>().GetDEF() * magnification);
+                str2.TIME = STime + TURN;
+                UseObj.GetComponent<Status>().changeStatus.Add(str2);
                 break;
             case ("SPD"):
-                UseObj.GetComponent<Status>().SetSPD((int)Math.Round(UseObj.GetComponent<Status>().GetSPD() * magnification));
+                str2.SPD = (int)Math.Round(UseObj.GetComponent<Status>().GetSPD() * magnification);
+                str2.TIME = STime + TURN;
+                UseObj.GetComponent<Status>().changeStatus.Add(str2);
                 break;
             case ("MAT"):
-                UseObj.GetComponent<Status>().SetMAT((int)Math.Round(UseObj.GetComponent<Status>().GetMAT() * magnification));
+                str2.MAT = (int)Math.Round(UseObj.GetComponent<Status>().GetMAT() * magnification);
+                str2.TIME = STime + TURN;
+                UseObj.GetComponent<Status>().changeStatus.Add(str2);
                 break;
             case ("MDF"):
-                UseObj.GetComponent<Status>().SetMDF((int)Math.Round(UseObj.GetComponent<Status>().GetMDF() * magnification));
+                str2.MDF = (int)Math.Round(UseObj.GetComponent<Status>().GetMDF() * magnification);
+                str2.TIME = STime + TURN;
+                UseObj.GetComponent<Status>().changeStatus.Add(str2);
                 break;
             case ("LUK"):
-                UseObj.GetComponent<Status>().SetLUK((int)Math.Round(UseObj.GetComponent<Status>().GetLUK() * magnification));
+                str2.LUK = (int)Math.Round(UseObj.GetComponent<Status>().GetLUK() * magnification);
+                str2.TIME = STime + TURN;
+                UseObj.GetComponent<Status>().changeStatus.Add(str2);
                 break;
             default:
                 break;
         }
     }
 
+    //  バフ、デバフを反映させる
+    public void SetBuff()
+    {
+        if (changeStatus != null)
+        {
+            for (int count = 0; count < changeStatus.Count; count++)
+            {
+                    SetATK(GetATK() + changeStatus[count].ATK);
+                    SetDEF(GetDEF() + changeStatus[count].DEF);
+                    SetSPD(GetSPD() + changeStatus[count].SPD);
+                    SetMAT(GetMAT() + changeStatus[count].MAT);
+                    SetMDF(GetMDF() + changeStatus[count].MDF);
+                    SetLUK(GetLUK() + changeStatus[count].LUK);
+            }
+        }
+    }
+
+    //  バフ、デバフを解除する
+    public void DeleteBuff(GameObject objchara)
+    {
+        if (objchara.GetComponent<Status>().changeStatus != null)
+        {
+            for (int count = 0; count < objchara.GetComponent<Status>().changeStatus.Count; count++)
+            {
+                objchara.GetComponent<Status>().SetATK(objchara.GetComponent<Status>().GetATK() - objchara.GetComponent<Status>().changeStatus[count].ATK);
+                objchara.GetComponent<Status>().SetDEF(objchara.GetComponent<Status>().GetDEF() - objchara.GetComponent<Status>().changeStatus[count].DEF);
+                objchara.GetComponent<Status>().SetSPD(objchara.GetComponent<Status>().GetSPD() - objchara.GetComponent<Status>().changeStatus[count].SPD);
+                objchara.GetComponent<Status>().SetMAT(objchara.GetComponent<Status>().GetMAT() - objchara.GetComponent<Status>().changeStatus[count].MAT);
+                objchara.GetComponent<Status>().SetMDF(objchara.GetComponent<Status>().GetMDF() - objchara.GetComponent<Status>().changeStatus[count].MDF);
+                objchara.GetComponent<Status>().SetLUK(objchara.GetComponent<Status>().GetLUK() - objchara.GetComponent<Status>().changeStatus[count].LUK);
+            }
+        }
+    }
+
+
+    //  ターン終了時にバフ、デバフの効果時間が終わっていないか確認する
+    public void CheckBuff()
+    {
+        this.TURN++;
+
+        if (changeStatus != null)
+        {
+            //  バフ、デバフがかかっている数だけループ
+            for (int count = 0; count < changeStatus.Count; count++)
+            {
+                //  もし効果時間が終わっていたらバフ、デバフを解除する
+                if(changeStatus[count].TIME <= this.TURN)
+                {
+                    SetATK(GetATK() - changeStatus[count].ATK);
+                    SetDEF(GetDEF() - changeStatus[count].DEF);
+                    SetSPD(GetSPD() - changeStatus[count].SPD);
+                    SetMAT(GetMAT() - changeStatus[count].MAT);
+                    SetMDF(GetMDF() - changeStatus[count].MDF);
+                    SetLUK(GetLUK() - changeStatus[count].LUK);
+
+                    changeStatus.RemoveAt(count);
+                }
+
+                if(changeStatus == null)
+                {
+                    break;
+                }
+            }
+        }
+    }
+
     public void SetHP(int hp)
     {
         this.HP = hp;
+        if(HP >= MAX_HP)
+        {
+            HP = MAX_HP;
+        }
         if(HP <= 0)
         {
             HP = 0;
@@ -595,6 +708,10 @@ public class Status : MonoBehaviour
     public void SetSP(int sp)
     {
         this.SP = sp;
+        if (SP >= MAX_SP)
+        {
+            SP = MAX_SP;
+        }
         if (SP <= 0)
         {
             SP = 0;
@@ -688,5 +805,10 @@ public class Status : MonoBehaviour
     public int GetLUK()
     {
         return LUK;
+    }
+
+    public int GetTurn()
+    {
+        return TURN;
     }
 }
