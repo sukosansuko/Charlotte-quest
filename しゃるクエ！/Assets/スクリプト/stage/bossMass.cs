@@ -15,28 +15,28 @@ public class bossMass : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (mapChar.activScene == "W1")
+        if (activScene == "W1")
         {
             if (stageMass.MassName == "boss")
             {
 
             }
         }
-        if (mapChar.activScene == "W2")
+        if (activScene == "W2")
         {
             if (stageMass.MassName == "boss")
             {
 
             }
         }
-        if (mapChar.activScene == "W3")
+        if (activScene == "W3")
         {
             if (stageMass.MassName == "boss")
             {
 
             }
         }
-        if (mapChar.activScene == "W4")
+        if (activScene == "W4")
         {
             if (stageMass.MassName == "boss")
             {
