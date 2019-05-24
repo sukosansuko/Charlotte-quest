@@ -24,6 +24,7 @@ public class Status : MonoBehaviour
     public GameObject MyTarget;
     public GameObject TLIcon;
     public GameObject turnPointer;
+    public GameObject HPDisplay;
 
     player_charaList PC;
     player_skillList PS;
@@ -31,6 +32,7 @@ public class Status : MonoBehaviour
     enemy_charaList EC;
 
     private List<int> SaveSkillIDList = new List<int>();
+    private List<GameObject> SaveReceiveList = new List<GameObject>();
 
     //  TLのアイコン位置計算用
     private Vector3 tmp;
@@ -43,6 +45,21 @@ public class Status : MonoBehaviour
         ST_DEAD,                    //  死亡
         ST_MAX
     }
+
+    struct strengthenData
+    {
+        public int CHARID;          //  バフを付与しているキャラクター
+        public int ATK;             //  物理攻撃力
+        public int DEF;             //  物理防御力
+        public int SPD;             //  素早さ
+        public int MAT;             //  魔法攻撃力
+        public int MDF;             //  魔法防御力
+        public int LUK;             //  幸運値
+        public int EXP;             //  経験値
+    }
+
+    strengthenData[] changeStatus = new strengthenData[99];
+
     Image image;
 
     private GameObject battleManager;
@@ -68,12 +85,20 @@ public class Status : MonoBehaviour
     private int testTime = 0;
     private bool skillInputFlag = false;
 
+    private int spCost;
+    private int HPCtlFlag;
+    private int AttackType;
+    private double HealPercent;
+
+    private GameObject ReceiveChara;
+
     void Start()
     {
-        //  技リストの初期化
+        //  技リストと被ダメージキャラリストの初期化
         for (int count = 0; count < 6; count++)
         {
             SaveSkillIDList.Add(0);
+            SaveReceiveList.Add(GameObject.Find("enemy1"));
         }
 
         battleManager = GameObject.Find("BattleManager");
@@ -97,9 +122,13 @@ public class Status : MonoBehaviour
         if (state == STATE.ST_DEAD)
         {
             //battleManager.GetComponent<command>().SetTargetStart(Name);
-            Destroy(this.gameObject);
             Destroy(TLIcon);
             Destroy(MyTarget);
+            if(!playerProof)
+            {
+                Destroy(HPDisplay);
+            }
+            Destroy(this.gameObject);
         }
         TLManager();
     }
@@ -113,7 +142,7 @@ public class Status : MonoBehaviour
     private void TLManager()
     {
         Vector3 pos = TLIcon.transform.position;
-        pos = new Vector3(tmp.x + TLProgress,tmp.y,tmp.z);
+        pos = new Vector3(tmp.x + TLProgress / 40,tmp.y,tmp.z);
         TLIcon.transform.position = pos;
 
         //  ActiveChooseがtrueの間は進行度は増えない
@@ -125,7 +154,7 @@ public class Status : MonoBehaviour
                 float ProgressSPD = SPD / 20;
                 if (ProgressSPD <= 0)
                 {
-                    ProgressSPD = 1;
+                    ProgressSPD = 0;
                 }
                 TLProgress += ProgressSPD;
             }
@@ -147,21 +176,19 @@ public class Status : MonoBehaviour
                 progressEnd = true;
             }
 
-            //if(TLProgress > 200 && !skillInputFlag)
-            //{
-            //    SaveSkill();
-            //    skillInputFlag = true;
-            //}
-
             //  行動開始
             if (TLProgress >= 300)
             {
                 testTime++;
                 if (!actionFlag)
                 {
-                    LoadSkill();
                     battleManager.GetComponent<BattleScene>().SetAttackObj(this.gameObject);
+                    LoadSkill();
                     battleManager.GetComponent<command>().ActionStart();
+
+
+                    battleManager.GetComponent<BattleScene>().TakeAction(spCost,HPCtlFlag,AttackType,HealPercent);
+
 
                     battleManager.GetComponent<BattleScene>().SetActionFlag(true);
 
@@ -171,6 +198,12 @@ public class Status : MonoBehaviour
                 if(testTime >= 100)
                 {
                     battleManager.GetComponent<command>().ActionEnd();
+
+                    if (ReceiveChara.GetComponent<Status>().GetHP() <= 0)
+                    {
+                        ReceiveChara.GetComponent<Status>().Dead();
+                    }
+
                     TLProgress = 0;
                     actionFlag = false;
                     progressEnd = false;
@@ -228,16 +261,22 @@ public class Status : MonoBehaviour
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(1);
                 TLIcon.GetComponent<Image>().enabled = true;
+                HPDisplay = GameObject.Find("enemyHP1");
+                HPDisplay.GetComponent<Text>().enabled = true;
             }
             else if (Name.Contains("2"))
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(2);
                 TLIcon.GetComponent<Image>().enabled = true;
+                HPDisplay = GameObject.Find("enemyHP2");
+                HPDisplay.GetComponent<Text>().enabled = true;
             }
             else
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(3);
                 TLIcon.GetComponent<Image>().enabled = true;
+                HPDisplay = GameObject.Find("enemyHP3");
+                HPDisplay.GetComponent<Text>().enabled = true;
             }
             SetEnemyStatus(charID - 1,ref CharName, ref LV, ref HP, ref SP, ref ATK, ref DEF, ref SPD, ref MAT, ref MDF, ref LUK);
         }
@@ -329,6 +368,76 @@ public class Status : MonoBehaviour
         }
     }
 
+    //  攻撃を受ける側を保存
+    public void SaveReceive(GameObject receive)
+    {
+        int attackID;
+        if (playerProof)
+        {
+            if (Name.Contains("1"))
+            {
+                attackID = 0;
+            }
+            else if (Name.Contains("2"))
+            {
+                attackID = 1;
+            }
+            else
+            {
+                attackID = 2;
+            }
+        }
+        else
+        {
+            if (Name.Contains("1"))
+            {
+                attackID = 3;
+            }
+            else if (Name.Contains("2"))
+            {
+                attackID = 4;
+            }
+            else
+            {
+                attackID = 5;
+            }
+        }
+
+        string ReceiveName = receive.name;
+        GameObject target;
+        if (ReceiveName.StartsWith("p"))
+        {
+            if (ReceiveName.Contains("1"))
+            {
+                target = GameObject.Find("player1");
+            }
+            else if (ReceiveName.Contains("2"))
+            {
+                target = GameObject.Find("player2");
+            }
+            else
+            {
+                target = GameObject.Find("player3");
+            }
+        }
+        else
+        {
+            if (ReceiveName.Contains("1"))
+            {
+                target = GameObject.Find("enemy1");
+            }
+            else if (ReceiveName.Contains("2"))
+            {
+                target = GameObject.Find("enemy2");
+            }
+            else
+            {
+                target = GameObject.Find("enemy3");
+            }
+        }
+        SaveReceiveList.Insert(attackID, target);
+    }
+
     //  保存しておいた行動を呼び出す
     public void LoadSkill()
     {
@@ -338,14 +447,17 @@ public class Status : MonoBehaviour
             if (Name.Contains("1"))
             {
                 skillID = SaveSkillIDList[0];
+                ReceiveChara = SaveReceiveList[0];
             }
             else if (Name.Contains("2"))
             {
                 skillID = SaveSkillIDList[1];
+                ReceiveChara = SaveReceiveList[1];
             }
             else
             {
                 skillID = SaveSkillIDList[2];
+                ReceiveChara = SaveReceiveList[2];
             }
         }
         else
@@ -353,30 +465,125 @@ public class Status : MonoBehaviour
             if (Name.Contains("1"))
             {
                 skillID = SaveSkillIDList[3];
+                ReceiveChara = SaveReceiveList[3];
             }
             else if (Name.Contains("2"))
             {
                 skillID = SaveSkillIDList[4];
+                ReceiveChara = SaveReceiveList[4];
             }
             else
             {
                 skillID = SaveSkillIDList[5];
+                ReceiveChara = SaveReceiveList[5];
             }
         }
 
+        battleManager.GetComponent<BattleScene>().SetReceiveObj(ReceiveChara);
+        SkillInfluence(skillID);
+
+        spCost = (int)PS.sheets[0].list[skillID].sp;
+    }
+
+    //  スキルの効果の取得
+    public void SkillInfluence(int skillID)
+    {
         PC = Resources.Load("ExcelData/player_chara") as player_charaList;
         PS = Resources.Load("ExcelData/playerSkill") as player_skillList;
 
+        GameObject AttackObj = battleManager.GetComponent<BattleScene>().GetAttackObj();
+        GameObject ReceiveObj = battleManager.GetComponent<BattleScene>().GetReceiveObj();
+
+        GameObject UseObj = AttackObj;
+
         battleManager.GetComponent<command>().SetActiveSkillText(PS.sheets[0].list[skillID].skillName);
 
+        //  ステータスを弄るキャラ
+        string charaStatus = PS.sheets[0].list[skillID].useChara;
+        //  使用するステータス
+        string useStatus = PS.sheets[0].list[skillID].influence1;
+        string useStatus2 = PS.sheets[0].list[skillID].influence2;
+        //  技の倍率
+        double magnification = PS.sheets[0].list[skillID].power;
+        //  HPに影響を与える技かどうか
+        HPCtlFlag = (int)PS.sheets[0].list[skillID].hpCtl;
+        //  物理攻撃か魔法攻撃か
+        AttackType = (int)PS.sheets[0].list[skillID].attackType;
+        HealPercent = 0;
+
+        if (charaStatus == "Attack")
+        {
+            UseObj = AttackObj;
+        }
+        else if(charaStatus == "Receive")
+        {
+            UseObj = ReceiveObj;
+        }
+        else
+        {
+        }
+
+        switch (useStatus)
+        {
+            case ("HP"):
+                HealPercent = magnification;
+                break;
+            case ("ATK"):
+                UseObj.GetComponent<Status>().SetATK((int)Math.Round(UseObj.GetComponent<Status>().GetATK() * magnification));
+                break;
+            case ("DEF"):
+                UseObj.GetComponent<Status>().SetDEF((int)Math.Round(UseObj.GetComponent<Status>().GetDEF() * magnification));
+                break;
+            case ("SPD"):
+                UseObj.GetComponent<Status>().SetSPD((int)Math.Round(UseObj.GetComponent<Status>().GetSPD() * magnification));
+                break;
+            case ("MAT"):
+                UseObj.GetComponent<Status>().SetMAT((int)Math.Round(UseObj.GetComponent<Status>().GetMAT() * magnification));
+                break;
+            case ("MDF"):
+                UseObj.GetComponent<Status>().SetMDF((int)Math.Round(UseObj.GetComponent<Status>().GetMDF() * magnification));
+                break;
+            case ("LUK"):
+                UseObj.GetComponent<Status>().SetLUK((int)Math.Round(UseObj.GetComponent<Status>().GetLUK() * magnification));
+                break;
+            default:
+                break;
+        }
+
+        switch (useStatus2)
+        {
+            case ("HP"):
+                HealPercent = magnification;
+                break;
+            case ("ATK"):
+                UseObj.GetComponent<Status>().SetATK((int)Math.Round(UseObj.GetComponent<Status>().GetATK() * magnification));
+                break;
+            case ("DEF"):
+                UseObj.GetComponent<Status>().SetDEF((int)Math.Round(UseObj.GetComponent<Status>().GetDEF() * magnification));
+                break;
+            case ("SPD"):
+                UseObj.GetComponent<Status>().SetSPD((int)Math.Round(UseObj.GetComponent<Status>().GetSPD() * magnification));
+                break;
+            case ("MAT"):
+                UseObj.GetComponent<Status>().SetMAT((int)Math.Round(UseObj.GetComponent<Status>().GetMAT() * magnification));
+                break;
+            case ("MDF"):
+                UseObj.GetComponent<Status>().SetMDF((int)Math.Round(UseObj.GetComponent<Status>().GetMDF() * magnification));
+                break;
+            case ("LUK"):
+                UseObj.GetComponent<Status>().SetLUK((int)Math.Round(UseObj.GetComponent<Status>().GetLUK() * magnification));
+                break;
+            default:
+                break;
+        }
     }
 
     public void SetHP(int hp)
     {
         this.HP = hp;
-        if (HP <= 0)
+        if(HP <= 0)
         {
-            Dead();
+            HP = 0;
         }
     }
 
@@ -385,14 +592,13 @@ public class Status : MonoBehaviour
         return HP;
     }
 
-    public void Damage(int Damage)
-    {
-        HP -= Damage;
-    }
-
     public void SetSP(int sp)
     {
         this.SP = sp;
+        if (SP <= 0)
+        {
+            SP = 0;
+        }
     }
 
     public int GetSP()
@@ -403,6 +609,10 @@ public class Status : MonoBehaviour
     public void SetATK(int atk)
     {
         this.ATK = atk;
+        if (ATK <= 0)
+        {
+            ATK = 1;
+        }
     }
 
     public int GetATK()
@@ -413,6 +623,10 @@ public class Status : MonoBehaviour
     public void SetDEF(int def)
     {
         this.DEF = def;
+        if (DEF <= 0)
+        {
+            DEF = 1;
+        }
     }
 
     public int GetDEF()
@@ -423,6 +637,10 @@ public class Status : MonoBehaviour
     public void SetSPD(int spd)
     {
         this.SPD = spd;
+        if (SPD <= 0)
+        {
+            SPD = 1;
+        }
     }
 
     public int GetSPD()
@@ -433,6 +651,10 @@ public class Status : MonoBehaviour
     public void SetMAT(int mat)
     {
         this.MAT = mat;
+        if (MAT <= 0)
+        {
+            MAT = 1;
+        }
     }
 
     public int GetMAT()
@@ -443,6 +665,10 @@ public class Status : MonoBehaviour
     public void SetMDF(int mdf)
     {
         this.MDF = mdf;
+        if (MDF <= 0)
+        {
+            MDF = 1;
+        }
     }
 
     public int GetMDF()
@@ -453,6 +679,10 @@ public class Status : MonoBehaviour
     public void SetLUK(int luk)
     {
         this.LUK = luk;
+        if (LUK <= 0)
+        {
+           LUK = 1;
+        }
     }
 
     public int GetLUK()

@@ -56,13 +56,16 @@ public class playerSkill_importer : AssetPostprocessor {
 					cell = row.GetCell(3); p.Lv = (cell == null ? 0.0 : cell.NumericCellValue);
 					cell = row.GetCell(4); p.power = (cell == null ? 0.0 : cell.NumericCellValue);
 					cell = row.GetCell(5); p.target = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(6); p.sp = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(7); p.period = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(8); p.influence1 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(9); p.influence2 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(10); p.Time = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(11); p.effect = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(12); p.etc = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(6); p.useChara = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(7); p.hpCtl = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(8); p.attackType = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(9); p.sp = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(10); p.period = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(11); p.influence1 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(12); p.influence2 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(13); p.Time = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(14); p.effect = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(15); p.etc = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

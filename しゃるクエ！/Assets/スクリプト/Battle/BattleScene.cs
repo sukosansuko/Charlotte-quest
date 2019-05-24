@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class BattleScene : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class BattleScene : MonoBehaviour
     {
         //public Performance p;
         public Damage damage;
+        public Heal heal;
     }
 
     void Start()
@@ -61,53 +63,123 @@ public class BattleScene : MonoBehaviour
 
     void Update()
     {
-        if(ActionFlag)
-        {
-            
-        }
-        if (Input.GetMouseButtonDown(1))
+
+    }
+
+    public void TakeAction(int spcost, int HpFlag, int AttackType, double healPercent)
+    {
+        //  1ならダメージを与える処理
+        if (HpFlag == 1)
         {
             Action action1 = new Action()
             {
-                damage = new Damage { attackChara = attackObj, receiveChara = receiveObj, mpCost = 1, atk = 100 }
+                damage = new Damage { attackChara = attackObj, receiveChara = receiveObj, spCost = spcost, attackType = AttackType}
             };
             battleQueue.Enqueue(action1);
+        }
+        //  2ならHPを回復する処理
+        else if(HpFlag == 2)
+        {
+            Action action1 = new Action()
+            {
+                heal = new Heal { attackChara = attackObj, receiveChara = receiveObj, spCost = spcost, HealPercent = healPercent}
+            };
+            battleQueue.Enqueue(action1);
+        }
+        //  3ならダメージを与えつつ回復する処理
+        else if(HpFlag == 3)
+        {
+            //Action action1 = new Action()
+            //{
+            //    damage = new Damage { attackChara = attackObj, receiveChara = receiveObj, spCost = spcost, atk = power }
+            //};
+            //battleQueue.Enqueue(action1);
+        }
+        else
+        {
+        }
 
-            Action action = battleQueue.Dequeue();
-
+        Action action = battleQueue.Dequeue();
+        if (HpFlag == 1)
+        {
             action.damage.processing();
         }
-        
-
+        else if (HpFlag == 2)
+        {
+            action.heal.processing();
+        }
+        else
+        {
+        }
     }
 
     public class Damage
     {
         public GameObject attackChara;
         public GameObject receiveChara;
-        public int mpCost;
+        public int spCost;
+        public int attackType;
         public int atk;
+        public int def;
+        public int TotalDamage;
 
         public void processing()
         {
-            attackChara.GetComponent<Status>().SetSP(attackChara.GetComponent<Status>().GetSP() - mpCost);
-            receiveChara.GetComponent<Status>().SetHP(receiveChara.GetComponent<Status>().GetHP() - atk);
+            //  物理攻撃
+            if(attackType == 1)
+            {
+                atk = attackChara.GetComponent<Status>().GetATK();
+                def = receiveChara.GetComponent<Status>().GetDEF();
+            }
+            //  魔法攻撃
+            else if(attackType == 2)
+            {
+                atk = attackChara.GetComponent<Status>().GetMAT();
+                def = receiveChara.GetComponent<Status>().GetMDF();
+            }
+            else
+            {
+            }
 
-            Debug.Log(receiveChara.gameObject.name + "に" + atk + "ダメージ！");
+            TotalDamage = atk - def;
+            if(TotalDamage <= 0)
+            {
+                TotalDamage = 1;
+            }
+            attackChara.GetComponent<Status>().SetSP(attackChara.GetComponent<Status>().GetSP() - spCost);
+            receiveChara.GetComponent<Status>().SetHP(receiveChara.GetComponent<Status>().GetHP() - TotalDamage);
+
+            Debug.Log(attackChara.gameObject.name + "が" + receiveChara.gameObject.name + "に" + TotalDamage + "ダメージ！");
             Debug.Log("残りHP" + receiveChara.GetComponent<Status>().GetHP());
-
-            //if (abnormalState != AbnormalState.None)
-            //{
-            //List<AbnormalState> temp = receiveChara.GetComponent<Status>().abnormalSet;
-            //temp.Add(abnormalState);
-            //receiveChara.GetComponent<Status>().abnormalSet = temp;
-            //}
         }
     }
 
-    public void ActionSelectEnd()
+    public class Heal
     {
-        GetComponent<command>().TargetDecided(ActivePlayer);
+        public GameObject attackChara;
+        public GameObject receiveChara;
+        public int spCost;
+        public double HealPercent;
+        public int TotalHeal;
+
+        public void processing()
+        {
+            TotalHeal = (int)Math.Round(receiveChara.GetComponent<Status>().GetHP() * HealPercent);
+            if (TotalHeal <= 0)
+            {
+                TotalHeal = 1;
+            }
+            attackChara.GetComponent<Status>().SetSP(attackChara.GetComponent<Status>().GetSP() - spCost);
+            receiveChara.GetComponent<Status>().SetHP(receiveChara.GetComponent<Status>().GetHP() + TotalHeal);
+
+            Debug.Log(receiveChara.gameObject.name + "のHPが" + TotalHeal + "かいふく！");
+            Debug.Log("残りHP" + receiveChara.GetComponent<Status>().GetHP());
+        }
+    }
+
+    public void ActionSelectEnd(GameObject obj)
+    {
+        GetComponent<command>().TargetDecided(ActivePlayer,obj);
     }
 
     public int GetPID(int name)
@@ -168,10 +240,20 @@ public class BattleScene : MonoBehaviour
         attackObj = obj;
     }
 
+    public GameObject GetAttackObj()
+    {
+        return attackObj;
+    }
+
     //  攻撃を受けるキャラをセット
     public void SetReceiveObj(GameObject obj)
     {
         receiveObj = obj;
+    }
+
+    public GameObject GetReceiveObj()
+    {
+        return receiveObj;
     }
 
     public void SetActionFlag(bool flag)

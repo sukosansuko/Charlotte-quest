@@ -19,14 +19,14 @@ public class playerGrow : ScriptableObject
 		
 		public double ID;
 		public string Name;
-		public double GROW_HP;
-		public double GROW_SP;
-		public double GROW_ATK;
-		public double GROW_DEF;
-		public double GROW_SPD;
-		public double GROW_MAT;
-		public double GROW_MDF;
-		public double GROW_LUK;
+		public double GROWHP;
+		public double GROWSP;
+		public double GROWATK;
+		public double GROWDEF;
+		public double GROWSPD;
+		public double GROWMAT;
+		public double GROWMDF;
+		public double GROWLUK;
 	}
 }
 

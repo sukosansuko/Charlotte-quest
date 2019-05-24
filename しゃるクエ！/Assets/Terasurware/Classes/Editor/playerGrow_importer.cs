@@ -52,14 +52,14 @@ public class playerGrow_importer : AssetPostprocessor {
 						
 					cell = row.GetCell(0); p.ID = (cell == null ? 0.0 : cell.NumericCellValue);
 					cell = row.GetCell(1); p.Name = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(2); p.GROW_HP = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(3); p.GROW_SP = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(4); p.GROW_ATK = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(5); p.GROW_DEF = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(6); p.GROW_SPD = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(7); p.GROW_MAT = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(8); p.GROW_MDF = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(9); p.GROW_LUK = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(2); p.GROWHP = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(3); p.GROWSP = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(4); p.GROWATK = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(5); p.GROWDEF = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(6); p.GROWSPD = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(7); p.GROWMAT = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(8); p.GROWMDF = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(9); p.GROWLUK = (cell == null ? 0.0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

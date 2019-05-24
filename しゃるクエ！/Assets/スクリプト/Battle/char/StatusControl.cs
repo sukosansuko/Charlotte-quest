@@ -46,17 +46,17 @@ public class StatusControl : MonoBehaviour
         for (int charID = 0; charID < 6; charID++)
         {
             StatusList[charID] = new statusData(){
-                                                    CharName = PC.sheets[0].list[charID].Name, LV = 1,   HP = (int)PC.sheets[0].list[charID].HP,        SP = (int)PC.sheets[0].list[charID].SP,
+                                                    CharName = PC.sheets[0].list[charID].Name, LV = 99,   HP = (int)PC.sheets[0].list[charID].HP,        SP = (int)PC.sheets[0].list[charID].SP,
                                                     ATK = (int)PC.sheets[0].list[charID].ATK,            DEF = (int)PC.sheets[0].list[charID].DEF,
                                                     SPD = (int)PC.sheets[0].list[charID].SPD,            MAT = (int)PC.sheets[0].list[charID].MAT,
                                                     MDF = (int)PC.sheets[0].list[charID].MDF,            LUK = (int)PC.sheets[0].list[charID].LUK,      EXP = 0
                                                  };
 
             StatusGrowList[charID] = new statusData(){
-                                                    LV = 1,HP = (int)PG.sheets[0].list[charID].GROW_HP,  SP = (int)PG.sheets[0].list[charID].GROW_SP,
-                                                    ATK = (int)PG.sheets[0].list[charID].GROW_ATK,       DEF = (int)PG.sheets[0].list[charID].GROW_DEF,
-                                                    SPD = (int)PG.sheets[0].list[charID].GROW_SPD,       MAT = (int)PG.sheets[0].list[charID].GROW_MAT,
-                                                    MDF = (int)PG.sheets[0].list[charID].GROW_MDF,       LUK = (int)PG.sheets[0].list[charID].GROW_LUK, EXP = 0
+                                                    LV = 1,HP = (int)PG.sheets[0].list[charID].GROWHP,  SP = (int)PG.sheets[0].list[charID].GROWSP,
+                                                    ATK = (int)PG.sheets[0].list[charID].GROWATK,       DEF = (int)PG.sheets[0].list[charID].GROWDEF,
+                                                    SPD = (int)PG.sheets[0].list[charID].GROWSPD,       MAT = (int)PG.sheets[0].list[charID].GROWMAT,
+                                                    MDF = (int)PG.sheets[0].list[charID].GROWMDF,       LUK = (int)PG.sheets[0].list[charID].GROWLUK, EXP = 0
                                                  };
         }
 

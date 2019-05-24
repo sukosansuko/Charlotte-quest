@@ -9,7 +9,7 @@ public class TextTarget : MonoBehaviour
 
     void Start()
     {
-        
+        battleManager = GameObject.Find("BattleManager");
     }
 
     void Update()
@@ -19,8 +19,12 @@ public class TextTarget : MonoBehaviour
 
     public void SetName()
     {
-        battleManager = GameObject.Find("BattleManager");
         battleManager.GetComponent<command>().InitTarget();
         battleManager.GetComponent<command>().SetSkillName(gameObject.name);
+    }
+
+    public void SetTargetReceive()
+    {
+        battleManager.GetComponent<BattleScene>().ActionSelectEnd(this.gameObject);
     }
 }
