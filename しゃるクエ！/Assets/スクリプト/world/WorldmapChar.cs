@@ -10,7 +10,7 @@ public class WorldmapChar : MonoBehaviour
 
     // Start is called before the first frame update
     public static Vector3 InitCharPos;        // ﾜｰﾙﾄﾞﾏｯﾌﾟ上のｷｬﾗｸﾀｰ初期位置(W1の場所)
-    public static Vector3 SavePos = new Vector3(0, 0, 10);  // ｷｬﾗｸﾀｰ位置保存用
+    public static Vector3 SavePos = new Vector3(0, 0, 0);  // ｷｬﾗｸﾀｰ位置保存用
     public SpriteRenderer charImage;
     // Use this for initialization
     void Start()
@@ -22,7 +22,7 @@ public class WorldmapChar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SavePos == new Vector3(0, 0, 10))
+        if (SavePos == new Vector3(0, 0, 0))
         {
             SavePos = InitCharPos;
         }
@@ -30,7 +30,7 @@ public class WorldmapChar : MonoBehaviour
         activScene = SceneManager.GetActiveScene().name;
         if (activScene == "ワールドマップ")
         {
-            mapChar.SavePos = new Vector3(0, 0, 10);
+            mapChar.SavePos = new Vector3(0, 0, 0);
         }
     }
 }

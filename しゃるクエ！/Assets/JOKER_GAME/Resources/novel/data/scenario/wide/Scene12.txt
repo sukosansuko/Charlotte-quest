@@ -96,4 +96,4 @@
 [text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　～終わり～[p]
 
-[scene file = "タイトル"]
+[scene file = "ホーム"]

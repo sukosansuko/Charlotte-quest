@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class backButton : MonoBehaviour
 {
-    string activScene;      // 現在のｼｰﾝ名
-    public static string prevScene; // ひとつ前のｼｰﾝ名
+    string activScene;
     // Start is called before the first frame update
     void Start()
     {
+        activScene = SceneManager.GetActiveScene().name;
     }
 
     // Update is called once per frame
@@ -18,9 +18,9 @@ public class backButton : MonoBehaviour
     }
     public void Push()
     {
-        if(activScene != prevScene)
+        if(activScene.StartsWith("W"))
         {
-            //SceneNavigator.Instance.Change("");
+            SceneNavigator.Instance.Change("ワールドマップ");
         }
     }
 }
