@@ -34,7 +34,7 @@ public class stageMapCamera : MonoBehaviour
         {
             moveMax = 3;
         }
-        if(activScene == "W4")
+        if (activScene == "W4")
         {
             moveMax = 4;
         }
