@@ -17,6 +17,16 @@ public class Status : MonoBehaviour
     [SerializeField] private int MAT;           //  魔法攻撃力
     [SerializeField] private int MDF;           //  魔法防御力
     [SerializeField] private int LUK;           //  幸運値
+
+    //  プレイヤー用画像読み込み
+    [SerializeField] private Sprite psp1;
+    [SerializeField] private Sprite psp2;
+    [SerializeField] private Sprite psp3;
+    [SerializeField] private Sprite psp4;
+    [SerializeField] private Sprite psp5;
+    [SerializeField] private Sprite psp6;
+
+
     private int TURN;                           //  行動回数
     private string AResistance;                 //  物理耐性(基本は敵のみ)
     private string MResistance;                 //  魔法耐性(基本は敵のみ)
@@ -33,6 +43,7 @@ public class Status : MonoBehaviour
     player_skillList PS;
 
     enemy_charaList EC;
+    enemy_skillList ES;
 
     private List<int> SaveSkillIDList = new List<int>();
     private List<GameObject> SaveReceiveList = new List<GameObject>();
@@ -115,7 +126,6 @@ public class Status : MonoBehaviour
 
         tmp = TLIcon.transform.position;
         TLIcon.transform.position = new Vector3(tmp.x,tmp.y,tmp.z);
-        TLProgress = 0;
         progressEnd = false;
         SetChara();
     }
@@ -157,8 +167,8 @@ public class Status : MonoBehaviour
                 float ProgressSPD = SPD / 20;
                 if (ProgressSPD <= 0)
                 {
-                    ProgressSPD = 0;
-                    //ProgressSPD = 1;
+                    //ProgressSPD = 0;
+                    ProgressSPD = 1;
                 }
                 TLProgress += ProgressSPD;
             }
@@ -167,16 +177,21 @@ public class Status : MonoBehaviour
             if (TLProgress >= 200 && !progressEnd)
             {
                 TLProgress = 200;
-                battleManager.GetComponent<command>().SetCharID(charID - 1);
-                battleManager.GetComponent<BattleScene>().SetActiveChoose(true);
-                battleManager.GetComponent<command>().commandDisplay();
 
                 if (playerProof)
                 {
-                    battleManager.GetComponent<BattleScene>().SetActivePlayer(this.gameObject);
+                    battleManager.GetComponent<command>().SetCharID(charID - 1);
+                    battleManager.GetComponent<BattleScene>().SetActiveChoose(true);
+                    battleManager.GetComponent<command>().commandDisplay();
                     //  ポインターの表示
                     turnPointer.GetComponent<Image>().enabled = true;
                 }
+                else
+                {
+                    battleManager.GetComponent<EnemyAction>().SetCharID(charID - 1);
+                    battleManager.GetComponent<EnemyAction>().CommandSelect(this.gameObject);
+                }
+                battleManager.GetComponent<BattleScene>().SetActivePlayer(this.gameObject);
                 progressEnd = true;
             }
 
@@ -190,9 +205,7 @@ public class Status : MonoBehaviour
                     LoadSkill();
                     battleManager.GetComponent<command>().ActionStart();
 
-
                     battleManager.GetComponent<BattleScene>().TakeAction(spCost,HPCtlFlag,AttackType,HealPercent);
-
 
                     battleManager.GetComponent<BattleScene>().SetActionFlag(true);
 
@@ -203,6 +216,7 @@ public class Status : MonoBehaviour
                 {
                     battleManager.GetComponent<command>().ActionEnd();
 
+                    ReceiveChara = battleManager.GetComponent<BattleScene>().GetReceiveObj();
                     if (ReceiveChara.GetComponent<Status>().GetHP() <= 0)
                     {
                         ReceiveChara.GetComponent<Status>().Dead();
@@ -247,21 +261,49 @@ public class Status : MonoBehaviour
             {
                 charID = battleManager.GetComponent<BattleScene>().GetPID(1);
                 TLIcon.GetComponent<Image>().enabled = true;
+                TLProgress = 40;
             }
             else if (Name.Contains("2"))
             {
                 charID = battleManager.GetComponent<BattleScene>().GetPID(2);
                 TLIcon.GetComponent<Image>().enabled = true;
+                TLProgress = 20;
             }
             else
             {
                 charID = battleManager.GetComponent<BattleScene>().GetPID(3);
                 TLIcon.GetComponent<Image>().enabled = true;
+                TLProgress = 0;
             }
             sceneNavigator.GetComponent<StatusControl>().SetStatus(charID - 1,ref CharName,ref LV,ref HP,ref SP,ref ATK,ref DEF,ref SPD,ref MAT,ref MDF,ref LUK);
             MAX_HP = HP;
             MAX_SP = SP;
             TURN = 0;
+
+            switch (charID)
+            {
+                case 1:
+                    GetComponent<Image>().sprite = psp1;
+                    break;
+                case 2:
+                    GetComponent<Image>().sprite = psp2;
+                    break;
+                case 3:
+                    GetComponent<Image>().sprite = psp3;
+                    break;
+                case 4:
+                    GetComponent<Image>().sprite = psp4;
+                    break;
+                case 5:
+                    GetComponent<Image>().sprite = psp5;
+                    break;
+                case 6:
+                    GetComponent<Image>().sprite = psp6;
+                    break;
+                default:
+                    break;
+            }
+
         }
         else
         {
@@ -271,6 +313,7 @@ public class Status : MonoBehaviour
                 TLIcon.GetComponent<Image>().enabled = true;
                 HPDisplay = GameObject.Find("enemyHP1");
                 HPDisplay.GetComponent<Text>().enabled = true;
+                TLProgress = 40;
             }
             else if (Name.Contains("2"))
             {
@@ -278,6 +321,7 @@ public class Status : MonoBehaviour
                 TLIcon.GetComponent<Image>().enabled = true;
                 HPDisplay = GameObject.Find("enemyHP2");
                 HPDisplay.GetComponent<Text>().enabled = true;
+                TLProgress = 20;
             }
             else
             {
@@ -285,11 +329,14 @@ public class Status : MonoBehaviour
                 TLIcon.GetComponent<Image>().enabled = true;
                 HPDisplay = GameObject.Find("enemyHP3");
                 HPDisplay.GetComponent<Text>().enabled = true;
+                TLProgress = 0;
             }
             SetEnemyStatus(charID - 1,ref CharName, ref LV, ref HP, ref SP, ref ATK, ref DEF, ref SPD, ref MAT, ref MDF, ref LUK);
             MAX_HP = HP;
             MAX_SP = SP;
             TURN = 0;
+
+            battleManager.GetComponent<EnemyAction>().EnemyCharaChange(this.gameObject,charID);
         }
 
         if (charID != 0)
@@ -502,26 +549,67 @@ public class Status : MonoBehaviour
         PC = Resources.Load("ExcelData/player_chara") as player_charaList;
         PS = Resources.Load("ExcelData/playerSkill") as player_skillList;
 
+        EC = Resources.Load("ExcelData/enemy_chara") as enemy_charaList;
+        ES = Resources.Load("ExcelData/enemySkill") as enemy_skillList;
+
         GameObject AttackObj = battleManager.GetComponent<BattleScene>().GetAttackObj();
+
+        //  前の行動で標的が死亡してたら標的を変える
+        if(battleManager.GetComponent<BattleScene>().GetReceiveObj() == null)
+        {
+            if (playerProof)
+            {
+                battleManager.GetComponent<command>().changeTarget(playerProof,PS.sheets[0].list[skillID].target);
+            }
+            else
+            {
+                battleManager.GetComponent<command>().changeTarget(playerProof,ES.sheets[0].list[skillID].target);
+            }
+        }
         GameObject ReceiveObj = battleManager.GetComponent<BattleScene>().GetReceiveObj();
 
         GameObject UseObj = AttackObj;
 
-        battleManager.GetComponent<command>().SetActiveSkillText(PS.sheets[0].list[skillID].skillName);
+        if(playerProof)
+        {
+            battleManager.GetComponent<command>().SetActiveSkillText(PS.sheets[0].list[skillID].skillName);
+        }
+        else
+        {
+            battleManager.GetComponent<command>().SetActiveSkillText(ES.sheets[0].list[skillID].skillName);
+        }
+
+        string charaStatus;
+        string useStatus;
+        string useStatus2;
+        double magnification;
+        int STime;
 
         //  ステータスを弄るキャラ
-        string charaStatus = PS.sheets[0].list[skillID].useChara;
+        charaStatus = PS.sheets[0].list[skillID].useChara;
         //  使用するステータス
-        string useStatus = PS.sheets[0].list[skillID].influence1;
-        string useStatus2 = PS.sheets[0].list[skillID].influence2;
+        useStatus = PS.sheets[0].list[skillID].influence1;
+        useStatus2 = PS.sheets[0].list[skillID].influence2;
         //  技の倍率
-        double magnification = PS.sheets[0].list[skillID].power;
+        magnification = PS.sheets[0].list[skillID].power;
         //  HPに影響を与える技かどうか
         HPCtlFlag = (int)PS.sheets[0].list[skillID].hpCtl;
         //  物理攻撃か魔法攻撃か
         AttackType = (int)PS.sheets[0].list[skillID].attackType;
         //  持続時間
-        int STime = (int)PS.sheets[0].list[skillID].period;
+        STime = (int)PS.sheets[0].list[skillID].period;
+
+        //  行動するのが敵の場合は敵のステータスに変更
+        if (!playerProof)
+        {
+            charaStatus = ES.sheets[0].list[skillID].useChara;
+            useStatus = ES.sheets[0].list[skillID].influence1;
+            useStatus2 = ES.sheets[0].list[skillID].influence2;
+            magnification = ES.sheets[0].list[skillID].power;
+            HPCtlFlag = (int)ES.sheets[0].list[skillID].hpCtl;
+            AttackType = (int)ES.sheets[0].list[skillID].attackType;
+            STime = (int)ES.sheets[0].list[skillID].period;
+        }
 
         HealPercent = 0;
 

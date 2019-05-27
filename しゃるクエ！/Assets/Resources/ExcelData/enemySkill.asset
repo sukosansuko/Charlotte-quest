@@ -18,385 +18,660 @@ MonoBehaviour:
     - ID: 1
       skillName: "\u901A\u5E38\u653B\u6483(\u7269\u7406)"
       power: 1
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 0
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u77ED"
-      referenceStatus: STR
     - ID: 2
       skillName: "\u5168\u4F53\u653B\u6483(\u7269\u7406)"
       power: 0.8
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 0
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u9577"
-      referenceStatus: STR
     - ID: 3
       skillName: "\u901A\u5E38\u653B\u6483(\u9B54\u6CD5)"
       power: 1
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 0
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u77ED"
-      referenceStatus: 
     - ID: 4
       skillName: "\u5168\u4F53\u653B\u6483(\u9B54\u6CD5)"
       power: 0.8
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 0
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u9577"
-      referenceStatus: 
     - ID: 5
       skillName: "\u7A81\u9032"
       power: 1.1
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 0
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u4E2D"
-      referenceStatus: STR
     - ID: 6
       skillName: "\u30D5\u30A1\u30A4\u30A2"
       power: 1
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 15
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u77ED"
-      referenceStatus: INT
     - ID: 7
       skillName: "\u30B5\u30F3\u30C0\u30FC"
       power: 1
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 15
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u77ED"
-      referenceStatus: INT
     - ID: 8
       skillName: "\u30D5\u30ED\u30B9\u30C8"
       power: 1
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 15
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u77ED"
-      referenceStatus: INT
     - ID: 9
       skillName: "\u706B\u85AC\u74F6"
       power: 0.7
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 15
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u77ED"
-      referenceStatus: STR
     - ID: 10
       skillName: "\u732B\u30D1\u30F3\u30C1"
       power: 1
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 0
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u77ED"
-      referenceStatus: STR
     - ID: 11
       skillName: "\u4E71\u308C\u3072\u3063\u304B\u304D"
       power: 0.6
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 30
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u4E2D"
-      referenceStatus: STR
     - ID: 12
       skillName: "\u30E1\u30AC\u30D5\u30A1\u30A4\u30A2"
       power: 1.5
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 30
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u9577"
-      referenceStatus: INT
     - ID: 13
       skillName: "\u30E1\u30AC\u30B5\u30F3\u30C0\u30FC"
       power: 1.5
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 30
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u9577"
-      referenceStatus: INT
     - ID: 14
       skillName: "\u30E1\u30AC\u30D5\u30ED\u30B9\u30C8"
       power: 1.5
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 30
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u9577"
-      referenceStatus: INT
     - ID: 15
       skillName: "\u30BB\u30A4\u30F3\u30C8\u30AF\u30ED\u30B9"
       power: 1.25
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 45
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u9577"
-      referenceStatus: INT
     - ID: 16
       skillName: "\u304B\u307E\u3044\u305F\u3061"
       power: 1.2
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 30
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u4E2D"
-      referenceStatus: INT
     - ID: 17
       skillName: "\u3076\u3093\u6BB4\u308B"
       power: 1.2
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 0
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u4E2D"
-      referenceStatus: STR
     - ID: 18
       skillName: "\u8599\u304E\u6255\u3046"
       power: 0.8
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 30
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u9577"
-      referenceStatus: STR
     - ID: 19
       skillName: "\u30AE\u30AC\u30D5\u30A1\u30A4\u30A2"
       power: 1.8
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 60
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: INT
     - ID: 20
       skillName: "\u30AE\u30AC\u30B5\u30F3\u30C0\u30FC"
       power: 1.8
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 60
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: INT
     - ID: 21
       skillName: "\u30AE\u30AC\u30D5\u30ED\u30B9\u30C8"
       power: 1.8
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 60
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: INT
     - ID: 22
       skillName: "\u30B0\u30E9\u30F3\u30C9\u30AF\u30ED\u30B9"
       power: 1.4
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 77
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: INT
     - ID: 23
       skillName: "\u72C2\u5316"
       power: 0.1
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 0
+      attackType: 0
       sp: 0
+      period: 3
+      influence1: ATK
+      influence2: 
       time: "\u77ED"
-      referenceStatus: STR
     - ID: 24
       skillName: "\u30A2\u30FC\u30B9\u30AF\u30A8\u30A4\u30AF"
       power: 1.1
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 30
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u9577"
-      referenceStatus: STR
     - ID: 25
       skillName: "\u546A\u3044"
-      power: 0
-      target: "\u5358\u4F53"
+      power: 0.1
+      target: E1
+      useChara: Receive
+      hpCtl: 1
+      attackType: 2
       sp: 40
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u9577"
-      referenceStatus: 
     - ID: 26
       skillName: "\u5207\u308A\u88C2\u304D"
       power: 1.2
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 15
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u4E2D"
-      referenceStatus: STR
     - ID: 27
       skillName: "\u30C0\u30FC\u30AF\u732B\u30D1\u30F3\u30C1"
       power: 1.3
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 25
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u9577"
-      referenceStatus: STR
     - ID: 28
       skillName: "\u30C0\u30FC\u30AF\u30D5\u30EC\u30A2"
       power: 1.2
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 55
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: INT
     - ID: 29
       skillName: "\u7634\u6C17\u306E\u606F"
       power: 0.5
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 35
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u77ED"
-      referenceStatus: STR
     - ID: 30
       skillName: "\u30D5\u30A1\u30A4\u30A2\u30D6\u30EC\u30B9"
       power: 0.8
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 35
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u4E2D"
-      referenceStatus: STR
     - ID: 31
       skillName: "\u30D5\u30ED\u30B9\u30C8\u30D6\u30EC\u30B9"
       power: 0.7
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 35
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u4E2D"
-      referenceStatus: STR
     - ID: 32
       skillName: "\u30B5\u30F3\u30C0\u30FC\u30D6\u30EC\u30B9"
       power: 0.9
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 35
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u4E2D"
-      referenceStatus: STR
     - ID: 33
       skillName: "\u30DD\u30A4\u30BA\u30F3\u30D6\u30EC\u30B9"
       power: 0.7
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 35
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u77ED"
-      referenceStatus: STR
     - ID: 34
       skillName: "\u30C9\u30E9\u30B4\u30F3\u30D5\u30EC\u30A4\u30E0"
       power: 1.2
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 24
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: STR
     - ID: 35
       skillName: "\u30B3\u30E1\u30C3\u30C8"
       power: 1.5
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 99
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: INT
     - ID: 36
       skillName: "\u30DB\u30FC\u30EA\u30FC"
       power: 1.21
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 50
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: INT
     - ID: 37
       skillName: "\u30C0\u30FC\u30AF\u30D6\u30EC\u30B9"
       power: 1.05
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 30
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u9577"
-      referenceStatus: INT
     - ID: 38
       skillName: "\u5F10\u5F0F\u9B54\u5C0E\u9663\u30FB\u751F\u547D\u5438\u53CE"
       power: 0.7
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 35
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u4E2D"
-      referenceStatus: STR
     - ID: 39
       skillName: "\u53C2\u5F0F\u9B54\u5C0E\u9663\u30FB\u6D88\u5931"
       power: 0.6
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 45
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u4E2D"
-      referenceStatus: STR
     - ID: 40
       skillName: "\u8086\u5F0F\u9B54\u5C0E\u9663\u30FB\u5F37\u5316"
-      power: 0
-      target: "\u5358\u4F53"
+      power: 1.5
+      target: E1
+      useChara: Attack
+      hpCtl: 0
+      attackType: 0
       sp: 30
+      period: 3
+      influence1: ATK
+      influence2: MAT
       time: "\u4E2D"
-      referenceStatus: 
     - ID: 41
       skillName: "\u4F0D\u5F0F\u9B54\u5C0E\u9663\u30FB\u821E\u8E0F"
       power: 0.4
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 45
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u9577"
-      referenceStatus: STR
     - ID: 42
       skillName: "\u9678\u5F0F\u9B54\u5C0E\u9663\u30FB\u60AA\u9B54\u5FA1\u624B"
       power: 1.2
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 18
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u4E2D"
-      referenceStatus: INT
     - ID: 43
       skillName: "\u30EA\u30F4\u30A1\u30A4\u30D6"
-      power: 0
-      target: "\u5358\u4F53"
+      power: 100
+      target: E1
+      useChara: Receive
+      hpCtl: 2
+      attackType: 0
       sp: 40
+      period: 1
+      influence1: HP
+      influence2: 
       time: "\u9577"
-      referenceStatus: 
     - ID: 44
       skillName: "\u30B0\u30E9\u30D3\u30C8\u30F3"
       power: 1.2
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Receive
+      hpCtl: 1
+      attackType: 0
       sp: 65
+      period: 3
+      influence1: MAT
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: INT
     - ID: 45
       skillName: "\u30E1\u30C6\u30AA"
       power: 1.4
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 2
       sp: 55
+      period: 1
+      influence1: MAT
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: INT
     - ID: 46
       skillName: "\u30D5\u30A1\u30E9\u30AA\u306E\u546A\u3044"
       power: 0.1
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 0
+      attackType: 0
       sp: 45
+      period: 3
+      influence1: MAT
+      influence2: 
       time: "\u9577"
-      referenceStatus: INT
     - ID: 47
       skillName: "\u30B8\u30E3\u30C3\u30B8\u30E1\u30F3\u30C8\u30FB\u30C7\u30A4"
       power: 1.5
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 75
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: STR
     - ID: 48
       skillName: "\u81EA\u7206"
       power: 2
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 0
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: STR
     - ID: 49
       skillName: "\u5F37\u6B32"
       power: 0.6
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Receive
+      hpCtl: 0
+      attackType: 0
       sp: 0
+      period: 3
+      influence1: ATK
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: STR
     - ID: 50
       skillName: "\u50B2\u6162"
-      power: 0
-      target: "\u5168\u4F53"
+      power: 0.99
+      target: E3
+      useChara: Receive
+      hpCtl: 1
+      attackType: 0
       sp: 0
+      period: 1
+      influence1: HP
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: 
     - ID: 51
       skillName: "\u61A4\u6012"
       power: 2
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 1
+      attackType: 1
       sp: 0
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: STR
     - ID: 52
       skillName: "\u6020\u60F0"
       power: 1
-      target: "\u5168\u4F53"
+      target: E3
+      useChara: Receive
+      hpCtl: 0
+      attackType: 0
       sp: 0
+      period: 3
+      influence1: ATK
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: STR
     - ID: 53
       skillName: "\u5AC9\u59AC"
       power: 0
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Receive
+      hpCtl: 0
+      attackType: 0
       sp: 0
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: STR
     - ID: 54
       skillName: "\u8272\u6B32"
       power: 0
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 0
+      attackType: 0
       sp: 0
+      period: 3
+      influence1: ATK
+      influence2: MAT
       time: "\u6975\u5927"
-      referenceStatus: 
     - ID: 55
       skillName: "\u66B4\u98DF"
       power: 0.8
-      target: "\u5358\u4F53"
+      target: E1
+      useChara: Attack
+      hpCtl: 2
+      attackType: 0
       sp: 0
+      period: 1
+      influence1: ATK
+      influence2: 
       time: "\u6975\u5927"
-      referenceStatus: STR

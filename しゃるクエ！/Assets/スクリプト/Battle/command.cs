@@ -646,5 +646,53 @@ public class command : MonoBehaviour
         return ID - correction;
     }
 
+    //  標的が攻撃前に死んでしまった時用
+    public void changeTarget(bool playerProof,string target)
+    {
+        if (playerProof)
+        {
+            if (target.StartsWith("p"))
+            {
+                battleManager.GetComponent<BattleScene>().SetReceiveObj(player.GetChild(0).gameObject);
+            }
+            else
+            {
+                battleManager.GetComponent<BattleScene>().SetReceiveObj(enemy.GetChild(0).gameObject);
+            }
+        }
+        else
+        {
+            if (target.StartsWith("p"))
+            {
+                battleManager.GetComponent<BattleScene>().SetReceiveObj(enemy.GetChild(0).gameObject);
+            }
+            else
+            {
+                battleManager.GetComponent<BattleScene>().SetReceiveObj(player.GetChild(0).gameObject);
+            }
+        }
+    }
 
+    //  プレイヤーと敵の数の取得
+    public int GetPlayerCount()
+    {
+        return player.transform.childCount;
+    }
+
+    public int GetEnemyCount()
+    {
+        return enemy.transform.childCount;
+    }
+
+
+    //  プレイヤーと敵の子オブジェクトの取得
+    public GameObject GetPlayerChild(int id)
+    {
+        return player.GetChild(id).gameObject;
+    }
+
+    public GameObject GetEnemyChild(int id)
+    {
+        return enemy.GetChild(id).gameObject;
+    }
 }

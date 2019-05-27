@@ -21,9 +21,14 @@ public class enemy_skillList : ScriptableObject
 		public string skillName;
 		public double power;
 		public string target;
+		public string useChara;
+		public double hpCtl;
+		public double attackType;
 		public double sp;
+		public double period;
+		public string influence1;
+		public string influence2;
 		public string time;
-		public string referenceStatus;
 	}
 }
 
