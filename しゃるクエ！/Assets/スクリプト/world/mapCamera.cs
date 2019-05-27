@@ -19,6 +19,7 @@ public class mapCamera : MonoBehaviour
     {
         nowPos.x = moveCnt * movePos;
         nowPos.z = -10;
+        stageMapCamera.moveCnt = 0;
     }
 
     // Update is called once per frame
