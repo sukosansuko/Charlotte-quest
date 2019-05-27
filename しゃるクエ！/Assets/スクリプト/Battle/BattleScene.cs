@@ -43,6 +43,7 @@ public class BattleScene : MonoBehaviour
         //public Performance p;
         public Damage damage;
         public Heal heal;
+        public Buff buff;
     }
 
     void Start()
@@ -68,6 +69,8 @@ public class BattleScene : MonoBehaviour
 
     public void TakeAction(int spcost, int HpFlag, int AttackType, double healPercent)
     {
+        attackObj.GetComponent<Status>().SetBuff();
+        receiveObj.GetComponent<Status>().SetBuff();
         //  1ならダメージを与える処理
         if (HpFlag == 1)
         {
@@ -95,8 +98,14 @@ public class BattleScene : MonoBehaviour
             //};
             //battleQueue.Enqueue(action1);
         }
+        //  バフ、デバフ系の処理
         else
         {
+            Action action1 = new Action()
+            {
+                buff = new Buff { attackChara = attackObj, receiveChara = receiveObj, spCost = spcost }
+            };
+            battleQueue.Enqueue(action1);
         }
 
         Action action = battleQueue.Dequeue();
@@ -110,6 +119,7 @@ public class BattleScene : MonoBehaviour
         }
         else
         {
+            action.buff.processing();
         }
     }
 
@@ -173,6 +183,19 @@ public class BattleScene : MonoBehaviour
             receiveChara.GetComponent<Status>().SetHP(receiveChara.GetComponent<Status>().GetHP() + TotalHeal);
 
             Debug.Log(receiveChara.gameObject.name + "のHPが" + TotalHeal + "かいふく！");
+            Debug.Log("残りHP" + receiveChara.GetComponent<Status>().GetHP());
+        }
+    }
+
+    public class Buff
+    {
+        public GameObject attackChara;
+        public GameObject receiveChara;
+        public int spCost;
+
+        public void processing()
+        {
+            Debug.Log(receiveChara.gameObject.name + "の"/* + TotalHeal*/ + "が変化！");
             Debug.Log("残りHP" + receiveChara.GetComponent<Status>().GetHP());
         }
     }

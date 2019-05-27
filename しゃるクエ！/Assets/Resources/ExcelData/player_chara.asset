@@ -47,7 +47,7 @@ MonoBehaviour:
       SP: 220
       ATK: 40
       DEF: 45
-      SPD: 50
+      SPD: 60
       MAT: 70
       MDF: 70
       LUK: 55
