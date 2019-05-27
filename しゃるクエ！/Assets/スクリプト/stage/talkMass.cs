@@ -7,12 +7,10 @@ using Novel;
 public class talkMass : MonoBehaviour
 {
 
-    string activScene;      // 現在のｼｰﾝ名
 
     // Use this for initialization
     void Start()
     {
-        activScene = mapChar.activScene;
     }
 
     // Update is called once per frame
