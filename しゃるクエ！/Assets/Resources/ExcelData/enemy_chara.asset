@@ -17,13 +17,13 @@ MonoBehaviour:
     list:
     - ID: 1
       Name: "\u30B4\u30D6\u30EA\u30F3"
-      HP: 10000000
+      HP: 150
       SP: 0
       ATK: 65
-      DEF: 0
-      SPD: 0
+      DEF: 55
+      SPD: 55
       MAT: 0
-      MDF: 0
+      MDF: 50
       LUK: 0
       AResistance: "\u7121"
       MResistance: "\u7121"

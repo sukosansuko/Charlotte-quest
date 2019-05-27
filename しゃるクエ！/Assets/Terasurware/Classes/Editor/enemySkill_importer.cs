@@ -54,9 +54,14 @@ public class enemySkill_importer : AssetPostprocessor {
 					cell = row.GetCell(1); p.skillName = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(2); p.power = (cell == null ? 0.0 : cell.NumericCellValue);
 					cell = row.GetCell(3); p.target = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(4); p.sp = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(5); p.time = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(6); p.referenceStatus = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(4); p.useChara = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(5); p.hpCtl = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(6); p.attackType = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(7); p.sp = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(8); p.period = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(9); p.influence1 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(10); p.influence2 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(11); p.time = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

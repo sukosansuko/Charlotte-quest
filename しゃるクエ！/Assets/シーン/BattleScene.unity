@@ -592,7 +592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &168461904
 RectTransform:
   m_ObjectHideFlags: 0
@@ -632,7 +632,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 816807e09a03d274c8bb4db9ef93a6d5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 61fde31e5072fac40a4c518e3ada5da9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -670,6 +670,12 @@ MonoBehaviour:
   MAT: 0
   MDF: 0
   LUK: 0
+  psp1: {fileID: 21300000, guid: 816807e09a03d274c8bb4db9ef93a6d5, type: 3}
+  psp2: {fileID: 21300000, guid: 6cf176b98833a9348a723055599d49df, type: 3}
+  psp3: {fileID: 21300000, guid: dd23200af6f62d44f937f244d529cf7c, type: 3}
+  psp4: {fileID: 21300000, guid: 4ce4ce571a9b91645b0aae33e02f278f, type: 3}
+  psp5: {fileID: 21300000, guid: 9b85b13f0c7c431448e73a15861df877, type: 3}
+  psp6: {fileID: 21300000, guid: 61fde31e5072fac40a4c518e3ada5da9, type: 3}
   MyTarget: {fileID: 1804342535}
   TLIcon: {fileID: 130951725}
   turnPointer: {fileID: 1424880443}
@@ -3052,7 +3058,6 @@ GameObject:
   - component: {fileID: 830965018}
   - component: {fileID: 830965020}
   - component: {fileID: 830965021}
-  - component: {fileID: 830965022}
   m_Layer: 5
   m_Name: enemy2
   m_TagString: enemy
@@ -3137,6 +3142,12 @@ MonoBehaviour:
   MAT: 0
   MDF: 0
   LUK: 0
+  psp1: {fileID: 0}
+  psp2: {fileID: 0}
+  psp3: {fileID: 0}
+  psp4: {fileID: 0}
+  psp5: {fileID: 0}
+  psp6: {fileID: 0}
   MyTarget: {fileID: 133415749}
   TLIcon: {fileID: 1277958343}
   turnPointer: {fileID: 1348113395}
@@ -3198,18 +3209,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &830965022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830965016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98915075546304e4a8e5281718168f1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &987204159
 GameObject:
   m_ObjectHideFlags: 0
@@ -3269,7 +3268,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 6cf176b98833a9348a723055599d49df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 61fde31e5072fac40a4c518e3ada5da9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3307,6 +3306,12 @@ MonoBehaviour:
   MAT: 0
   MDF: 0
   LUK: 0
+  psp1: {fileID: 21300000, guid: 816807e09a03d274c8bb4db9ef93a6d5, type: 3}
+  psp2: {fileID: 21300000, guid: 6cf176b98833a9348a723055599d49df, type: 3}
+  psp3: {fileID: 21300000, guid: dd23200af6f62d44f937f244d529cf7c, type: 3}
+  psp4: {fileID: 21300000, guid: 4ce4ce571a9b91645b0aae33e02f278f, type: 3}
+  psp5: {fileID: 21300000, guid: 9b85b13f0c7c431448e73a15861df877, type: 3}
+  psp6: {fileID: 21300000, guid: 61fde31e5072fac40a4c518e3ada5da9, type: 3}
   MyTarget: {fileID: 119543831}
   TLIcon: {fileID: 502830986}
   turnPointer: {fileID: 1348113395}
@@ -5750,7 +5755,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9b85b13f0c7c431448e73a15861df877, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 61fde31e5072fac40a4c518e3ada5da9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5788,6 +5793,12 @@ MonoBehaviour:
   MAT: 0
   MDF: 0
   LUK: 0
+  psp1: {fileID: 21300000, guid: 816807e09a03d274c8bb4db9ef93a6d5, type: 3}
+  psp2: {fileID: 21300000, guid: 6cf176b98833a9348a723055599d49df, type: 3}
+  psp3: {fileID: 21300000, guid: dd23200af6f62d44f937f244d529cf7c, type: 3}
+  psp4: {fileID: 21300000, guid: 4ce4ce571a9b91645b0aae33e02f278f, type: 3}
+  psp5: {fileID: 21300000, guid: 9b85b13f0c7c431448e73a15861df877, type: 3}
+  psp6: {fileID: 21300000, guid: 61fde31e5072fac40a4c518e3ada5da9, type: 3}
   MyTarget: {fileID: 1513640743}
   TLIcon: {fileID: 297634866}
   turnPointer: {fileID: 248072390}
@@ -5936,14 +5947,13 @@ GameObject:
   - component: {fileID: 1365196436}
   - component: {fileID: 1365196438}
   - component: {fileID: 1365196439}
-  - component: {fileID: 1365196440}
   m_Layer: 5
   m_Name: enemy3
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1365196435
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6021,6 +6031,12 @@ MonoBehaviour:
   MAT: 0
   MDF: 0
   LUK: 0
+  psp1: {fileID: 0}
+  psp2: {fileID: 0}
+  psp3: {fileID: 0}
+  psp4: {fileID: 0}
+  psp5: {fileID: 0}
+  psp6: {fileID: 0}
   MyTarget: {fileID: 1562675560}
   TLIcon: {fileID: 1870959850}
   turnPointer: {fileID: 248072390}
@@ -6082,18 +6098,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1365196440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1365196434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98915075546304e4a8e5281718168f1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1381886780
 GameObject:
   m_ObjectHideFlags: 0
@@ -7883,6 +7887,7 @@ GameObject:
   - component: {fileID: 1829247570}
   - component: {fileID: 1829247571}
   - component: {fileID: 1829247572}
+  - component: {fileID: 1829247573}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -7927,9 +7932,9 @@ MonoBehaviour:
   pID1: 1
   pID2: 2
   pID3: 5
-  eID1: 1
-  eID2: 1
-  eID3: 1
+  eID1: 7
+  eID2: 7
+  eID3: 7
   ActivePlayer: {fileID: 0}
   TL: {fileID: 1591509935}
 --- !u!114 &1829247572
@@ -7960,6 +7965,30 @@ MonoBehaviour:
   enemy: {fileID: 1881078116}
   actionDescription: {fileID: 1233771666}
   actionDescriptionText: {fileID: 1663786847}
+--- !u!114 &1829247573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829247569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98915075546304e4a8e5281718168f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  esp1: {fileID: 21300000, guid: 7dc0df052d7be0044bd079480014f082, type: 3}
+  esp2: {fileID: 21300000, guid: 98076fead13f33548b1ed4eb49a9faf6, type: 3}
+  esp3: {fileID: 21300000, guid: f15ce93893074ee40b4315d682e3bde4, type: 3}
+  esp4: {fileID: 21300000, guid: d220029012a37834682746b5e3740143, type: 3}
+  esp5: {fileID: 21300000, guid: 6e453a0e0b3228b4882a3c6562424f46, type: 3}
+  esp6: {fileID: 21300000, guid: 3f2e73b2cf49c344889fd62efbf80d2f, type: 3}
+  esp7: {fileID: 21300000, guid: 71e01ee8fef9c304cbea261fa6f92144, type: 3}
+  esp8: {fileID: 21300000, guid: 6d766b8519228334cb08f999803264de, type: 3}
+  esp9: {fileID: 21300000, guid: 453a483772d3a074c8939252529aaf41, type: 3}
+  esp10: {fileID: 21300000, guid: c1cada810b38f3145887d2ad1b6f10e1, type: 3}
+  esp11: {fileID: 21300000, guid: 105e0b28ae7e226489a8bf2febf976fb, type: 3}
+  esp12: {fileID: 21300000, guid: 8be0af5f42b72764ea72a1f2ce3ea3fd, type: 3}
 --- !u!1 &1837225312
 GameObject:
   m_ObjectHideFlags: 0
@@ -8226,6 +8255,12 @@ MonoBehaviour:
   MAT: 0
   MDF: 0
   LUK: 0
+  psp1: {fileID: 0}
+  psp2: {fileID: 0}
+  psp3: {fileID: 0}
+  psp4: {fileID: 0}
+  psp5: {fileID: 0}
+  psp6: {fileID: 0}
   MyTarget: {fileID: 805018257}
   TLIcon: {fileID: 1404411904}
   turnPointer: {fileID: 1424880443}
@@ -8299,6 +8334,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98915075546304e4a8e5281718168f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  esp1: {fileID: 21300000, guid: 7dc0df052d7be0044bd079480014f082, type: 3}
+  esp2: {fileID: 21300000, guid: 98076fead13f33548b1ed4eb49a9faf6, type: 3}
+  esp3: {fileID: 21300000, guid: f15ce93893074ee40b4315d682e3bde4, type: 3}
+  esp4: {fileID: 21300000, guid: d220029012a37834682746b5e3740143, type: 3}
+  esp5: {fileID: 21300000, guid: 6e453a0e0b3228b4882a3c6562424f46, type: 3}
+  esp6: {fileID: 21300000, guid: 3f2e73b2cf49c344889fd62efbf80d2f, type: 3}
+  esp7: {fileID: 21300000, guid: 71e01ee8fef9c304cbea261fa6f92144, type: 3}
+  esp8: {fileID: 21300000, guid: 6d766b8519228334cb08f999803264de, type: 3}
+  esp9: {fileID: 21300000, guid: 453a483772d3a074c8939252529aaf41, type: 3}
+  esp10: {fileID: 21300000, guid: c1cada810b38f3145887d2ad1b6f10e1, type: 3}
+  esp11: {fileID: 21300000, guid: 105e0b28ae7e226489a8bf2febf976fb, type: 3}
+  esp12: {fileID: 21300000, guid: 8be0af5f42b72764ea72a1f2ce3ea3fd, type: 3}
 --- !u!1 &1881078115
 GameObject:
   m_ObjectHideFlags: 0
