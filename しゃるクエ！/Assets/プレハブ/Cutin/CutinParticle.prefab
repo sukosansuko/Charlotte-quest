@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9055354512964861072}
   - component: {fileID: 9055354512964861073}
   - component: {fileID: 9055354512964861074}
+  - component: {fileID: 6286048395679425245}
   m_Layer: 0
   m_Name: CutinParticle
   m_TagString: Untagged
@@ -4698,3 +4699,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &6286048395679425245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9055354512964861075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa33f482e24676c4989fb43b84d4917d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

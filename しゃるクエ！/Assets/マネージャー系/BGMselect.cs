@@ -11,6 +11,7 @@ public class BGMselect : SingletonMonoBehaviour<BGMselect>
 
     string activScene;
     string prevScene;
+    string worldNum;
 
     // Start is called before the first frame update
 
@@ -42,6 +43,7 @@ public class BGMselect : SingletonMonoBehaviour<BGMselect>
     void Update()
     {
         activScene = SceneManager.GetActiveScene().name;
+        worldNum = WorldMass.stageName;
         if(activScene != prevScene)
         {
             AudioManager.Instance.StopBGM();
@@ -78,10 +80,38 @@ public class BGMselect : SingletonMonoBehaviour<BGMselect>
         {
             AudioManager.Instance.PlayBGM("");
         }
-        if (activScene== "BattleScene")
+        if (worldNum == "W1")
         {
-            AudioManager.Instance.PlayBGM("");
+            if (activScene == "BattleScene")
+            {
+                AudioManager.Instance.PlayBGM("");
+            }
+        }
+        if (worldNum == "W2")
+        {
+            if (activScene == "BattleScene")
+            {
+                AudioManager.Instance.PlayBGM("");
+            }
+        }
+        if (worldNum == "W3")
+        {
+            if (activScene == "BattleScene")
+            {
+                AudioManager.Instance.PlayBGM("");
+            }
+        }
+        if (worldNum == "W4")
+        {
+            if (activScene == "BattleScene")
+            {
+                AudioManager.Instance.PlayBGM("");
+            }
         }
         prevScene = activScene;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 }

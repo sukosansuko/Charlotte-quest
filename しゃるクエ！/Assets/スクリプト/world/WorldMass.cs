@@ -7,7 +7,7 @@ public class WorldMass : MonoBehaviour
     // Start is called before the first frame update
     public float posx, posy;
     public SpriteRenderer Mass;
-    string stageName;
+    public static string stageName;
     // Use this for initialization
     void Start()
     {
@@ -26,5 +26,6 @@ public class WorldMass : MonoBehaviour
         stageName = this.gameObject.transform.name;
         WorldmapChar.SavePos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1.4f, 0);
         SceneNavigator.Instance.Change(stageName);
+        Debug.Log(stageName);
     }
 }

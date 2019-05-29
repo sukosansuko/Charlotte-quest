@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8180911078821684137}
   - component: {fileID: 8180911078821684134}
   - component: {fileID: 8180911078821684136}
+  - component: {fileID: 4293129005989866561}
   m_Layer: 5
   m_Name: "\u30AD\u30E3\u30E9"
   m_TagString: Untagged
@@ -94,6 +95,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4293129005989866561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8180911078821684132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36ea8b40fbf6fc84899b1ef5c7510e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8180911079481362810
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,6 +120,7 @@ GameObject:
   - component: {fileID: 8180911079481362815}
   - component: {fileID: 8180911079481362812}
   - component: {fileID: 8180911079481362817}
+  - component: {fileID: 7663947984138600480}
   m_Layer: 5
   m_Name: "\uFF8C\uFF9F\uFF9A\uFF72\uFF94\uFF70\uFF76\uFF6F\uFF84\uFF72\uFF9D"
   m_TagString: Untagged
@@ -204,6 +218,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7663947984138600480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8180911079481362810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36ea8b40fbf6fc84899b1ef5c7510e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8180911079886851748
 GameObject:
   m_ObjectHideFlags: 0
