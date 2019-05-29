@@ -46,15 +46,18 @@ public class Status : MonoBehaviour
     enemy_skillList ES;
 
     private List<int> SaveSkillIDList = new List<int>();
-    private List<GameObject> SaveReceiveList = new List<GameObject>();
 
     //  TLのアイコン位置計算用
     private Vector3 tmp;
 
+    //  キャラクターの状態(アニメーションなどで使う)
     public enum STATE
     {
         ST_NON,
-        ST_ALIVE,                   //  生きている
+        ST_STAND,                   //  通常時
+        ST_ATK,                     //  攻撃中
+        ST_DEF,                     //  防御中
+        ST_DAMAGE,                  //  ダメージを受けた
         ST_DEAD,                    //  死亡
         ST_MAX
     }
@@ -70,6 +73,16 @@ public class Status : MonoBehaviour
         public int MDF;             //  魔法防御力
         public int LUK;             //  幸運値
     }
+
+    //  攻撃を受けるキャラの保管用
+    struct receiveChar
+    {
+        public GameObject RECEIVE1;
+        public GameObject RECEIVE2;
+        public GameObject RECEIVE3;
+    }
+    private List<receiveChar> SaveReceiveList = new List<receiveChar>();
+
 
     //  バフ、デバフ管理用のリスト
     private List<strData> changeStatus = new List<strData>();
@@ -104,7 +117,10 @@ public class Status : MonoBehaviour
     private int AttackType;
     private double HealPercent;
 
-    private GameObject ReceiveChara;
+    private GameObject ReceiveChara1;
+    private GameObject ReceiveChara2;
+    private GameObject ReceiveChara3;
+
 
     void Start()
     {
@@ -112,7 +128,7 @@ public class Status : MonoBehaviour
         for (int count = 0; count < 6; count++)
         {
             SaveSkillIDList.Add(0);
-            SaveReceiveList.Add(GameObject.Find("enemy1"));
+            SaveReceiveList.Add(new receiveChar { RECEIVE1 = null, RECEIVE2 = null, RECEIVE3 = null });
         }
 
         battleManager = GameObject.Find("BattleManager");
@@ -124,6 +140,7 @@ public class Status : MonoBehaviour
         TLIcon.GetComponent<Image>().enabled = false;
         turnPointer.GetComponent<Image>().enabled = false;
 
+        playerProof = false;
         tmp = TLIcon.transform.position;
         TLIcon.transform.position = new Vector3(tmp.x,tmp.y,tmp.z);
         progressEnd = false;
@@ -132,6 +149,12 @@ public class Status : MonoBehaviour
 
     void Update()
     {
+        //  プレイヤーの場合はアニメーションを入れる
+        if(playerProof)
+        {
+            Anim();
+        }
+
         if (state == STATE.ST_DEAD)
         {
             //battleManager.GetComponent<command>().SetTargetStart(Name);
@@ -144,6 +167,31 @@ public class Status : MonoBehaviour
             Destroy(this.gameObject);
         }
         TLManager();
+    }
+
+    //  プレイヤー用のアニメーション処理
+    private void Anim()
+    {
+        switch(state)
+        {
+            case STATE.ST_STAND:
+
+                break;
+            case STATE.ST_ATK:
+
+                break;
+            case STATE.ST_DEF:
+
+                break;
+            case STATE.ST_DAMAGE:
+
+                break;
+            case STATE.ST_DEAD:
+
+                break;
+            default:
+                break;
+        }
     }
 
     public void Dead()
@@ -216,10 +264,18 @@ public class Status : MonoBehaviour
                 {
                     battleManager.GetComponent<command>().ActionEnd();
 
-                    ReceiveChara = battleManager.GetComponent<BattleScene>().GetReceiveObj();
-                    if (ReceiveChara.GetComponent<Status>().GetHP() <= 0)
+                    //ReceiveChara = battleManager.GetComponent<BattleScene>().GetReceiveObj();
+                    if (ReceiveChara1 != null && ReceiveChara1.GetComponent<Status>().GetHP() <= 0)
                     {
-                        ReceiveChara.GetComponent<Status>().Dead();
+                        ReceiveChara1.GetComponent<Status>().Dead();
+                    }
+                    if (ReceiveChara2 != null && ReceiveChara2.GetComponent<Status>().GetHP() <= 0)
+                    {
+                        ReceiveChara2.GetComponent<Status>().Dead();
+                    }
+                    if (ReceiveChara3 != null && ReceiveChara3.GetComponent<Status>().GetHP() <= 0)
+                    {
+                        ReceiveChara3.GetComponent<Status>().Dead();
                     }
 
                     TLProgress = 0;
@@ -249,10 +305,6 @@ public class Status : MonoBehaviour
         if (Name.StartsWith("p"))
         {
             playerProof = true;
-        }
-        else
-        {
-            playerProof = false;
         }
 
         if (playerProof)
@@ -353,7 +405,7 @@ public class Status : MonoBehaviour
             //Debug.Log("LUK" + LUK);
         }
 
-        state = STATE.ST_ALIVE;
+        state = STATE.ST_STAND;
     }
 
     //  ターゲットの切り替え用
@@ -427,74 +479,220 @@ public class Status : MonoBehaviour
     }
 
     //  攻撃を受ける側を保存
-    public void SaveReceive(GameObject receive)
+    public void SaveReceive(GameObject receive1)
     {
         int attackID;
-        if (playerProof)
-        {
-            if (Name.Contains("1"))
-            {
-                attackID = 0;
-            }
-            else if (Name.Contains("2"))
-            {
-                attackID = 1;
-            }
-            else
-            {
-                attackID = 2;
-            }
-        }
-        else
-        {
-            if (Name.Contains("1"))
-            {
-                attackID = 3;
-            }
-            else if (Name.Contains("2"))
-            {
-                attackID = 4;
-            }
-            else
-            {
-                attackID = 5;
-            }
-        }
+        attackID = GetAttackID();
 
-        string ReceiveName = receive.name;
-        GameObject target;
+        string ReceiveName = receive1.name;
+        GameObject target1;
+        
         if (ReceiveName.StartsWith("p"))
         {
             if (ReceiveName.Contains("1"))
             {
-                target = GameObject.Find("player1");
+                target1 = GameObject.Find("player1");
             }
             else if (ReceiveName.Contains("2"))
             {
-                target = GameObject.Find("player2");
+                target1 = GameObject.Find("player2");
             }
             else
             {
-                target = GameObject.Find("player3");
+                target1 = GameObject.Find("player3");
             }
         }
         else
         {
             if (ReceiveName.Contains("1"))
             {
-                target = GameObject.Find("enemy1");
+                target1 = GameObject.Find("enemy1");
             }
             else if (ReceiveName.Contains("2"))
             {
-                target = GameObject.Find("enemy2");
+                target1 = GameObject.Find("enemy2");
             }
             else
             {
-                target = GameObject.Find("enemy3");
+                target1 = GameObject.Find("enemy3");
+            }
+            
+        }
+        SaveReceiveList.Insert(attackID, new receiveChar { RECEIVE1 = target1,RECEIVE2 = null,RECEIVE3 = null });
+    }
+
+    public void SaveReceive(GameObject receive1, GameObject receive2)
+    {
+        int attackID;
+        attackID = GetAttackID();
+        string ReceiveName;
+        GameObject target1 = null;
+        GameObject target2 = null;
+        GameObject Finder;
+
+        for (int count = 0;count < 2;count++)
+        {
+            if(count == 0)
+            {
+                ReceiveName = receive1.name;
+            }
+            else
+            {
+                ReceiveName = receive2.name;
+            }
+
+            if (ReceiveName.StartsWith("p"))
+            {
+                if (ReceiveName.Contains("1"))
+                {
+                    Finder = GameObject.Find("player1");
+                }
+                else if (ReceiveName.Contains("2"))
+                {
+                    Finder = GameObject.Find("player2");
+                }
+                else
+                {
+                    Finder = GameObject.Find("player3");
+                }
+            }
+            else
+            {
+                if (ReceiveName.Contains("1"))
+                {
+                    Finder = GameObject.Find("enemy1");
+                }
+                else if (ReceiveName.Contains("2"))
+                {
+                    Finder = GameObject.Find("enemy2");
+                }
+                else
+                {
+                    Finder = GameObject.Find("enemy3");
+                }
+
+            }
+
+            if(count == 0)
+            {
+                target1 = Finder;
+            }
+            else
+            {
+                target2 = Finder;
             }
         }
-        SaveReceiveList.Insert(attackID, target);
+        SaveReceiveList.Insert(attackID, new receiveChar { RECEIVE1 = target1, RECEIVE2 = target2, RECEIVE3 = null });
     }
+
+    public void SaveReceive(GameObject receive1, GameObject receive2, GameObject receive3)
+    {
+        int attackID;
+        attackID = GetAttackID();
+        string ReceiveName;
+        GameObject target1 = null;
+        GameObject target2 = null;
+        GameObject target3 = null;
+        GameObject Finder;
+
+        for (int count = 0; count < 3; count++)
+        {
+            if (count == 0)
+            {
+                ReceiveName = receive1.name;
+            }
+            else if(count == 1)
+            {
+                ReceiveName = receive2.name;
+            }
+            else
+            {
+                ReceiveName = receive3.name;
+            }
+
+            if (ReceiveName.StartsWith("p"))
+            {
+                if (ReceiveName.Contains("1"))
+                {
+                    Finder = GameObject.Find("player1");
+                }
+                else if (ReceiveName.Contains("2"))
+                {
+                    Finder = GameObject.Find("player2");
+                }
+                else
+                {
+                    Finder = GameObject.Find("player3");
+                }
+            }
+            else
+            {
+                if (ReceiveName.Contains("1"))
+                {
+                    Finder = GameObject.Find("enemy1");
+                }
+                else if (ReceiveName.Contains("2"))
+                {
+                    Finder = GameObject.Find("enemy2");
+                }
+                else
+                {
+                    Finder = GameObject.Find("enemy3");
+                }
+
+            }
+
+            if (count == 0)
+            {
+                target1 = Finder;
+            }
+            else if(count == 1)
+            {
+                target2 = Finder;
+            }
+            else
+            {
+                target3 = Finder;
+            }
+        }
+        SaveReceiveList.Insert(attackID, new receiveChar { RECEIVE1 = target1, RECEIVE2 = target2, RECEIVE3 = target3 });
+    }
+
+    //  SaveReceive用attackID取得
+    private int GetAttackID()
+    {
+        if (playerProof)
+        {
+            if (Name.Contains("1"))
+            {
+                return 0;
+            }
+            else if (Name.Contains("2"))
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }
+        }
+        else
+        {
+            if (Name.Contains("1"))
+            {
+                return 3;
+            }
+            else if (Name.Contains("2"))
+            {
+                return 4;
+            }
+            else
+            {
+                return 5;
+            }
+        }
+    }
+
 
     //  保存しておいた行動を呼び出す
     public void LoadSkill()
@@ -505,17 +703,23 @@ public class Status : MonoBehaviour
             if (Name.Contains("1"))
             {
                 skillID = SaveSkillIDList[0];
-                ReceiveChara = SaveReceiveList[0];
+                ReceiveChara1 = SaveReceiveList[0].RECEIVE1;
+                ReceiveChara2 = SaveReceiveList[0].RECEIVE2;
+                ReceiveChara3 = SaveReceiveList[0].RECEIVE3;
             }
             else if (Name.Contains("2"))
             {
                 skillID = SaveSkillIDList[1];
-                ReceiveChara = SaveReceiveList[1];
+                ReceiveChara1 = SaveReceiveList[1].RECEIVE1;
+                ReceiveChara2 = SaveReceiveList[1].RECEIVE2;
+                ReceiveChara3 = SaveReceiveList[1].RECEIVE3;
             }
             else
             {
                 skillID = SaveSkillIDList[2];
-                ReceiveChara = SaveReceiveList[2];
+                ReceiveChara1 = SaveReceiveList[2].RECEIVE1;
+                ReceiveChara2 = SaveReceiveList[2].RECEIVE2;
+                ReceiveChara3 = SaveReceiveList[2].RECEIVE3;
             }
         }
         else
@@ -523,21 +727,42 @@ public class Status : MonoBehaviour
             if (Name.Contains("1"))
             {
                 skillID = SaveSkillIDList[3];
-                ReceiveChara = SaveReceiveList[3];
+                ReceiveChara1 = SaveReceiveList[3].RECEIVE1;
+                ReceiveChara2 = SaveReceiveList[3].RECEIVE2;
+                ReceiveChara3 = SaveReceiveList[3].RECEIVE3;
             }
             else if (Name.Contains("2"))
             {
                 skillID = SaveSkillIDList[4];
-                ReceiveChara = SaveReceiveList[4];
+                ReceiveChara1 = SaveReceiveList[4].RECEIVE1;
+                ReceiveChara2 = SaveReceiveList[4].RECEIVE2;
+                ReceiveChara3 = SaveReceiveList[4].RECEIVE3;
             }
             else
             {
                 skillID = SaveSkillIDList[5];
-                ReceiveChara = SaveReceiveList[5];
+                ReceiveChara1 = SaveReceiveList[5].RECEIVE1;
+                ReceiveChara2 = SaveReceiveList[5].RECEIVE2;
+                ReceiveChara3 = SaveReceiveList[5].RECEIVE3;
             }
         }
 
-        battleManager.GetComponent<BattleScene>().SetReceiveObj(ReceiveChara);
+        if(ReceiveChara3 != null)
+        {
+            battleManager.GetComponent<BattleScene>().SetReceiveObj(ReceiveChara1, ReceiveChara2, ReceiveChara3);
+        }
+        else
+        {
+            if (ReceiveChara2 != null)
+            {
+                battleManager.GetComponent<BattleScene>().SetReceiveObj(ReceiveChara1,ReceiveChara2);
+            }
+            else
+            {
+                battleManager.GetComponent<BattleScene>().SetReceiveObj(ReceiveChara1);
+            }
+            
+        }
         SkillInfluence(skillID);
 
         spCost = (int)PS.sheets[0].list[skillID].sp;
@@ -555,7 +780,9 @@ public class Status : MonoBehaviour
         GameObject AttackObj = battleManager.GetComponent<BattleScene>().GetAttackObj();
 
         //  前の行動で標的が死亡してたら標的を変える
-        if(battleManager.GetComponent<BattleScene>().GetReceiveObj() == null)
+        if (battleManager.GetComponent<BattleScene>().GetReceiveObj(1) == null 
+            && battleManager.GetComponent<BattleScene>().GetReceiveObj(2) == null 
+            && battleManager.GetComponent<BattleScene>().GetReceiveObj(3) == null)
         {
             if (playerProof)
             {
@@ -566,7 +793,6 @@ public class Status : MonoBehaviour
                 battleManager.GetComponent<command>().changeTarget(playerProof,ES.sheets[0].list[skillID].target);
             }
         }
-        GameObject ReceiveObj = battleManager.GetComponent<BattleScene>().GetReceiveObj();
 
         GameObject UseObj = AttackObj;
 
@@ -611,10 +837,12 @@ public class Status : MonoBehaviour
             STime = (int)ES.sheets[0].list[skillID].period;
         }
 
-        HealPercent = 0;
-
         DeleteBuff(AttackObj);
-        DeleteBuff(ReceiveObj);
+        DeleteBuff(ReceiveChara1);
+        DeleteBuff(ReceiveChara2);
+        DeleteBuff(ReceiveChara3);
+
+        HealPercent = 0;
 
         if (charaStatus == "Attack")
         {
@@ -622,90 +850,110 @@ public class Status : MonoBehaviour
         }
         else if(charaStatus == "Receive")
         {
-            UseObj = ReceiveObj;
+            UseObj = ReceiveChara1;
         }
         else
         {
         }
 
-        strData str1 = new strData();
-        switch (useStatus)
+        for (int count = 0; count < 3; count++)
         {
-            case ("HP"):
-                HealPercent = magnification;
-                break;
-            case ("ATK"):
-                str1.ATK = (int)Math.Round(UseObj.GetComponent<Status>().GetATK() * magnification);
-                str1.TIME = STime + TURN;
-                UseObj.GetComponent<Status>().changeStatus.Add(str1);
-                break;
-            case ("DEF"):
-                str1.DEF = (int)Math.Round(UseObj.GetComponent<Status>().GetDEF() * magnification);
-                str1.TIME = STime + TURN;
-                UseObj.GetComponent<Status>().changeStatus.Add(str1);
-                break;
-            case ("SPD"):
-                str1.SPD = (int)Math.Round(UseObj.GetComponent<Status>().GetSPD() * magnification);
-                str1.TIME = STime + TURN;
-                UseObj.GetComponent<Status>().changeStatus.Add(str1);
-                break;
-            case ("MAT"):
-                str1.MAT = (int)Math.Round(UseObj.GetComponent<Status>().GetMAT() * magnification);
-                str1.TIME = STime + TURN;
-                UseObj.GetComponent<Status>().changeStatus.Add(str1);
-                break;
-            case ("MDF"):
-                str1.MDF = (int)Math.Round(UseObj.GetComponent<Status>().GetMDF() * magnification);
-                str1.TIME = STime + TURN;
-                UseObj.GetComponent<Status>().changeStatus.Add(str1);
-                break;
-            case ("LUK"):
-                str1.LUK= (int)Math.Round(UseObj.GetComponent<Status>().GetLUK() * magnification);
-                str1.TIME = STime + TURN;
-                UseObj.GetComponent<Status>().changeStatus.Add(str1);
-                break;
-            default:
-                break;
-        }
+            strData str1 = new strData();
+            switch (useStatus)
+            {
+                case ("HP"):
+                    HealPercent = magnification;
+                    break;
+                case ("ATK"):
+                    str1.ATK = (int)Math.Round(UseObj.GetComponent<Status>().GetATK() * magnification);
+                    str1.TIME = STime + TURN;
+                    UseObj.GetComponent<Status>().changeStatus.Add(str1);
+                    break;
+                case ("DEF"):
+                    str1.DEF = (int)Math.Round(UseObj.GetComponent<Status>().GetDEF() * magnification);
+                    str1.TIME = STime + TURN;
+                    UseObj.GetComponent<Status>().changeStatus.Add(str1);
+                    break;
+                case ("SPD"):
+                    str1.SPD = (int)Math.Round(UseObj.GetComponent<Status>().GetSPD() * magnification);
+                    str1.TIME = STime + TURN;
+                    UseObj.GetComponent<Status>().changeStatus.Add(str1);
+                    break;
+                case ("MAT"):
+                    str1.MAT = (int)Math.Round(UseObj.GetComponent<Status>().GetMAT() * magnification);
+                    str1.TIME = STime + TURN;
+                    UseObj.GetComponent<Status>().changeStatus.Add(str1);
+                    break;
+                case ("MDF"):
+                    str1.MDF = (int)Math.Round(UseObj.GetComponent<Status>().GetMDF() * magnification);
+                    str1.TIME = STime + TURN;
+                    UseObj.GetComponent<Status>().changeStatus.Add(str1);
+                    break;
+                case ("LUK"):
+                    str1.LUK = (int)Math.Round(UseObj.GetComponent<Status>().GetLUK() * magnification);
+                    str1.TIME = STime + TURN;
+                    UseObj.GetComponent<Status>().changeStatus.Add(str1);
+                    break;
+                default:
+                    break;
+            }
 
-        strData str2 = new strData();
-        switch (useStatus2)
-        {
-            case ("HP"):
-                HealPercent = magnification;
+            strData str2 = new strData();
+            switch (useStatus2)
+            {
+                case ("HP"):
+                    HealPercent = magnification;
+                    break;
+                case ("ATK"):
+                    str2.ATK = (int)Math.Round(UseObj.GetComponent<Status>().GetATK() * magnification);
+                    str2.TIME = STime + TURN;
+                    UseObj.GetComponent<Status>().changeStatus.Add(str2);
+                    break;
+                case ("DEF"):
+                    str2.DEF = (int)Math.Round(UseObj.GetComponent<Status>().GetDEF() * magnification);
+                    str2.TIME = STime + TURN;
+                    UseObj.GetComponent<Status>().changeStatus.Add(str2);
+                    break;
+                case ("SPD"):
+                    str2.SPD = (int)Math.Round(UseObj.GetComponent<Status>().GetSPD() * magnification);
+                    str2.TIME = STime + TURN;
+                    UseObj.GetComponent<Status>().changeStatus.Add(str2);
+                    break;
+                case ("MAT"):
+                    str2.MAT = (int)Math.Round(UseObj.GetComponent<Status>().GetMAT() * magnification);
+                    str2.TIME = STime + TURN;
+                    UseObj.GetComponent<Status>().changeStatus.Add(str2);
+                    break;
+                case ("MDF"):
+                    str2.MDF = (int)Math.Round(UseObj.GetComponent<Status>().GetMDF() * magnification);
+                    str2.TIME = STime + TURN;
+                    UseObj.GetComponent<Status>().changeStatus.Add(str2);
+                    break;
+                case ("LUK"):
+                    str2.LUK = (int)Math.Round(UseObj.GetComponent<Status>().GetLUK() * magnification);
+                    str2.TIME = STime + TURN;
+                    UseObj.GetComponent<Status>().changeStatus.Add(str2);
+                    break;
+                default:
+                    break;
+            }
+
+            if(charaStatus == "Attack")
+            {
                 break;
-            case ("ATK"):
-                str2.ATK = (int)Math.Round(UseObj.GetComponent<Status>().GetATK() * magnification);
-                str2.TIME = STime + TURN;
-                UseObj.GetComponent<Status>().changeStatus.Add(str2);
-                break;
-            case ("DEF"):
-                str2.DEF = (int)Math.Round(UseObj.GetComponent<Status>().GetDEF() * magnification);
-                str2.TIME = STime + TURN;
-                UseObj.GetComponent<Status>().changeStatus.Add(str2);
-                break;
-            case ("SPD"):
-                str2.SPD = (int)Math.Round(UseObj.GetComponent<Status>().GetSPD() * magnification);
-                str2.TIME = STime + TURN;
-                UseObj.GetComponent<Status>().changeStatus.Add(str2);
-                break;
-            case ("MAT"):
-                str2.MAT = (int)Math.Round(UseObj.GetComponent<Status>().GetMAT() * magnification);
-                str2.TIME = STime + TURN;
-                UseObj.GetComponent<Status>().changeStatus.Add(str2);
-                break;
-            case ("MDF"):
-                str2.MDF = (int)Math.Round(UseObj.GetComponent<Status>().GetMDF() * magnification);
-                str2.TIME = STime + TURN;
-                UseObj.GetComponent<Status>().changeStatus.Add(str2);
-                break;
-            case ("LUK"):
-                str2.LUK = (int)Math.Round(UseObj.GetComponent<Status>().GetLUK() * magnification);
-                str2.TIME = STime + TURN;
-                UseObj.GetComponent<Status>().changeStatus.Add(str2);
-                break;
-            default:
-                break;
+            }
+
+            if(count == 0)
+            {
+                UseObj = ReceiveChara2;
+            }
+            else if(count == 1)
+            {
+                UseObj = ReceiveChara3;
+            }
+            else
+            {
+            }
         }
     }
 
@@ -729,16 +977,19 @@ public class Status : MonoBehaviour
     //  バフ、デバフを解除する
     public void DeleteBuff(GameObject objchara)
     {
-        if (objchara.GetComponent<Status>().changeStatus != null)
+        if (objchara != null)
         {
-            for (int count = 0; count < objchara.GetComponent<Status>().changeStatus.Count; count++)
+            if (objchara.GetComponent<Status>().changeStatus != null)
             {
-                objchara.GetComponent<Status>().SetATK(objchara.GetComponent<Status>().GetATK() - objchara.GetComponent<Status>().changeStatus[count].ATK);
-                objchara.GetComponent<Status>().SetDEF(objchara.GetComponent<Status>().GetDEF() - objchara.GetComponent<Status>().changeStatus[count].DEF);
-                objchara.GetComponent<Status>().SetSPD(objchara.GetComponent<Status>().GetSPD() - objchara.GetComponent<Status>().changeStatus[count].SPD);
-                objchara.GetComponent<Status>().SetMAT(objchara.GetComponent<Status>().GetMAT() - objchara.GetComponent<Status>().changeStatus[count].MAT);
-                objchara.GetComponent<Status>().SetMDF(objchara.GetComponent<Status>().GetMDF() - objchara.GetComponent<Status>().changeStatus[count].MDF);
-                objchara.GetComponent<Status>().SetLUK(objchara.GetComponent<Status>().GetLUK() - objchara.GetComponent<Status>().changeStatus[count].LUK);
+                for (int count = 0; count < objchara.GetComponent<Status>().changeStatus.Count; count++)
+                {
+                    objchara.GetComponent<Status>().SetATK(objchara.GetComponent<Status>().GetATK() - objchara.GetComponent<Status>().changeStatus[count].ATK);
+                    objchara.GetComponent<Status>().SetDEF(objchara.GetComponent<Status>().GetDEF() - objchara.GetComponent<Status>().changeStatus[count].DEF);
+                    objchara.GetComponent<Status>().SetSPD(objchara.GetComponent<Status>().GetSPD() - objchara.GetComponent<Status>().changeStatus[count].SPD);
+                    objchara.GetComponent<Status>().SetMAT(objchara.GetComponent<Status>().GetMAT() - objchara.GetComponent<Status>().changeStatus[count].MAT);
+                    objchara.GetComponent<Status>().SetMDF(objchara.GetComponent<Status>().GetMDF() - objchara.GetComponent<Status>().changeStatus[count].MDF);
+                    objchara.GetComponent<Status>().SetLUK(objchara.GetComponent<Status>().GetLUK() - objchara.GetComponent<Status>().changeStatus[count].LUK);
+                }
             }
         }
     }
@@ -773,6 +1024,11 @@ public class Status : MonoBehaviour
                 }
             }
         }
+    }
+
+    public STATE GetState()
+    {
+        return state;
     }
 
     public void SetHP(int hp)

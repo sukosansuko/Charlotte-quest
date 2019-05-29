@@ -611,7 +611,7 @@ MonoBehaviour:
       charName: "\u30A8\u30EA\u30B6"
       skillName: "\u76EE\u969C\u308A\u3088\u30C3\uFF01"
       Lv: 1
-      power: 0.7
+      power: -0.2
       target: E1
       useChara: Receive
       hpCtl: 0
@@ -627,7 +627,7 @@ MonoBehaviour:
       charName: "\u30A8\u30EA\u30B6"
       skillName: "\u79C1\u306B\u8FD1\u5BC4\u3089\u306A\u3044\u3067\u30C3\uFF01"
       Lv: 8
-      power: 0.7
+      power: -0.2
       target: E1
       useChara: Receive
       hpCtl: 0
@@ -707,7 +707,7 @@ MonoBehaviour:
       charName: "\u30A8\u30EA\u30B6"
       skillName: "\u6B7B\u306B\u306A\u3055\u3044\u30C3\uFF01"
       Lv: 81
-      power: 100000000
+      power: 100000
       target: E1
       useChara: Attack
       hpCtl: 1

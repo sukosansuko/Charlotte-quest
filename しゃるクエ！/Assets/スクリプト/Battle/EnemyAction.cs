@@ -76,53 +76,92 @@ public class EnemyAction : MonoBehaviour
         switch(skillNumber)
         {
             case 1:
-                skillID = EC.sheets[0].list[charID].Skill1;
+                skillID = EC.sheets[0].list[charID].Skill1 - 1;
                 break;
             case 2:
-                skillID = EC.sheets[0].list[charID].Skill2;
+                skillID = EC.sheets[0].list[charID].Skill2 - 1;
                 break;
             case 3:
-                skillID = EC.sheets[0].list[charID].Skill3;
+                skillID = EC.sheets[0].list[charID].Skill3 - 1;
                 break;
             case 4:
-                skillID = EC.sheets[0].list[charID].Skill4;
+                skillID = EC.sheets[0].list[charID].Skill4 - 1;
                 break;
             default:
                 break;
         }
         //  スキルを決定する
-        charaObj.GetComponent<Status>().SaveSkill(skillID - 1);
+        charaObj.GetComponent<Status>().SaveSkill(skillID);
 
-        string target = ES.sheets[0].list[skillID].target;
+        EsetReceive(charaObj);
+    }
+
+     private void EsetReceive(GameObject characterID)
+    {
+        System.Random rnd = new System.Random();
+        string SkillTarget = ES.sheets[0].list[skillID].target;
+
         //  ランダムで標的を決める時用
         int targetID;
         GameObject receive;
-        if (target.StartsWith("P"))
+
+        if (SkillTarget.StartsWith("P"))
         {
-            if (target.Contains("0"))
-            {
-                battleManager.GetComponent<Status>().SaveReceive(charaObj);
-            }
-            else if (target.Contains("1"))
+            if (SkillTarget.Contains("0") || SkillTarget.Contains("1"))
             {
                 targetID = rnd.Next(1, battleManager.GetComponent<command>().GetEnemyCount() + 1);
                 receive = battleManager.GetComponent<command>().GetEnemyChild(targetID - 1);
-                charaObj.GetComponent<Status>().SaveReceive(receive);
+
+                characterID.GetComponent<Status>().SaveReceive(receive);
+            }
+            else if (SkillTarget.Contains("2"))
+            {
+                //  また後で------------------------------------------------------------
             }
             else
             {
+                if (GetComponent<command>().GetEnemyCount() == 3)
+                {
+                    characterID.GetComponent<Status>().SaveReceive(battleManager.GetComponent<command>().GetEnemyChild(0), 
+                        battleManager.GetComponent<command>().GetEnemyChild(1), battleManager.GetComponent<command>().GetEnemyChild(2));
+                }
+                else if (GetComponent<command>().GetEnemyCount() == 2)
+                {
+                    characterID.GetComponent<Status>().SaveReceive(battleManager.GetComponent<command>().GetEnemyChild(0), battleManager.GetComponent<command>().GetEnemyChild(1));
+                }
+                else
+                {
+                    characterID.GetComponent<Status>().SaveReceive(battleManager.GetComponent<command>().GetEnemyChild(0));
+                }
             }
         }
         else
         {
-            if (target.Contains("1"))
+            if (SkillTarget.Contains("1"))
             {
                 targetID = rnd.Next(1, battleManager.GetComponent<command>().GetPlayerCount() + 1);
                 receive = battleManager.GetComponent<command>().GetPlayerChild(targetID - 1);
-                charaObj.GetComponent<Status>().SaveReceive(receive);
+                characterID.GetComponent<Status>().SaveReceive(receive);
+            }
+            else if (SkillTarget.Contains("2"))
+            {
+                //  存在しない------------------------------------------------------------
             }
             else
             {
+                if (GetComponent<command>().GetPlayerCount() == 3)
+                {
+                    characterID.GetComponent<Status>().SaveReceive(battleManager.GetComponent<command>().GetPlayerChild(0),
+                        battleManager.GetComponent<command>().GetPlayerChild(1), battleManager.GetComponent<command>().GetPlayerChild(2));
+                }
+                else if (GetComponent<command>().GetPlayerCount() == 2)
+                {
+                    characterID.GetComponent<Status>().SaveReceive(battleManager.GetComponent<command>().GetPlayerChild(0), battleManager.GetComponent<command>().GetPlayerChild(1));
+                }
+                else
+                {
+                    characterID.GetComponent<Status>().SaveReceive(battleManager.GetComponent<command>().GetPlayerChild(0));
+                }
             }
         }
     }

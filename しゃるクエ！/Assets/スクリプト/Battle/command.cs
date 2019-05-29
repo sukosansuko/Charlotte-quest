@@ -76,6 +76,7 @@ public class command : MonoBehaviour
     {
         commandEnd = true;
 
+        //  ボタンや画像はとりあえず非表示に
         Attack.GetComponent<Image>().enabled = false;
         Support.GetComponent<Image>().enabled = false;
         Item.GetComponent<Image>().enabled = false;
@@ -582,12 +583,71 @@ public class command : MonoBehaviour
 
         //  使用するスキルの情報とスキルを向ける相手を保存する
         characterID.GetComponent<Status>().SaveSkill(SkillID);
-        characterID.GetComponent<Status>().SaveReceive(receive);
+        setReceive(characterID,receive);
 
         Init();
         battleManager.GetComponent<BattleScene>().SetActiveChoose(false);
         commandEnd = true;
     }
+
+    //  技ごとにターゲット数を増やす
+    public void setReceive(GameObject characterID, GameObject receive)
+    {
+        string SkillTarget = PS.sheets[0].list[SkillID].target;
+        if(SkillTarget.StartsWith("P"))
+        {
+            if (SkillTarget.Contains("0") || SkillTarget.Contains("1"))
+            {
+                characterID.GetComponent<Status>().SaveReceive(receive);
+            }
+            else if (SkillTarget.Contains("2"))
+            {
+                //  また後で------------------------------------------------------------
+            }
+            else
+            {
+                if (player.transform.childCount == 3)
+                {
+                    characterID.GetComponent<Status>().SaveReceive(player.GetChild(0).gameObject, player.GetChild(1).gameObject, player.GetChild(2).gameObject);
+                }
+                else if (enemy.transform.childCount == 2)
+                {
+                    characterID.GetComponent<Status>().SaveReceive(player.GetChild(0).gameObject, player.GetChild(1).gameObject);
+                }
+                else
+                {
+                    characterID.GetComponent<Status>().SaveReceive(player.GetChild(0).gameObject);
+                }
+            }
+        }
+        else
+        {
+            if (SkillTarget.Contains("1"))
+            {
+                characterID.GetComponent<Status>().SaveReceive(receive);
+            }
+            else if (SkillTarget.Contains("2"))
+            {
+                //  存在しない------------------------------------------------------------
+            }
+            else
+            {
+                if(enemy.transform.childCount == 3)
+                {
+                    characterID.GetComponent<Status>().SaveReceive(enemy.GetChild(0).gameObject, enemy.GetChild(1).gameObject, enemy.GetChild(2).gameObject);
+                }
+                else if(enemy.transform.childCount == 2)
+                {
+                    characterID.GetComponent<Status>().SaveReceive(enemy.GetChild(0).gameObject, enemy.GetChild(1).gameObject);
+                }
+                else
+                {
+                    characterID.GetComponent<Status>().SaveReceive(enemy.GetChild(0).gameObject);
+                }
+            }
+        }
+    }
+
 
     public void SetActiveSkillText(string text)
     {

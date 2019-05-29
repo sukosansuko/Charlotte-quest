@@ -3106,7 +3106,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: e226af87170549e48bfaa39daa6a70ef, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -5995,7 +5995,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: e226af87170549e48bfaa39daa6a70ef, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -7922,15 +7922,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackObj: {fileID: 168461903}
-  receiveObj: {fileID: 168461903}
+  receiveObj1: {fileID: 0}
+  receiveObj2: {fileID: 0}
+  receiveObj3: {fileID: 0}
   Player1: {fileID: 0}
   Player2: {fileID: 0}
   Player3: {fileID: 0}
   Enemy1: {fileID: 0}
   Enemy2: {fileID: 0}
   Enemy3: {fileID: 0}
-  pID1: 1
-  pID2: 2
+  pID1: 2
+  pID2: 1
   pID3: 5
   eID1: 7
   eID2: 7
@@ -8219,7 +8221,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: e226af87170549e48bfaa39daa6a70ef, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

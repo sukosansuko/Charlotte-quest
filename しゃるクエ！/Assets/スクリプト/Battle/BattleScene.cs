@@ -9,7 +9,9 @@ public class BattleScene : MonoBehaviour
 {
     Queue<Action> battleQueue;
     [SerializeField] private GameObject attackObj;
-    [SerializeField] private GameObject receiveObj;
+    [SerializeField] private GameObject receiveObj1;
+    [SerializeField] private GameObject receiveObj2;
+    [SerializeField] private GameObject receiveObj3;
 
     public GameObject Player1;
     public GameObject Player2;
@@ -70,13 +72,25 @@ public class BattleScene : MonoBehaviour
     public void TakeAction(int spcost, int HpFlag, int AttackType, double healPercent)
     {
         attackObj.GetComponent<Status>().SetBuff();
-        receiveObj.GetComponent<Status>().SetBuff();
+        if(receiveObj1 != null)
+        {
+            receiveObj1.GetComponent<Status>().SetBuff();
+        }
+        if (receiveObj2 != null)
+        {
+            receiveObj2.GetComponent<Status>().SetBuff();
+        }
+        if (receiveObj3 != null)
+        {
+            receiveObj3.GetComponent<Status>().SetBuff();
+        }
+
         //  1ならダメージを与える処理
         if (HpFlag == 1)
         {
             Action action1 = new Action()
             {
-                damage = new Damage { attackChara = attackObj, receiveChara = receiveObj, spCost = spcost, attackType = AttackType}
+                damage = new Damage { attackChara = attackObj, receiveChara1 = receiveObj1, receiveChara2 = receiveObj2, receiveChara3 = receiveObj3, spCost = spcost, attackType = AttackType}
             };
             battleQueue.Enqueue(action1);
         }
@@ -85,7 +99,7 @@ public class BattleScene : MonoBehaviour
         {
             Action action1 = new Action()
             {
-                heal = new Heal { attackChara = attackObj, receiveChara = receiveObj, spCost = spcost, HealPercent = healPercent}
+                heal = new Heal { attackChara = attackObj, receiveChara1 = receiveObj1, receiveChara2 = receiveObj2, receiveChara3 = receiveObj3, spCost = spcost, HealPercent = healPercent}
             };
             battleQueue.Enqueue(action1);
         }
@@ -103,7 +117,7 @@ public class BattleScene : MonoBehaviour
         {
             Action action1 = new Action()
             {
-                buff = new Buff { attackChara = attackObj, receiveChara = receiveObj, spCost = spcost }
+                buff = new Buff { attackChara = attackObj, receiveChara1 = receiveObj1, receiveChara2 = receiveObj2, receiveChara3 = receiveObj3, spCost = spcost }
             };
             battleQueue.Enqueue(action1);
         }
@@ -126,77 +140,189 @@ public class BattleScene : MonoBehaviour
     public class Damage
     {
         public GameObject attackChara;
-        public GameObject receiveChara;
+        public GameObject receiveChara1;
+        public GameObject receiveChara2;
+        public GameObject receiveChara3;
         public int spCost;
         public int attackType;
         public int atk;
         public int def;
-        public int TotalDamage;
+        public int TotalDamage1;
+        public int TotalDamage2;
+        public int TotalDamage3;
 
         public void processing()
         {
-            //  物理攻撃
-            if(attackType == 1)
-            {
-                atk = attackChara.GetComponent<Status>().GetATK();
-                def = receiveChara.GetComponent<Status>().GetDEF();
-            }
-            //  魔法攻撃
-            else if(attackType == 2)
-            {
-                atk = attackChara.GetComponent<Status>().GetMAT();
-                def = receiveChara.GetComponent<Status>().GetMDF();
-            }
-            else
-            {
-            }
-
-            TotalDamage = atk - def;
-            if(TotalDamage <= 0)
-            {
-                TotalDamage = 1;
-            }
             attackChara.GetComponent<Status>().SetSP(attackChara.GetComponent<Status>().GetSP() - spCost);
-            receiveChara.GetComponent<Status>().SetHP(receiveChara.GetComponent<Status>().GetHP() - TotalDamage);
 
-            Debug.Log(attackChara.gameObject.name + "が" + receiveChara.gameObject.name + "に" + TotalDamage + "ダメージ！");
-            Debug.Log("残りHP" + receiveChara.GetComponent<Status>().GetHP());
+            if (receiveChara1)
+            {
+                //  物理攻撃
+                if (attackType == 1)
+                {
+                    atk = attackChara.GetComponent<Status>().GetATK();
+                    def = receiveChara1.GetComponent<Status>().GetDEF();
+                }
+                //  魔法攻撃
+                else if (attackType == 2)
+                {
+                    atk = attackChara.GetComponent<Status>().GetMAT();
+                    def = receiveChara1.GetComponent<Status>().GetMDF();
+                }
+                else
+                {
+                }
+
+                TotalDamage1 = atk - def;
+                if (TotalDamage1 <= 0)
+                {
+                    TotalDamage1 = 1;
+                }
+                receiveChara1.GetComponent<Status>().SetHP(receiveChara1.GetComponent<Status>().GetHP() - TotalDamage1);
+
+                Debug.Log(attackChara.gameObject.name + "が" + receiveChara1.gameObject.name + "に" + TotalDamage1 + "ダメージ！");
+                Debug.Log("残りHP" + receiveChara1.GetComponent<Status>().GetHP());
+            }
+
+            if(receiveChara2)
+            {
+                //  物理攻撃
+                if (attackType == 1)
+                {
+                    atk = attackChara.GetComponent<Status>().GetATK();
+                    def = receiveChara2.GetComponent<Status>().GetDEF();
+                }
+                //  魔法攻撃
+                else if (attackType == 2)
+                {
+                    atk = attackChara.GetComponent<Status>().GetMAT();
+                    def = receiveChara2.GetComponent<Status>().GetMDF();
+                }
+                else
+                {
+                }
+
+                TotalDamage2 = atk - def;
+                if (TotalDamage2 <= 0)
+                {
+                    TotalDamage2 = 1;
+                }
+                receiveChara2.GetComponent<Status>().SetHP(receiveChara2.GetComponent<Status>().GetHP() - TotalDamage2);
+                Debug.Log(attackChara.gameObject.name + "が" + receiveChara2.gameObject.name + "に" + TotalDamage2 + "ダメージ！");
+                Debug.Log("残りHP" + receiveChara2.GetComponent<Status>().GetHP());
+            }
+
+            if (receiveChara3)
+            {
+                //  物理攻撃
+                if (attackType == 1)
+                {
+                    atk = attackChara.GetComponent<Status>().GetATK();
+                    def = receiveChara3.GetComponent<Status>().GetDEF();
+                }
+                //  魔法攻撃
+                else if (attackType == 2)
+                {
+                    atk = attackChara.GetComponent<Status>().GetMAT();
+                    def = receiveChara3.GetComponent<Status>().GetMDF();
+                }
+                else
+                {
+                }
+
+                TotalDamage3 = atk - def;
+                if (TotalDamage3 <= 0)
+                {
+                    TotalDamage3 = 1;
+                }
+                receiveChara3.GetComponent<Status>().SetHP(receiveChara3.GetComponent<Status>().GetHP() - TotalDamage3);
+                Debug.Log(attackChara.gameObject.name + "が" + receiveChara3.gameObject.name + "に" + TotalDamage3 + "ダメージ！");
+                Debug.Log("残りHP" + receiveChara3.GetComponent<Status>().GetHP());
+            }
         }
     }
 
     public class Heal
     {
         public GameObject attackChara;
-        public GameObject receiveChara;
+        public GameObject receiveChara1;
+        public GameObject receiveChara2;
+        public GameObject receiveChara3;
         public int spCost;
         public double HealPercent;
-        public int TotalHeal;
+        public int TotalHeal1;
+        public int TotalHeal2;
+        public int TotalHeal3;
 
         public void processing()
         {
-            TotalHeal = (int)Math.Round(receiveChara.GetComponent<Status>().GetHP() * HealPercent);
-            if (TotalHeal <= 0)
-            {
-                TotalHeal = 1;
-            }
             attackChara.GetComponent<Status>().SetSP(attackChara.GetComponent<Status>().GetSP() - spCost);
-            receiveChara.GetComponent<Status>().SetHP(receiveChara.GetComponent<Status>().GetHP() + TotalHeal);
+            if (receiveChara1)
+            {
+                TotalHeal1 = (int)Math.Round(receiveChara1.GetComponent<Status>().GetHP() * HealPercent);
+                if (TotalHeal1 <= 0)
+                {
+                    TotalHeal1 = 1;
+                }
+                receiveChara1.GetComponent<Status>().SetHP(receiveChara1.GetComponent<Status>().GetHP() + TotalHeal1);
 
-            Debug.Log(receiveChara.gameObject.name + "のHPが" + TotalHeal + "かいふく！");
-            Debug.Log("残りHP" + receiveChara.GetComponent<Status>().GetHP());
+                Debug.Log(receiveChara1.gameObject.name + "のHPが" + TotalHeal1 + "かいふく！");
+                Debug.Log("残りHP" + receiveChara1.GetComponent<Status>().GetHP());
+            }
+
+            if (receiveChara2)
+            {
+                TotalHeal2 = (int)Math.Round(receiveChara2.GetComponent<Status>().GetHP() * HealPercent);
+                if (TotalHeal2 <= 0)
+                {
+                    TotalHeal2 = 1;
+                }
+                receiveChara2.GetComponent<Status>().SetHP(receiveChara2.GetComponent<Status>().GetHP() + TotalHeal2);
+
+                Debug.Log(receiveChara2.gameObject.name + "のHPが" + TotalHeal2 + "かいふく！");
+                Debug.Log("残りHP" + receiveChara2.GetComponent<Status>().GetHP());
+            }
+
+            if (receiveChara3)
+            {
+                TotalHeal3 = (int)Math.Round(receiveChara3.GetComponent<Status>().GetHP() * HealPercent);
+                if (TotalHeal3 <= 0)
+                {
+                    TotalHeal3 = 1;
+                }
+                receiveChara3.GetComponent<Status>().SetHP(receiveChara1.GetComponent<Status>().GetHP() + TotalHeal3);
+
+                Debug.Log(receiveChara3.gameObject.name + "のHPが" + TotalHeal3 + "かいふく！");
+                Debug.Log("残りHP" + receiveChara3.GetComponent<Status>().GetHP());
+            }
         }
     }
 
     public class Buff
     {
         public GameObject attackChara;
-        public GameObject receiveChara;
+        public GameObject receiveChara1;
+        public GameObject receiveChara2;
+        public GameObject receiveChara3;
         public int spCost;
 
         public void processing()
         {
-            Debug.Log(receiveChara.gameObject.name + "の"/* + TotalHeal*/ + "が変化！");
-            Debug.Log("残りHP" + receiveChara.GetComponent<Status>().GetHP());
+            if (receiveChara1)
+            {
+                Debug.Log(receiveChara1.gameObject.name + "の"/* + TotalHeal*/ + "が変化！");
+                Debug.Log("残りHP" + receiveChara1.GetComponent<Status>().GetHP());
+            }
+            if (receiveChara2)
+            {
+                Debug.Log(receiveChara2.gameObject.name + "の"/* + TotalHeal*/ + "が変化！");
+                Debug.Log("残りHP" + receiveChara2.GetComponent<Status>().GetHP());
+            }
+            if (receiveChara3)
+            {
+                Debug.Log(receiveChara3.gameObject.name + "の"/* + TotalHeal*/ + "が変化！");
+                Debug.Log("残りHP" + receiveChara3.GetComponent<Status>().GetHP());
+            }
         }
     }
 
@@ -269,14 +395,39 @@ public class BattleScene : MonoBehaviour
     }
 
     //  攻撃を受けるキャラをセット
-    public void SetReceiveObj(GameObject obj)
+    public void SetReceiveObj(GameObject obj1)
     {
-        receiveObj = obj;
+        receiveObj1 = obj1;
     }
 
-    public GameObject GetReceiveObj()
+    public void SetReceiveObj(GameObject obj1,GameObject obj2)
     {
-        return receiveObj;
+        receiveObj1 = obj1;
+        receiveObj2 = obj2;
+    }
+
+    public void SetReceiveObj(GameObject obj1, GameObject obj2,GameObject obj3)
+    {
+        receiveObj1 = obj1;
+        receiveObj2 = obj2;
+        receiveObj3 = obj3;
+    }
+
+    public GameObject GetReceiveObj(int number)
+    {
+        if(number == 1)
+        {
+            return receiveObj1;
+        }
+        if(number == 2)
+        {
+            return receiveObj2;
+        }
+        if(number == 3)
+        {
+            return receiveObj3;
+        }
+        return receiveObj1;
     }
 
     public void SetActionFlag(bool flag)
