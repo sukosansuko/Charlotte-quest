@@ -20,6 +20,9 @@ public class HPText : MonoBehaviour
 
     public void SetHP()
     {
-        this.gameObject.GetComponent<Text>().text = "HP:" + Convert.ToString(status.GetComponent<Status>().GetHP());
+        if (status)
+        {
+            this.gameObject.GetComponent<Text>().text = "HP:" + Convert.ToString(status.GetComponent<Status>().GetHP());
+        }
     }
 }

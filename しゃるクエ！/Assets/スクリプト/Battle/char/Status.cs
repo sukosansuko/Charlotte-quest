@@ -7,7 +7,7 @@ using System;
 
 public class Status : MonoBehaviour
 {
-    private string CharName;                    //  キャラクターの名前
+    [SerializeField] private string CharName;   //  キャラクターの名前
     [SerializeField] private int LV;            //  レベル
     [SerializeField] private int HP;            //  体力
     [SerializeField] private int SP;            //  技の発動に必要
@@ -17,6 +17,8 @@ public class Status : MonoBehaviour
     [SerializeField] private int MAT;           //  魔法攻撃力
     [SerializeField] private int MDF;           //  魔法防御力
     [SerializeField] private int LUK;           //  幸運値
+
+    private int WAIT_SPD;                       //  技発動までの待機用の素早さ
 
     //  プレイヤー用画像読み込み
     [SerializeField] private Sprite psp1;
@@ -37,7 +39,14 @@ public class Status : MonoBehaviour
     public GameObject MyTarget;
     public GameObject TLIcon;
     public GameObject turnPointer;
-    public GameObject HPDisplay;
+    //  敵用HP
+    public GameObject EHPDisplay;
+    //  プレイヤー用ステータス表示
+    public GameObject charName;
+    public GameObject PHPDisplay;
+    public GameObject PSPDisplay;
+    public GameObject PCondition;
+
 
     player_charaList PC;
     player_skillList PS;
@@ -109,7 +118,7 @@ public class Status : MonoBehaviour
     public STATE state;
 
     private bool actionFlag = false;
-    private int testTime = 0;
+    private int waitTime = 0;
     private bool skillInputFlag = false;
 
     private int spCost;
@@ -162,7 +171,7 @@ public class Status : MonoBehaviour
             Destroy(MyTarget);
             if(!playerProof)
             {
-                Destroy(HPDisplay);
+                Destroy(EHPDisplay);
             }
             Destroy(this.gameObject);
         }
@@ -246,7 +255,16 @@ public class Status : MonoBehaviour
             //  行動開始
             if (TLProgress >= 300)
             {
-                testTime++;
+                //if(playerProof)
+                //{
+
+                //}
+                //else
+                //{
+
+                //}
+
+                waitTime++;
                 if (!actionFlag)
                 {
                     battleManager.GetComponent<BattleScene>().SetAttackObj(this.gameObject);
@@ -260,7 +278,7 @@ public class Status : MonoBehaviour
                     actionFlag = true;
                 }
 
-                if(testTime >= 100)
+                if(waitTime >= 100)
                 {
                     battleManager.GetComponent<command>().ActionEnd();
 
@@ -282,7 +300,7 @@ public class Status : MonoBehaviour
                     actionFlag = false;
                     progressEnd = false;
                     battleManager.GetComponent<BattleScene>().SetActionFlag(false);
-                    testTime = 0;
+                    waitTime = 0;
                     CheckBuff();
                 }
             }
@@ -327,35 +345,47 @@ public class Status : MonoBehaviour
                 TLIcon.GetComponent<Image>().enabled = true;
                 TLProgress = 0;
             }
-            sceneNavigator.GetComponent<StatusControl>().SetStatus(charID - 1,ref CharName,ref LV,ref HP,ref SP,ref ATK,ref DEF,ref SPD,ref MAT,ref MDF,ref LUK);
-            MAX_HP = HP;
-            MAX_SP = SP;
-            TURN = 0;
 
-            switch (charID)
+            //  charIDが0(存在しない)ならデリートする
+            if (charID == 0)
             {
-                case 1:
-                    GetComponent<Image>().sprite = psp1;
-                    break;
-                case 2:
-                    GetComponent<Image>().sprite = psp2;
-                    break;
-                case 3:
-                    GetComponent<Image>().sprite = psp3;
-                    break;
-                case 4:
-                    GetComponent<Image>().sprite = psp4;
-                    break;
-                case 5:
-                    GetComponent<Image>().sprite = psp5;
-                    break;
-                case 6:
-                    GetComponent<Image>().sprite = psp6;
-                    break;
-                default:
-                    break;
+                Destroy(TLIcon);
+                Destroy(MyTarget);
+                Destroy(this.gameObject);
             }
+            else
+            {
+                sceneNavigator.GetComponent<StatusControl>().SetStatus(charID - 1, ref CharName, ref LV, ref HP, ref SP, ref ATK, ref DEF, ref SPD, ref MAT, ref MDF, ref LUK);
+                charName.GetComponent<StatusWindow>().SetName();
 
+                MAX_HP = HP;
+                MAX_SP = SP;
+                TURN = 0;
+
+                switch (charID)
+                {
+                    case 1:
+                        GetComponent<Image>().sprite = psp1;
+                        break;
+                    case 2:
+                        GetComponent<Image>().sprite = psp2;
+                        break;
+                    case 3:
+                        GetComponent<Image>().sprite = psp3;
+                        break;
+                    case 4:
+                        GetComponent<Image>().sprite = psp4;
+                        break;
+                    case 5:
+                        GetComponent<Image>().sprite = psp5;
+                        break;
+                    case 6:
+                        GetComponent<Image>().sprite = psp6;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
         else
         {
@@ -363,46 +393,44 @@ public class Status : MonoBehaviour
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(1);
                 TLIcon.GetComponent<Image>().enabled = true;
-                HPDisplay = GameObject.Find("enemyHP1");
-                HPDisplay.GetComponent<Text>().enabled = true;
+                EHPDisplay = GameObject.Find("enemyHP1");
+                EHPDisplay.GetComponent<Text>().enabled = true;
                 TLProgress = 40;
             }
             else if (Name.Contains("2"))
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(2);
                 TLIcon.GetComponent<Image>().enabled = true;
-                HPDisplay = GameObject.Find("enemyHP2");
-                HPDisplay.GetComponent<Text>().enabled = true;
+                EHPDisplay = GameObject.Find("enemyHP2");
+                EHPDisplay.GetComponent<Text>().enabled = true;
                 TLProgress = 20;
             }
             else
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(3);
                 TLIcon.GetComponent<Image>().enabled = true;
-                HPDisplay = GameObject.Find("enemyHP3");
-                HPDisplay.GetComponent<Text>().enabled = true;
+                EHPDisplay = GameObject.Find("enemyHP3");
+                EHPDisplay.GetComponent<Text>().enabled = true;
                 TLProgress = 0;
             }
-            SetEnemyStatus(charID - 1,ref CharName, ref LV, ref HP, ref SP, ref ATK, ref DEF, ref SPD, ref MAT, ref MDF, ref LUK);
-            MAX_HP = HP;
-            MAX_SP = SP;
-            TURN = 0;
 
-            battleManager.GetComponent<EnemyAction>().EnemyCharaChange(this.gameObject,charID);
-        }
+            //  charIDが0(存在しない)ならデリートする
+            if (charID == 0)
+            {
+                Destroy(TLIcon);
+                Destroy(MyTarget);
+                Destroy(EHPDisplay);
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                SetEnemyStatus(charID - 1, ref CharName, ref LV, ref HP, ref SP, ref ATK, ref DEF, ref SPD, ref MAT, ref MDF, ref LUK);
+                MAX_HP = HP;
+                MAX_SP = SP;
+                TURN = 0;
 
-        if (charID != 0)
-        {
-            //Debug.Log(CharName);
-            //Debug.Log("LV" + LV);
-            //Debug.Log("HP" + HP);
-            //Debug.Log("SP" + SP);
-            //Debug.Log("ATK" + ATK);
-            //Debug.Log("DEF" + DEF);
-            //Debug.Log("SPD" + SPD);
-            //Debug.Log("MAT" + MAT);
-            //Debug.Log("MDF" + MDF);
-            //Debug.Log("LUK" + LUK);
+                battleManager.GetComponent<EnemyAction>().EnemyCharaChange(this.gameObject, charID);
+            }
         }
 
         state = STATE.ST_STAND;
@@ -954,6 +982,11 @@ public class Status : MonoBehaviour
             else
             {
             }
+
+            if(!UseObj)
+            {
+                break;
+            }
         }
     }
 
@@ -1031,6 +1064,11 @@ public class Status : MonoBehaviour
         return state;
     }
 
+    public string GetCharName()
+    {
+        return CharName;
+    }
+
     public void SetHP(int hp)
     {
         this.HP = hp;
@@ -1049,6 +1087,11 @@ public class Status : MonoBehaviour
         return HP;
     }
 
+    public int GetMAXHP()
+    {
+        return MAX_HP;
+    }
+
     public void SetSP(int sp)
     {
         this.SP = sp;
@@ -1065,6 +1108,11 @@ public class Status : MonoBehaviour
     public int GetSP()
     {
         return SP;
+    }
+
+    public int GetMAXSP()
+    {
+        return MAX_SP;
     }
 
     public void SetATK(int atk)
