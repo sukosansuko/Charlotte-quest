@@ -109,5 +109,9 @@ public class BGMselect : SingletonMonoBehaviour<BGMselect>
             }
         }
         prevScene = activScene;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 }
