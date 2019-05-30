@@ -434,6 +434,7 @@ public class Status : MonoBehaviour
         }
 
         state = STATE.ST_STAND;
+        SetAnim();
     }
 
     //  ターゲットの切り替え用
@@ -1202,5 +1203,58 @@ public class Status : MonoBehaviour
     public int GetTurn()
     {
         return TURN;
+    }
+
+    private void SetAnim()
+    {
+        if(playerProof)
+        {
+            switch(state)
+            {
+                case STATE.ST_STAND:
+                    if (charID == 1)
+                    {
+                        Animator anim = gameObject.GetComponent<Animator>();
+                        anim.Play("ldol");
+                        anim.
+                    }
+                    break;
+                case STATE.ST_ATK:
+                    break;
+                case STATE.ST_DEF:
+                    break;
+                case STATE.ST_DAMAGE:
+                    break;
+                case STATE.ST_DEAD:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void ResetAnim()
+    {
+        if(playerProof)
+        {
+            switch(charID)
+            {
+                case 1:
+
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
