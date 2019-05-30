@@ -140,6 +140,12 @@ public class EnemyAction : MonoBehaviour
             if (SkillTarget.Contains("1"))
             {
                 targetID = rnd.Next(1, battleManager.GetComponent<command>().GetPlayerCount() + 1);
+
+                //  死んでないプレイヤーが選ばれるまで選び続ける
+                //while(battleManager.GetComponent<command>().GetPlayerChild(targetID - 1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                //{
+                //    targetID = rnd.Next(1, battleManager.GetComponent<command>().GetPlayerCount() + 1);
+                //}
                 receive = battleManager.GetComponent<command>().GetPlayerChild(targetID - 1);
                 characterID.GetComponent<Status>().SaveReceive(receive);
             }
@@ -149,10 +155,11 @@ public class EnemyAction : MonoBehaviour
             }
             else
             {
+
                 if (GetComponent<command>().GetPlayerCount() == 3)
                 {
                     characterID.GetComponent<Status>().SaveReceive(battleManager.GetComponent<command>().GetPlayerChild(0),
-                        battleManager.GetComponent<command>().GetPlayerChild(1), battleManager.GetComponent<command>().GetPlayerChild(2));
+                    battleManager.GetComponent<command>().GetPlayerChild(1), battleManager.GetComponent<command>().GetPlayerChild(2));
                 }
                 else if (GetComponent<command>().GetPlayerCount() == 2)
                 {

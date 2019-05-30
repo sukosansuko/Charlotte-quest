@@ -182,6 +182,7 @@ public class BattleScene : MonoBehaviour
 
                 Debug.Log(attackChara.gameObject.name + "が" + receiveChara1.gameObject.name + "に" + TotalDamage1 + "ダメージ！");
                 Debug.Log("残りHP" + receiveChara1.GetComponent<Status>().GetHP());
+                receiveChara1.GetComponent<Status>().SetState(Status.STATE.ST_DAMAGE);
             }
 
             if(receiveChara2)
@@ -210,6 +211,7 @@ public class BattleScene : MonoBehaviour
                 receiveChara2.GetComponent<Status>().SetHP(receiveChara2.GetComponent<Status>().GetHP() - TotalDamage2);
                 Debug.Log(attackChara.gameObject.name + "が" + receiveChara2.gameObject.name + "に" + TotalDamage2 + "ダメージ！");
                 Debug.Log("残りHP" + receiveChara2.GetComponent<Status>().GetHP());
+                receiveChara2.GetComponent<Status>().SetState(Status.STATE.ST_DAMAGE);
             }
 
             if (receiveChara3)
@@ -238,6 +240,7 @@ public class BattleScene : MonoBehaviour
                 receiveChara3.GetComponent<Status>().SetHP(receiveChara3.GetComponent<Status>().GetHP() - TotalDamage3);
                 Debug.Log(attackChara.gameObject.name + "が" + receiveChara3.gameObject.name + "に" + TotalDamage3 + "ダメージ！");
                 Debug.Log("残りHP" + receiveChara3.GetComponent<Status>().GetHP());
+                receiveChara3.GetComponent<Status>().SetState(Status.STATE.ST_DAMAGE);
             }
         }
     }

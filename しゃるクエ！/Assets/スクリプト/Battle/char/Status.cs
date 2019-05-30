@@ -28,6 +28,18 @@ public class Status : MonoBehaviour
     [SerializeField] private Sprite psp5;
     [SerializeField] private Sprite psp6;
 
+    //  プレイヤー用アイコン
+    [SerializeField] private Sprite pIcon1;
+    [SerializeField] private Sprite pIcon2;
+    [SerializeField] private Sprite pIcon3;
+    [SerializeField] private Sprite pIcon4;
+    [SerializeField] private Sprite pIcon5;
+    [SerializeField] private Sprite pIcon6;
+
+    //  通常時の色
+    Color color1 = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+    //  薄暗い
+    Color color2 = new Color(0.5f, 0.5f, 0.5f, 1.0f);
 
     private int TURN;                           //  行動回数
     private string AResistance;                 //  物理耐性(基本は敵のみ)
@@ -130,6 +142,7 @@ public class Status : MonoBehaviour
     private GameObject ReceiveChara2;
     private GameObject ReceiveChara3;
 
+    private Animator anim;
 
     void Start()
     {
@@ -141,7 +154,6 @@ public class Status : MonoBehaviour
         }
 
         battleManager = GameObject.Find("BattleManager");
-
         sceneNavigator = GameObject.Find("SceneNavigator");
 
         Name = this.gameObject.name;
@@ -159,9 +171,9 @@ public class Status : MonoBehaviour
     void Update()
     {
         //  プレイヤーの場合はアニメーションを入れる
-        if(playerProof)
+        if (playerProof)
         {
-            Anim();
+            SetAnim();
         }
 
         if (state == STATE.ST_DEAD)
@@ -169,37 +181,17 @@ public class Status : MonoBehaviour
             //battleManager.GetComponent<command>().SetTargetStart(Name);
             Destroy(TLIcon);
             Destroy(MyTarget);
-            if(!playerProof)
+            if (!playerProof)
             {
                 Destroy(EHPDisplay);
+                Destroy(this.gameObject);
             }
-            Destroy(this.gameObject);
+            image.color = color2;
         }
-        TLManager();
-    }
-
-    //  プレイヤー用のアニメーション処理
-    private void Anim()
-    {
-        switch(state)
+        else
         {
-            case STATE.ST_STAND:
-
-                break;
-            case STATE.ST_ATK:
-
-                break;
-            case STATE.ST_DEF:
-
-                break;
-            case STATE.ST_DAMAGE:
-
-                break;
-            case STATE.ST_DEAD:
-
-                break;
-            default:
-                break;
+            state = STATE.ST_STAND;
+            TLManager();
         }
     }
 
@@ -238,6 +230,7 @@ public class Status : MonoBehaviour
                 if (playerProof)
                 {
                     battleManager.GetComponent<command>().SetCharID(charID - 1);
+                    battleManager.GetComponent<command>().SetLV(LV);
                     battleManager.GetComponent<BattleScene>().SetActiveChoose(true);
                     battleManager.GetComponent<command>().commandDisplay();
                     //  ポインターの表示
@@ -273,16 +266,33 @@ public class Status : MonoBehaviour
 
                     battleManager.GetComponent<BattleScene>().TakeAction(spCost,HPCtlFlag,AttackType,HealPercent);
 
+                    //  色の変更
+                    battleManager.GetComponent<command>().changeColor(color2);
+                    image.color = color1;
+                    if (ReceiveChara1 != null)
+                    {
+                        ReceiveChara1.GetComponent<Image>().color = color1;
+                    }
+                    if (ReceiveChara2 != null)
+                    {
+                        ReceiveChara2.GetComponent<Image>().color = color1;
+                    }
+                    if (ReceiveChara3 != null)
+                    {
+                        ReceiveChara3.GetComponent<Image>().color = color1;
+                    }
+
                     battleManager.GetComponent<BattleScene>().SetActionFlag(true);
 
                     actionFlag = true;
+                    state = STATE.ST_ATK;
                 }
+
 
                 if(waitTime >= 100)
                 {
                     battleManager.GetComponent<command>().ActionEnd();
 
-                    //ReceiveChara = battleManager.GetComponent<BattleScene>().GetReceiveObj();
                     if (ReceiveChara1 != null && ReceiveChara1.GetComponent<Status>().GetHP() <= 0)
                     {
                         ReceiveChara1.GetComponent<Status>().Dead();
@@ -302,6 +312,8 @@ public class Status : MonoBehaviour
                     battleManager.GetComponent<BattleScene>().SetActionFlag(false);
                     waitTime = 0;
                     CheckBuff();
+                    battleManager.GetComponent<command>().changeColor(color1);
+                    battleManager.GetComponent<BattleScene>().SetReceiveObj(null, null, null);
                 }
             }
 
@@ -366,25 +378,34 @@ public class Status : MonoBehaviour
                 {
                     case 1:
                         GetComponent<Image>().sprite = psp1;
+                        TLIcon.GetComponent<Image>().sprite = pIcon1;
                         break;
                     case 2:
                         GetComponent<Image>().sprite = psp2;
+                        TLIcon.GetComponent<Image>().sprite = pIcon2;
                         break;
                     case 3:
                         GetComponent<Image>().sprite = psp3;
+                        TLIcon.GetComponent<Image>().sprite = pIcon3;
                         break;
                     case 4:
                         GetComponent<Image>().sprite = psp4;
+                        TLIcon.GetComponent<Image>().sprite = pIcon4;
                         break;
                     case 5:
                         GetComponent<Image>().sprite = psp5;
+                        TLIcon.GetComponent<Image>().sprite = pIcon5;
                         break;
                     case 6:
                         GetComponent<Image>().sprite = psp6;
+                        TLIcon.GetComponent<Image>().sprite = pIcon6;
                         break;
                     default:
                         break;
                 }
+
+                //  アニメーションを利用できるように
+                anim = gameObject.GetComponent<Animator>();
             }
         }
         else
@@ -447,11 +468,6 @@ public class Status : MonoBehaviour
     {
         image = GetComponent<Image>();
         image.raycastTarget = flag;
-    }
-
-    public void SetState(STATE st)
-    {
-        this.state = st;
     }
 
     private void SetEnemyStatus(int id,ref string charName,ref int lv, ref int hp, ref int sp, ref int atk, ref int def, ref int spd, ref int mat, ref int mdf, ref int luk)
@@ -820,6 +836,7 @@ public class Status : MonoBehaviour
             {
                 battleManager.GetComponent<command>().changeTarget(playerProof,ES.sheets[0].list[skillID].target);
             }
+            ReceiveChara1 = battleManager.GetComponent<BattleScene>().GetReceiveObj(1);
         }
 
         GameObject UseObj = AttackObj;
@@ -1059,14 +1076,14 @@ public class Status : MonoBehaviour
         }
     }
 
-    public STATE GetState()
-    {
-        return state;
-    }
-
     public string GetCharName()
     {
         return CharName;
+    }
+
+    public int GetLV()
+    {
+        return LV;
     }
 
     public void SetHP(int hp)
@@ -1202,5 +1219,66 @@ public class Status : MonoBehaviour
     public int GetTurn()
     {
         return TURN;
+    }
+
+    //  state取得
+    public STATE GetState()
+    {
+        return state;
+    }
+
+    public void SetState(STATE st)
+    {
+        this.state = st;
+    }
+
+
+    //  プレイヤー用のアニメーション処理
+    private void SetAnim()
+    {
+        if(state == STATE.ST_STAND)
+        {
+            anim.SetBool("isIdol", true);
+        }
+        else
+        {
+            anim.SetBool("isIdol", false);
+        }
+
+        if (state == STATE.ST_ATK)
+        {
+            anim.SetBool("isAttack", true);
+        }
+        else
+        {
+            anim.SetBool("isAttack", false);
+        }
+
+        if (state == STATE.ST_DEF)
+        {
+            anim.SetBool("isDefence", true);
+        }
+        else
+        {
+            anim.SetBool("isDefence", false);
+        }
+
+        if (state == STATE.ST_DAMAGE)
+        {
+            anim.SetBool("isDamage", true);
+        }
+        else
+        {
+            anim.SetBool("isDamage", false);
+        }
+
+        if (state == STATE.ST_DEAD)
+        {
+            anim.SetBool("isDeath", true);
+        }
+        else
+        {
+            anim.SetBool("isDeath", false);
+        }
     }
 }

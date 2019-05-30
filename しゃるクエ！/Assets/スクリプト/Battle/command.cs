@@ -7,7 +7,6 @@ using System;
 
 public class command : MonoBehaviour
 {
-
     public enum TYPE
     {
         TYPE_NON,
@@ -60,6 +59,8 @@ public class command : MonoBehaviour
     private GameObject TargetChar;
 
     private List<int> SaveSkillIDList = new List<int>();
+
+    private int charLV;
 
     void Start()
     {
@@ -195,8 +196,11 @@ public class command : MonoBehaviour
         {
             if (IDList[count] != 0)
             {
-                attackText.GetChild(count).gameObject.SetActive(true);
-                attackText.GetChild(count).gameObject.GetComponent<Text>().text = PS.sheets[0].list[IDList[count] - 1].skillName;
+                if (charLV >= PS.sheets[0].list[IDList[count] - 1].Lv)
+                {
+                    attackText.GetChild(count).gameObject.SetActive(true);
+                    attackText.GetChild(count).gameObject.GetComponent<Text>().text = PS.sheets[0].list[IDList[count] - 1].skillName;
+                }
             }
         }
         SkillID = (int)PC.sheets[0].list[charID].AttackSkill1 - 1;
@@ -220,8 +224,11 @@ public class command : MonoBehaviour
         {
             if (IDList[count] != 0)
             {
-                supportText.GetChild(count).gameObject.SetActive(true);
-                supportText.GetChild(count).gameObject.GetComponent<Text>().text = PS.sheets[0].list[IDList[count] - 1].skillName;
+                if (charLV >= PS.sheets[0].list[IDList[count] - 1].Lv)
+                {
+                    supportText.GetChild(count).gameObject.SetActive(true);
+                    supportText.GetChild(count).gameObject.GetComponent<Text>().text = PS.sheets[0].list[IDList[count] - 1].skillName;
+                }
             }
         }
         SkillID = (int)PC.sheets[0].list[charID].SupportSkill1 - 1;
@@ -540,6 +547,11 @@ public class command : MonoBehaviour
         charID = id;
     }
 
+    public void SetLV(int lv)
+    {
+        charLV = lv;
+    }
+
     public void InitTarget()
     {
         target = 0;
@@ -730,6 +742,19 @@ public class command : MonoBehaviour
             {
                 battleManager.GetComponent<BattleScene>().SetReceiveObj(player.GetChild(0).gameObject);
             }
+        }
+    }
+
+    //  行動時の色変更用
+    public void changeColor(Color clr)
+    {
+        foreach (Transform child in player)
+        {
+            child.gameObject.GetComponent<Image>().color = clr;
+        }
+        foreach (Transform child in enemy)
+        {
+            child.gameObject.GetComponent<Image>().color = clr;
         }
     }
 
