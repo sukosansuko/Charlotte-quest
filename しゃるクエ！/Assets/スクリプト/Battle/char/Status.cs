@@ -36,6 +36,8 @@ public class Status : MonoBehaviour
     [SerializeField] private Sprite pIcon5;
     [SerializeField] private Sprite pIcon6;
 
+    public Button ContinueBtn;
+
     //  通常時の色
     Color color1 = new Color(1.0f, 1.0f, 1.0f, 1.0f);
     //  薄暗い
@@ -178,20 +180,22 @@ public class Status : MonoBehaviour
 
         if (state == STATE.ST_DEAD)
         {
-            //battleManager.GetComponent<command>().SetTargetStart(Name);
             Destroy(TLIcon);
+            ContinueBtn.interactable = false;
             Destroy(MyTarget);
             if (!playerProof)
             {
                 Destroy(EHPDisplay);
                 Destroy(this.gameObject);
             }
-            image.color = color2;
         }
         else
         {
             state = STATE.ST_STAND;
-            TLManager();
+            if (battleManager.GetComponent<command>().GetEnemyCount() != 0 && battleManager.GetComponent<command>().PlayerAlive())
+            {
+                TLManager();
+            }
         }
     }
 
@@ -248,15 +252,6 @@ public class Status : MonoBehaviour
             //  行動開始
             if (TLProgress >= 300)
             {
-                //if(playerProof)
-                //{
-
-                //}
-                //else
-                //{
-
-                //}
-
                 waitTime++;
                 if (!actionFlag)
                 {
@@ -285,14 +280,12 @@ public class Status : MonoBehaviour
                     battleManager.GetComponent<BattleScene>().SetActionFlag(true);
 
                     actionFlag = true;
-                    state = STATE.ST_ATK;
                 }
 
 
                 if(waitTime >= 100)
                 {
                     battleManager.GetComponent<command>().ActionEnd();
-
                     if (ReceiveChara1 != null && ReceiveChara1.GetComponent<Status>().GetHP() <= 0)
                     {
                         ReceiveChara1.GetComponent<Status>().Dead();
@@ -379,33 +372,42 @@ public class Status : MonoBehaviour
                     case 1:
                         GetComponent<Image>().sprite = psp1;
                         TLIcon.GetComponent<Image>().sprite = pIcon1;
+                        anim = gameObject.AddComponent<Animator>();
+                        anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("戦闘時アニメ/シャル/Anim");
                         break;
                     case 2:
                         GetComponent<Image>().sprite = psp2;
                         TLIcon.GetComponent<Image>().sprite = pIcon2;
+                        anim = gameObject.AddComponent<Animator>();
+                        anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("戦闘時アニメ/カーラ/Anim");
                         break;
                     case 3:
                         GetComponent<Image>().sprite = psp3;
                         TLIcon.GetComponent<Image>().sprite = pIcon3;
+                        anim = gameObject.AddComponent<Animator>();
+                        anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("戦闘時アニメ/豪鬼/Anim");
                         break;
                     case 4:
                         GetComponent<Image>().sprite = psp4;
                         TLIcon.GetComponent<Image>().sprite = pIcon4;
+                        anim = gameObject.AddComponent<Animator>();
+                        anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("戦闘時アニメ/リリー/Anim");
                         break;
                     case 5:
                         GetComponent<Image>().sprite = psp5;
                         TLIcon.GetComponent<Image>().sprite = pIcon5;
+                        anim = gameObject.AddComponent<Animator>();
+                        anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("戦闘時アニメ/エリザ/Anim");
                         break;
                     case 6:
                         GetComponent<Image>().sprite = psp6;
                         TLIcon.GetComponent<Image>().sprite = pIcon6;
+                        anim = gameObject.AddComponent<Animator>();
+                        anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("戦闘時アニメ/パンドラ/Anim");
                         break;
                     default:
                         break;
                 }
-
-                //  アニメーションを利用できるように
-                anim = gameObject.GetComponent<Animator>();
             }
         }
         else
@@ -791,22 +793,61 @@ public class Status : MonoBehaviour
             }
         }
 
-        if(ReceiveChara3 != null)
+
+        int count = 0;
+        GameObject rec1 = null;
+        GameObject rec2 = null;
+
+        if(ReceiveChara1 != null && ReceiveChara1.GetComponent<Status>().GetState() != STATE.ST_DEAD)
+        {
+            rec1 = ReceiveChara1;
+            count++;
+        }
+        if (ReceiveChara2 != null && ReceiveChara1.GetComponent<Status>().GetState() != STATE.ST_DEAD)
+        {
+            if(!rec1)
+            {
+                rec1 = ReceiveChara2;
+            }
+            else
+            {
+                rec2 = ReceiveChara2;
+            }
+            count++;
+        }
+        if (ReceiveChara3 != null && ReceiveChara1.GetComponent<Status>().GetState() != STATE.ST_DEAD)
+        {
+            if(!rec1)
+            {
+                rec1 = ReceiveChara3;
+            }
+            else if(!rec2)
+            {
+                rec2 = ReceiveChara3;
+            }
+            else
+            {
+            }
+            count++;
+        }
+
+
+        if(count == 1)
+        {
+            battleManager.GetComponent<BattleScene>().SetReceiveObj(rec1);
+        }
+        else if(count == 2)
+        {
+            battleManager.GetComponent<BattleScene>().SetReceiveObj(rec1,rec2);
+        }
+        else if(count == 3)
         {
             battleManager.GetComponent<BattleScene>().SetReceiveObj(ReceiveChara1, ReceiveChara2, ReceiveChara3);
         }
         else
         {
-            if (ReceiveChara2 != null)
-            {
-                battleManager.GetComponent<BattleScene>().SetReceiveObj(ReceiveChara1,ReceiveChara2);
-            }
-            else
-            {
-                battleManager.GetComponent<BattleScene>().SetReceiveObj(ReceiveChara1);
-            }
-            
         }
+
         SkillInfluence(skillID);
 
         spCost = (int)PS.sheets[0].list[skillID].sp;
@@ -823,20 +864,92 @@ public class Status : MonoBehaviour
 
         GameObject AttackObj = battleManager.GetComponent<BattleScene>().GetAttackObj();
 
-        //  前の行動で標的が死亡してたら標的を変える
-        if (battleManager.GetComponent<BattleScene>().GetReceiveObj(1) == null 
-            && battleManager.GetComponent<BattleScene>().GetReceiveObj(2) == null 
+        //  前の行動で敵が死亡してたら標的を変える
+        if (battleManager.GetComponent<BattleScene>().GetReceiveObj(1) == null
+            && battleManager.GetComponent<BattleScene>().GetReceiveObj(2) == null
             && battleManager.GetComponent<BattleScene>().GetReceiveObj(3) == null)
         {
+            //　プレイヤーが敵に向かって行動する時用
             if (playerProof)
             {
-                battleManager.GetComponent<command>().changeTarget(playerProof,PS.sheets[0].list[skillID].target);
+                if (PS.sheets[0].list[skillID].target.StartsWith("E"))
+                {
+                    battleManager.GetComponent<command>().changeTarget(playerProof, PS.sheets[0].list[skillID].target);
+                    ReceiveChara1 = battleManager.GetComponent<BattleScene>().GetReceiveObj(1);
+                }
             }
+            //  敵が敵に向かって行動する時用
             else
             {
-                battleManager.GetComponent<command>().changeTarget(playerProof,ES.sheets[0].list[skillID].target);
+                if (ES.sheets[0].list[skillID].target.StartsWith("E"))
+                {
+                    battleManager.GetComponent<command>().changeTarget(playerProof, ES.sheets[0].list[skillID].target);
+                    ReceiveChara1 = battleManager.GetComponent<BattleScene>().GetReceiveObj(1);
+                }
             }
-            ReceiveChara1 = battleManager.GetComponent<BattleScene>().GetReceiveObj(1);
+        }
+
+        //  前の行動でプレイヤーが死亡してたら標的を変える
+        if ((battleManager.GetComponent<BattleScene>().GetReceiveObj(1) && battleManager.GetComponent<BattleScene>().GetReceiveObj(1).GetComponent<Status>().GetState() == STATE.ST_DEAD)
+            || (battleManager.GetComponent<BattleScene>().GetReceiveObj(2) && battleManager.GetComponent<BattleScene>().GetReceiveObj(2).GetComponent<Status>().GetState() == STATE.ST_DEAD)
+            || (battleManager.GetComponent<BattleScene>().GetReceiveObj(3) && battleManager.GetComponent<BattleScene>().GetReceiveObj(3).GetComponent<Status>().GetState() == STATE.ST_DEAD))
+        {
+            //　プレイヤーがプレイヤーに向かって行動する時用
+            if (playerProof)
+            {
+                if (PS.sheets[0].list[skillID].target.StartsWith("P"))
+                {
+                    if (PS.sheets[0].list[skillID].target.Contains("1"))
+                    {
+                        if (battleManager.GetComponent<command>().GetPlayerChild(0).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                        {
+                            battleManager.GetComponent<BattleScene>().SetReceiveObj(battleManager.GetComponent<command>().GetPlayerChild(0));
+                        }
+                        else if (battleManager.GetComponent<command>().GetPlayerChild(1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                        {
+                            battleManager.GetComponent<BattleScene>().SetReceiveObj(battleManager.GetComponent<command>().GetPlayerChild(1));
+                        }
+                        else if (battleManager.GetComponent<command>().GetPlayerChild(1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                        {
+                            battleManager.GetComponent<BattleScene>().SetReceiveObj(battleManager.GetComponent<command>().GetPlayerChild(2));
+                        }
+                        ReceiveChara1 = battleManager.GetComponent<BattleScene>().GetReceiveObj(1);
+                    }
+
+                    //  3人に対する行動
+                    else
+                    {
+                        NonTarget3();
+                    }
+                }
+            }
+            //  敵がプレイヤーに向かって行動する時用
+            else
+            {
+                if (ES.sheets[0].list[skillID].target.StartsWith("P"))
+                {
+                    if (ES.sheets[0].list[skillID].target.Contains("1"))
+                    {
+                        if (battleManager.GetComponent<command>().GetPlayerChild(0).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                        {
+                            battleManager.GetComponent<BattleScene>().SetReceiveObj(battleManager.GetComponent<command>().GetPlayerChild(0));
+                        }
+                        else if (battleManager.GetComponent<command>().GetPlayerChild(1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                        {
+                            battleManager.GetComponent<BattleScene>().SetReceiveObj(battleManager.GetComponent<command>().GetPlayerChild(1));
+                        }
+                        else if (battleManager.GetComponent<command>().GetPlayerChild(1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                        {
+                            battleManager.GetComponent<BattleScene>().SetReceiveObj(battleManager.GetComponent<command>().GetPlayerChild(2));
+                        }
+                        ReceiveChara1 = battleManager.GetComponent<BattleScene>().GetReceiveObj(1);
+                    }
+                    else
+                    {
+                        NonTarget3();
+                    }
+                }
+            }
         }
 
         GameObject UseObj = AttackObj;
@@ -1279,6 +1392,83 @@ public class Status : MonoBehaviour
         else
         {
             anim.SetBool("isDeath", false);
+        }
+    }
+
+    private void NonTarget3()
+    {
+        GameObject rec1 = null;
+        GameObject rec2 = null;
+
+        //  相手が死んでなければ標的にするのを許可する！
+        if (battleManager.GetComponent<command>().GetPlayerChild(0).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+        {
+            rec1 = battleManager.GetComponent<command>().GetPlayerChild(0);
+        }
+        else if (battleManager.GetComponent<command>().GetPlayerChild(1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+        {
+            rec1 = battleManager.GetComponent<command>().GetPlayerChild(1);
+        }
+        else if (battleManager.GetComponent<command>().GetPlayerChild(2).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+        {
+            rec1 = battleManager.GetComponent<command>().GetPlayerChild(2);
+        }
+        else
+        {
+        }
+
+        if (battleManager.GetComponent<command>().GetPlayerChild(0).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD
+            && battleManager.GetComponent<command>().GetPlayerChild(0) == rec1)
+        {
+            rec2 = battleManager.GetComponent<command>().GetPlayerChild(0);
+        }
+        else if (battleManager.GetComponent<command>().GetPlayerChild(1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD
+             && battleManager.GetComponent<command>().GetPlayerChild(1) == rec1)
+        {
+            rec2 = battleManager.GetComponent<command>().GetPlayerChild(1);
+        }
+        else if (battleManager.GetComponent<command>().GetPlayerChild(2).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD
+             && battleManager.GetComponent<command>().GetPlayerChild(2) == rec1)
+        {
+            rec2 = battleManager.GetComponent<command>().GetPlayerChild(2);
+        }
+        else
+        {
+        }
+
+
+        if (GetComponent<command>().GetPlayerCount() == 2)
+        {
+            if (battleManager.GetComponent<command>().GetPlayerChild(0).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD
+                && battleManager.GetComponent<command>().GetPlayerChild(0) != rec1)
+            {
+                rec2 = battleManager.GetComponent<command>().GetPlayerChild(0);
+            }
+            else if (battleManager.GetComponent<command>().GetPlayerChild(1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD
+                 && battleManager.GetComponent<command>().GetPlayerChild(1) != rec1)
+            {
+                rec2 = battleManager.GetComponent<command>().GetPlayerChild(1);
+            }
+            else if (battleManager.GetComponent<command>().GetPlayerChild(2).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD
+                 && battleManager.GetComponent<command>().GetPlayerChild(2) != rec1)
+            {
+                rec2 = battleManager.GetComponent<command>().GetPlayerChild(2);
+            }
+            else
+            {
+            }
+
+            battleManager.GetComponent<BattleScene>().SetReceiveObj(rec1, rec2);
+            ReceiveChara1 = battleManager.GetComponent<BattleScene>().GetReceiveObj(1);
+            ReceiveChara2 = battleManager.GetComponent<BattleScene>().GetReceiveObj(2);
+            ReceiveChara3 = null;
+        }
+        else
+        {
+            battleManager.GetComponent<BattleScene>().SetReceiveObj(rec1);
+            ReceiveChara1 = battleManager.GetComponent<BattleScene>().GetReceiveObj(1);
+            ReceiveChara2 = null;
+            ReceiveChara3 = null;
         }
     }
 }

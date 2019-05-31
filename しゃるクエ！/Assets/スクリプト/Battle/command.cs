@@ -224,11 +224,11 @@ public class command : MonoBehaviour
         {
             if (IDList[count] != 0)
             {
-                if (charLV >= PS.sheets[0].list[IDList[count] - 1].Lv)
-                {
+                //if (charLV >= PS.sheets[0].list[IDList[count] - 1].Lv)
+                //{
                     supportText.GetChild(count).gameObject.SetActive(true);
                     supportText.GetChild(count).gameObject.GetComponent<Text>().text = PS.sheets[0].list[IDList[count] - 1].skillName;
-                }
+                //}
             }
         }
         SkillID = (int)PC.sheets[0].list[charID].SupportSkill1 - 1;
@@ -440,7 +440,7 @@ public class command : MonoBehaviour
         if (id.StartsWith("p"))
         {
             //  残っているプレイヤーの数
-            int ObjCount = player.transform.childCount;
+            int ObjCount = GetPlayerCount();
             switch (IdNumber)
             {
                 case 1:
@@ -452,7 +452,7 @@ public class command : MonoBehaviour
                     }
                     else if (ObjCount == 2)
                     {
-                        if (player.GetChild(0).gameObject.name == "player2")
+                        if (player.GetChild(0).GetComponent<Status>().GetState() == Status.STATE.ST_DEAD)
                         {
                             correction += 1;
                         }
@@ -676,7 +676,7 @@ public class command : MonoBehaviour
     {
         int ID = GetComponent<BattleScene>().GetActivePlayer();
         //  残っているプレイヤーの数
-        int ObjCount = player.transform.childCount;
+        int ObjCount = GetPlayerCount();
         int correction = 1;
 
         switch (ID)
@@ -690,7 +690,7 @@ public class command : MonoBehaviour
                 }
                 else if (ObjCount == 2)
                 {
-                    if (player.GetChild(0).gameObject.name == "player2")
+                    if (player.GetChild(0).GetComponent<Status>().GetState() == Status.STATE.ST_DEAD)
                     {
                         correction += 1;
                     }
@@ -723,9 +723,20 @@ public class command : MonoBehaviour
     {
         if (playerProof)
         {
-            if (target.StartsWith("p"))
+            if (target.StartsWith("P"))
             {
-                battleManager.GetComponent<BattleScene>().SetReceiveObj(player.GetChild(0).gameObject);
+                if(player.GetChild(0).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                {
+                    battleManager.GetComponent<BattleScene>().SetReceiveObj(player.GetChild(0).gameObject);
+                }
+                else if (player.GetChild(1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                {
+                    battleManager.GetComponent<BattleScene>().SetReceiveObj(player.GetChild(1).gameObject);
+                }
+                else
+                {
+                    battleManager.GetComponent<BattleScene>().SetReceiveObj(player.GetChild(2).gameObject);
+                }
             }
             else
             {
@@ -734,13 +745,24 @@ public class command : MonoBehaviour
         }
         else
         {
-            if (target.StartsWith("p"))
+            if (target.StartsWith("P"))
             {
                 battleManager.GetComponent<BattleScene>().SetReceiveObj(enemy.GetChild(0).gameObject);
             }
             else
             {
-                battleManager.GetComponent<BattleScene>().SetReceiveObj(player.GetChild(0).gameObject);
+                if (player.GetChild(0).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                {
+                    battleManager.GetComponent<BattleScene>().SetReceiveObj(player.GetChild(0).gameObject);
+                }
+                else if (player.GetChild(1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                {
+                    battleManager.GetComponent<BattleScene>().SetReceiveObj(player.GetChild(1).gameObject);
+                }
+                else
+                {
+                    battleManager.GetComponent<BattleScene>().SetReceiveObj(player.GetChild(2).gameObject);
+                }
             }
         }
     }
@@ -758,12 +780,22 @@ public class command : MonoBehaviour
         }
     }
 
-    //  プレイヤーと敵の数の取得
+    //  プレイヤーの数の取得
     public int GetPlayerCount()
     {
-        return player.transform.childCount;
+        int count = player.transform.childCount;
+        foreach (Transform child in player)
+        {
+            //  プレイヤー
+            if(child.gameObject.GetComponent<Status>().state == Status.STATE.ST_DEAD)
+            {
+                count--;
+            }
+        }
+        return count;
     }
 
+    //  敵の数の取得
     public int GetEnemyCount()
     {
         return enemy.transform.childCount;
@@ -773,11 +805,29 @@ public class command : MonoBehaviour
     //  プレイヤーと敵の子オブジェクトの取得
     public GameObject GetPlayerChild(int id)
     {
-        return player.GetChild(id).gameObject;
+        if(player.GetChild(id))
+        {
+            return player.GetChild(id).gameObject;
+        }
+        return null;
     }
 
     public GameObject GetEnemyChild(int id)
     {
         return enemy.GetChild(id).gameObject;
+    }
+
+    //  プレイヤーが全滅していたらfalseを返す
+    public bool PlayerAlive()
+    {
+        foreach (Transform child in player)
+        {
+            //  プレイヤー
+            if (child.gameObject.GetComponent<Status>().state != Status.STATE.ST_DEAD)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

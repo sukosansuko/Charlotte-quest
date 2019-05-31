@@ -154,6 +154,7 @@ public class BattleScene : MonoBehaviour
         public void processing()
         {
             attackChara.GetComponent<Status>().SetSP(attackChara.GetComponent<Status>().GetSP() - spCost);
+            attackChara.GetComponent<Status>().SetState(Status.STATE.ST_ATK);
 
             if (receiveChara1)
             {
@@ -260,6 +261,8 @@ public class BattleScene : MonoBehaviour
         public void processing()
         {
             attackChara.GetComponent<Status>().SetSP(attackChara.GetComponent<Status>().GetSP() - spCost);
+            attackChara.GetComponent<Status>().SetState(Status.STATE.ST_ATK);
+
             if (receiveChara1)
             {
                 TotalHeal1 = (int)Math.Round(receiveChara1.GetComponent<Status>().GetHP() * HealPercent);
@@ -311,6 +314,7 @@ public class BattleScene : MonoBehaviour
 
         public void processing()
         {
+            attackChara.GetComponent<Status>().SetState(Status.STATE.ST_DEF);
             if (receiveChara1)
             {
                 Debug.Log(receiveChara1.gameObject.name + "の"/* + TotalHeal*/ + "が変化！");

@@ -32,6 +32,11 @@ public class StatusControl : MonoBehaviour
     //  レベルアップ時の上昇ステータス格納用リスト
     statusData[] StatusGrowList = new statusData[6];
 
+    //  プレイヤー格納用リスト
+    private List<int> playerList = new List<int>();
+    //  敵格納用リスト
+    private List<int> enemyList = new List<int>();
+
     void Start()
     {
         StatusInit();
@@ -127,5 +132,19 @@ public class StatusControl : MonoBehaviour
             LevelUpFlag = true;
         }
         return LevelUpFlag;
+    }
+
+    public void SetPlayerList(int char1,int char2,int char3)
+    {
+        playerList.Add(char1);
+        playerList.Add(char2);
+        playerList.Add(char3);
+    }
+
+    public void SetEnemyList(int char1,int char2,int char3)
+    {
+        enemyList.Add(char1);
+        enemyList.Add(char2);
+        enemyList.Add(char3);
     }
 }

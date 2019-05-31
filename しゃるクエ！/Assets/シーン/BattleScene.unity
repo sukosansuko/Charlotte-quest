@@ -586,7 +586,6 @@ GameObject:
   - component: {fileID: 168461905}
   - component: {fileID: 168461907}
   - component: {fileID: 168461908}
-  - component: {fileID: 168461909}
   m_Layer: 5
   m_Name: player1
   m_TagString: Untagged
@@ -684,6 +683,7 @@ MonoBehaviour:
   pIcon4: {fileID: 21300000, guid: 0f0786aa57af6ae4995cd3c425cd29b3, type: 3}
   pIcon5: {fileID: 21300000, guid: 94ed577fb7434dd469ac6c6b88aa849c, type: 3}
   pIcon6: {fileID: 21300000, guid: 2fab60e1109735b4f9f6af6948d31103, type: 3}
+  ContinueBtn: {fileID: 168461908}
   MyTarget: {fileID: 1804342535}
   TLIcon: {fileID: 130951725}
   turnPointer: {fileID: 1424880443}
@@ -719,7 +719,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -749,25 +749,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!95 &168461909
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168461903}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a2dfbd63afaabdd47aa3316e0af0bceb, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &239572854
 GameObject:
   m_ObjectHideFlags: 0
@@ -3507,7 +3488,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e226af87170549e48bfaa39daa6a70ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7dc0df052d7be0044bd079480014f082, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3558,6 +3539,7 @@ MonoBehaviour:
   pIcon4: {fileID: 0}
   pIcon5: {fileID: 0}
   pIcon6: {fileID: 0}
+  ContinueBtn: {fileID: 830965021}
   MyTarget: {fileID: 133415749}
   TLIcon: {fileID: 1277958343}
   turnPointer: {fileID: 1348113395}
@@ -3822,7 +3804,6 @@ GameObject:
   - component: {fileID: 987204161}
   - component: {fileID: 987204163}
   - component: {fileID: 987204164}
-  - component: {fileID: 987204165}
   m_Layer: 5
   m_Name: player2
   m_TagString: Untagged
@@ -3920,6 +3901,7 @@ MonoBehaviour:
   pIcon4: {fileID: 21300000, guid: 0f0786aa57af6ae4995cd3c425cd29b3, type: 3}
   pIcon5: {fileID: 21300000, guid: 94ed577fb7434dd469ac6c6b88aa849c, type: 3}
   pIcon6: {fileID: 21300000, guid: 2fab60e1109735b4f9f6af6948d31103, type: 3}
+  ContinueBtn: {fileID: 987204164}
   MyTarget: {fileID: 119543831}
   TLIcon: {fileID: 502830986}
   turnPointer: {fileID: 1348113395}
@@ -3955,7 +3937,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3985,25 +3967,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!95 &987204165
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 987204159}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 765aef50e3410774fa264facdc53e8ec, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1001051999
 GameObject:
   m_ObjectHideFlags: 0
@@ -6466,7 +6429,6 @@ GameObject:
   - component: {fileID: 1341968959}
   - component: {fileID: 1341968961}
   - component: {fileID: 1341968962}
-  - component: {fileID: 1341968963}
   m_Layer: 5
   m_Name: player3
   m_TagString: Untagged
@@ -6564,6 +6526,7 @@ MonoBehaviour:
   pIcon4: {fileID: 21300000, guid: 0f0786aa57af6ae4995cd3c425cd29b3, type: 3}
   pIcon5: {fileID: 21300000, guid: 94ed577fb7434dd469ac6c6b88aa849c, type: 3}
   pIcon6: {fileID: 21300000, guid: 2fab60e1109735b4f9f6af6948d31103, type: 3}
+  ContinueBtn: {fileID: 1341968962}
   MyTarget: {fileID: 1513640743}
   TLIcon: {fileID: 297634866}
   turnPointer: {fileID: 248072390}
@@ -6599,7 +6562,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -6629,25 +6592,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!95 &1341968963
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341968957}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 765aef50e3410774fa264facdc53e8ec, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1348113395
 GameObject:
   m_ObjectHideFlags: 0
@@ -6781,7 +6725,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e226af87170549e48bfaa39daa6a70ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7dc0df052d7be0044bd079480014f082, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -6832,6 +6776,7 @@ MonoBehaviour:
   pIcon4: {fileID: 0}
   pIcon5: {fileID: 0}
   pIcon6: {fileID: 0}
+  ContinueBtn: {fileID: 1365196439}
   MyTarget: {fileID: 1562675560}
   TLIcon: {fileID: 1870959850}
   turnPointer: {fileID: 248072390}
@@ -9009,9 +8954,9 @@ MonoBehaviour:
   Enemy2: {fileID: 0}
   Enemy3: {fileID: 0}
   pID1: 5
-  pID2: 0
-  pID3: 0
-  eID1: 95
+  pID2: 2
+  pID3: 1
+  eID1: 22
   eID2: 0
   eID3: 0
   ActivePlayer: {fileID: 0}
@@ -9068,6 +9013,16 @@ MonoBehaviour:
   esp10: {fileID: 21300000, guid: c1cada810b38f3145887d2ad1b6f10e1, type: 3}
   esp11: {fileID: 21300000, guid: 105e0b28ae7e226489a8bf2febf976fb, type: 3}
   esp12: {fileID: 21300000, guid: 8be0af5f42b72764ea72a1f2ce3ea3fd, type: 3}
+  esp13: {fileID: 21300000, guid: 56ffe4860efbdaf42a117fa691ed8038, type: 3}
+  esp14: {fileID: 21300000, guid: 1a04f9beceb38c94b9211f8b19bb2e7d, type: 3}
+  esp15: {fileID: 21300000, guid: e753bd72d7c15184f94531d3046a024a, type: 3}
+  esp16: {fileID: 21300000, guid: 0a0f33eb8478eed46bd047c659031207, type: 3}
+  esp17: {fileID: 21300000, guid: 656e354ecbd566e409f0fcb7ba8a9e71, type: 3}
+  esp18: {fileID: 21300000, guid: b65b6d0144646a449a012ecc620ef146, type: 3}
+  esp19: {fileID: 21300000, guid: f15ce93893074ee40b4315d682e3bde4, type: 3}
+  esp20: {fileID: 21300000, guid: d220029012a37834682746b5e3740143, type: 3}
+  esp21: {fileID: 21300000, guid: 6e453a0e0b3228b4882a3c6562424f46, type: 3}
+  esp22: {fileID: 21300000, guid: 582220e7c5853b247bc2a7506c3ea307, type: 3}
 --- !u!1 &1837225312
 GameObject:
   m_ObjectHideFlags: 0
@@ -9296,7 +9251,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e226af87170549e48bfaa39daa6a70ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7dc0df052d7be0044bd079480014f082, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -9347,6 +9302,7 @@ MonoBehaviour:
   pIcon4: {fileID: 0}
   pIcon5: {fileID: 0}
   pIcon6: {fileID: 0}
+  ContinueBtn: {fileID: 1871650833}
   MyTarget: {fileID: 805018257}
   TLIcon: {fileID: 1404411904}
   turnPointer: {fileID: 1424880443}
@@ -9436,6 +9392,16 @@ MonoBehaviour:
   esp10: {fileID: 21300000, guid: c1cada810b38f3145887d2ad1b6f10e1, type: 3}
   esp11: {fileID: 21300000, guid: 105e0b28ae7e226489a8bf2febf976fb, type: 3}
   esp12: {fileID: 21300000, guid: 8be0af5f42b72764ea72a1f2ce3ea3fd, type: 3}
+  esp13: {fileID: 0}
+  esp14: {fileID: 0}
+  esp15: {fileID: 0}
+  esp16: {fileID: 0}
+  esp17: {fileID: 0}
+  esp18: {fileID: 0}
+  esp19: {fileID: 0}
+  esp20: {fileID: 0}
+  esp21: {fileID: 0}
+  esp22: {fileID: 0}
 --- !u!1 &1878162547
 GameObject:
   m_ObjectHideFlags: 0
