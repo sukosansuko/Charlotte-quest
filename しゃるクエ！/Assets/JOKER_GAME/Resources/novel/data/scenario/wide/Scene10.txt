@@ -15,6 +15,7 @@
 [chara_new name="カーラ" storage="カーラ" jname = "カーラ" tag = 1 x = 1.5]
 [chara_new name="リリー" storage="リリー" jname = "リリー" tag = 1 x = 3.5]
 [chara_new name="アーデン" storage="アーデン" jname = "アーデン" tag = 2 x = 3.5]
+[chara_new name="幕間" storage="幕間" sort=2 scale=15]
 
 [show tag = 2 time = 0.3 wait = false]
 [show name="ディアナ" time = 0.3]
@@ -61,10 +62,15 @@
 いいから！[r]
 早くいくわよ！！[p]
 
+[show name="幕間"]
 
-[chara_hide tag = 1 time = 0.3]
+#
+...[p]
+......[p]
+.........[p]
 
-[show tag = 1]
+[chara_hide name="幕間"]
+
 #シャルロット
 そういえば、エリザが住んでる屋敷って確かこの辺じゃなかった？[p]
 

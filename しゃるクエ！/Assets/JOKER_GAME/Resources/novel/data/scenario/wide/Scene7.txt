@@ -28,7 +28,7 @@
 [chara_hide name = "リリー"]
 
 [show tag = mob]
-
+[playse storage="歓声"]
 #通行人A
 いいぞー！[p]
 
@@ -49,13 +49,14 @@
 みんなー！[r]
 ありがとう！！[r]
 これからも応援よろしくね☆[p]
+[playse storage="歓声"]
 
 [chara_hide name = "リリー"]
 [chara_remove name = "リリー"]
 
-[chara_new name="シャルロット" storage="シャルロット" jname="シャルロット" tag = buddy x=-3.5 scale_x = -1]
-[chara_new name="カーラ" storage="カーラ" jname="カーラ" tag = buddy x=-1 scale_x = -1]
-[chara_new name="ディアナ" storage="ディアナ" jname="ディアナ" tag = buddy x=2.5 ]
+[chara_new name="シャルロット" storage="シャルロット" jname="シャルロット" tag = buddy x=-3.5 time=0.5 scale_x = -1]
+[chara_new name="カーラ" storage="カーラ" jname="カーラ" tag = buddy x=-1 time=0.5 scale_x = -1]
+[chara_new name="ディアナ" storage="ディアナ" jname="ディアナ" tag = buddy x=2.5 time=0.5]
 
 [show tag = buddy]
 
@@ -84,15 +85,18 @@
 牛の生き血を全身にまんべんなく塗って[r]
 全員で輪になって踊る[p]
 
+[playse storage="ショック2"]
 #カーラ
 それお祭りじゃなくて儀式だよ！？[p]
 
 #ディアナ
 確か『喰血の儀』って呼んでた[p]
 
+[playse storage="ショック3"]
 #カーラ
 100%儀式だよそれ！！[p]
 
+[playse storage="ショック"]
 #ディアナ
 あれは...お祭りじゃなかった......？？[p]
 

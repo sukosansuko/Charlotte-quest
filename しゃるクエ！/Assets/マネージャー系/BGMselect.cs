@@ -44,70 +44,70 @@ public class BGMselect : SingletonMonoBehaviour<BGMselect>
     {
         activScene = SceneManager.GetActiveScene().name;
         worldNum = WorldMass.stageName;
-        if(activScene != prevScene)
-        {
-            AudioManager.Instance.StopBGM();
-        }
-        if (activScene == "タイトル")
-        {
-            AudioManager.Instance.PlayBGM("高槻ワンサイドラバー");
-        }
-        if (activScene == "ホーム")
-        {
-            AudioManager.Instance.PlayBGM("");
-        }
-        if (activScene == "編成")
-        {
-            AudioManager.Instance.PlayBGM("");
-        }
-        if (activScene == "ワールドマップ")
-        {
-            AudioManager.Instance.PlayBGM("");
-        }
-        if (activScene == "W1")
-        {
-            AudioManager.Instance.PlayBGM("");
-        }
-        if (activScene == "W2")
-        {
-            AudioManager.Instance.PlayBGM("");
-        }
-        if (activScene == "W3")
-        {
-            AudioManager.Instance.PlayBGM("");
-        }
-        if (activScene == "W4")
-        {
-            AudioManager.Instance.PlayBGM("");
-        }
-        if (worldNum == "W1")
-        {
-            if (activScene == "BattleScene")
-            {
-                AudioManager.Instance.PlayBGM("");
-            }
-        }
-        if (worldNum == "W2")
-        {
-            if (activScene == "BattleScene")
-            {
-                AudioManager.Instance.PlayBGM("");
-            }
-        }
-        if (worldNum == "W3")
-        {
-            if (activScene == "BattleScene")
-            {
-                AudioManager.Instance.PlayBGM("");
-            }
-        }
-        if (worldNum == "W4")
-        {
-            if (activScene == "BattleScene")
-            {
-                AudioManager.Instance.PlayBGM("");
-            }
-        }
+        //if(activScene != prevScene)
+        //{
+        //    AudioManager.Instance.StopBGM();
+        //}
+        //if (activScene == "タイトル")
+        //{
+        //    AudioManager.Instance.PlayBGM("高槻ワンサイドラバー");
+        //}
+        //if (activScene == "ホーム")
+        //{
+        //    AudioManager.Instance.PlayBGM("");
+        //}
+        //if (activScene == "編成")
+        //{
+        //    AudioManager.Instance.PlayBGM("");
+        //}
+        //if (activScene == "ワールドマップ")
+        //{
+        //    AudioManager.Instance.PlayBGM("");
+        //}
+        //if (activScene == "W1")
+        //{
+        //    AudioManager.Instance.PlayBGM("");
+        //}
+        //if (activScene == "W2")
+        //{
+        //    AudioManager.Instance.PlayBGM("");
+        //}
+        //if (activScene == "W3")
+        //{
+        //    AudioManager.Instance.PlayBGM("");
+        //}
+        //if (activScene == "W4")
+        //{
+        //    AudioManager.Instance.PlayBGM("");
+        //}
+        //if (worldNum == "W1")
+        //{
+        //    if (activScene == "BattleScene")
+        //    {
+        //        AudioManager.Instance.PlayBGM("");
+        //    }
+        //}
+        //if (worldNum == "W2")
+        //{
+        //    if (activScene == "BattleScene")
+        //    {
+        //        AudioManager.Instance.PlayBGM("");
+        //    }
+        //}
+        //if (worldNum == "W3")
+        //{
+        //    if (activScene == "BattleScene")
+        //    {
+        //        AudioManager.Instance.PlayBGM("");
+        //    }
+        //}
+        //if (worldNum == "W4")
+        //{
+        //    if (activScene == "BattleScene")
+        //    {
+        //        AudioManager.Instance.PlayBGM("");
+        //    }
+        //}
         prevScene = activScene;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
