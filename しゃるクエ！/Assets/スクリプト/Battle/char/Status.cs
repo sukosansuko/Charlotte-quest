@@ -119,7 +119,7 @@ public class Status : MonoBehaviour
     private GameObject TargetChar;
 
     //  プレイヤーかどうか判断するために使用する(プレイヤーならtrue)
-    private bool playerProof;
+    private bool playerProof = false;
 
     //  アタッチしているオブジェクトの名前
     public string Name;
@@ -148,6 +148,12 @@ public class Status : MonoBehaviour
 
     void Start()
     {
+        Name = this.gameObject.name;
+        Debug.Log(Name);
+
+        battleManager = GameObject.Find("BattleManager");
+        sceneNavigator = GameObject.Find("SceneNavigator");
+
         //  技リストと被ダメージキャラリストの初期化
         for (int count = 0; count < 6; count++)
         {
@@ -155,19 +161,13 @@ public class Status : MonoBehaviour
             SaveReceiveList.Add(new receiveChar { RECEIVE1 = null, RECEIVE2 = null, RECEIVE3 = null });
         }
 
-        battleManager = GameObject.Find("BattleManager");
-        sceneNavigator = GameObject.Find("SceneNavigator");
+        //TLIcon.GetComponent<Image>().enabled = false;
+        //turnPointer.GetComponent<Image>().enabled = false;
 
-        Name = this.gameObject.name;
-
-        TLIcon.GetComponent<Image>().enabled = false;
-        turnPointer.GetComponent<Image>().enabled = false;
-
-        playerProof = false;
         tmp = TLIcon.transform.position;
         TLIcon.transform.position = new Vector3(tmp.x,tmp.y,tmp.z);
         progressEnd = false;
-        SetChara();
+        //SetChara();
     }
 
     void Update()
@@ -323,7 +323,9 @@ public class Status : MonoBehaviour
 
     public void SetChara()
     {
-        //Debug.Log(Name);
+        battleManager = GameObject.Find("BattleManager");
+        sceneNavigator = GameObject.Find("SceneNavigator");
+
         //  データベースからステータスを取得
         if (Name.StartsWith("p"))
         {
@@ -412,7 +414,7 @@ public class Status : MonoBehaviour
         }
         else
         {
-            if (Name.Contains("1"))
+            if (gameObject.name.Contains("1"))
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(1);
                 TLIcon.GetComponent<Image>().enabled = true;
@@ -420,7 +422,7 @@ public class Status : MonoBehaviour
                 EHPDisplay.GetComponent<Text>().enabled = true;
                 TLProgress = 40;
             }
-            else if (Name.Contains("2"))
+            else if (gameObject.name.Contains("2"))
             {
                 charID = battleManager.GetComponent<BattleScene>().GetEID(2);
                 TLIcon.GetComponent<Image>().enabled = true;
@@ -475,7 +477,6 @@ public class Status : MonoBehaviour
     private void SetEnemyStatus(int id,ref string charName,ref int lv, ref int hp, ref int sp, ref int atk, ref int def, ref int spd, ref int mat, ref int mdf, ref int luk)
     {
         EC = Resources.Load("ExcelData/enemy_chara") as enemy_charaList;
-
         lv = 1;
         ////  レベルによってステータスを加算する
         charName = EC.sheets[0].list[id].Name;

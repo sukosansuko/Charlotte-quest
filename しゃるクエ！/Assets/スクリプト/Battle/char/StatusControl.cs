@@ -40,6 +40,9 @@ public class StatusControl : MonoBehaviour
     void Start()
     {
         StatusInit();
+        playerList.Add(1);
+        playerList.Add(2);
+        playerList.Add(4);
     }
 
     void StatusInit()
@@ -146,5 +149,19 @@ public class StatusControl : MonoBehaviour
         enemyList.Add(char1);
         enemyList.Add(char2);
         enemyList.Add(char3);
+    }
+
+    public void GetPlayerList(ref int char1,ref int char2,ref int char3)
+    {
+        char1 = playerList[0];
+        char2 = playerList[1];
+        char3 = playerList[2];
+    }
+
+    public void GetEnemyList(ref int char1, ref int char2, ref int char3)
+    {
+        char1 = enemyList[0];
+        char2 = enemyList[1];
+        char3 = enemyList[2];
     }
 }

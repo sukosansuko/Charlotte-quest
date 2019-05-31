@@ -21,14 +21,16 @@ public class BattleScene : MonoBehaviour
     public GameObject Enemy3;
 
 
-    [SerializeField] private int pID1;
-    [SerializeField] private int pID2;
-    [SerializeField] private int pID3;
-    [SerializeField] private int eID1;
-    [SerializeField] private int eID2;
-    [SerializeField] private int eID3;
+    /*[SerializeField] */private int pID1;
+    /*[SerializeField] */private int pID2;
+    /*[SerializeField] */private int pID3;
+    /*[SerializeField] */private int eID1;
+    /*[SerializeField] */private int eID2;
+    /*[SerializeField] */private int eID3;
 
     private command co;
+
+    private GameObject sceneNavigator;
 
     //  コマンド選択開始用フラグ
     private bool ActiveChoose;
@@ -50,18 +52,28 @@ public class BattleScene : MonoBehaviour
 
     void Start()
     {
-        Player1 = GameObject.Find("player1");
-        Player2 = GameObject.Find("player2");
-        Player3 = GameObject.Find("player3");
-        Enemy1 = GameObject.Find("enemy1");
-        Enemy2 = GameObject.Find("enemy2");
-        Enemy3 = GameObject.Find("enemy3");
+        sceneNavigator = GameObject.Find("SceneNavigator");
+        sceneNavigator.GetComponent<StatusControl>().GetPlayerList(ref pID1, ref pID2, ref pID3);
+        sceneNavigator.GetComponent<StatusControl>().GetEnemyList(ref eID1, ref eID2, ref eID3);
+
+        //Player1 = GameObject.Find("player1");
+        //Player2 = GameObject.Find("player2");
+        //Player3 = GameObject.Find("player3");
+        //Enemy1 = GameObject.Find("enemy1");
+        //Enemy2 = GameObject.Find("enemy2");
+        //Enemy3 = GameObject.Find("enemy3");
 
         battleQueue = new Queue<Action>();
         foreach (Transform child in TL)
         {
             child.gameObject.SetActive(true);
         }
+        Player1.GetComponent<Status>().SetChara();
+        Player2.GetComponent<Status>().SetChara();
+        Player3.GetComponent<Status>().SetChara();
+        Enemy1.GetComponent<Status>().SetChara();
+        Enemy2.GetComponent<Status>().SetChara();
+        Enemy3.GetComponent<Status>().SetChara();
     }
 
     void Update()

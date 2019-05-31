@@ -8947,18 +8947,12 @@ MonoBehaviour:
   receiveObj1: {fileID: 0}
   receiveObj2: {fileID: 0}
   receiveObj3: {fileID: 0}
-  Player1: {fileID: 0}
-  Player2: {fileID: 0}
-  Player3: {fileID: 0}
-  Enemy1: {fileID: 0}
-  Enemy2: {fileID: 0}
-  Enemy3: {fileID: 0}
-  pID1: 5
-  pID2: 2
-  pID3: 1
-  eID1: 22
-  eID2: 0
-  eID3: 0
+  Player1: {fileID: 168461903}
+  Player2: {fileID: 987204159}
+  Player3: {fileID: 1341968957}
+  Enemy1: {fileID: 1871650828}
+  Enemy2: {fileID: 830965016}
+  Enemy3: {fileID: 1365196434}
   ActivePlayer: {fileID: 0}
   TL: {fileID: 1591509935}
 --- !u!114 &1829247572
