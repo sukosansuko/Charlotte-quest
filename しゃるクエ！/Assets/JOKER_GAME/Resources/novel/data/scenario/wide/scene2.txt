@@ -14,16 +14,18 @@
 
 [chara_new name="カーラ" storage="カーラ" jname = "カーラ" x=-0.5 scale_x=-1]
 
-[chara_new name="ターナー" storage="ターナー" jname = "？？？" x=3]
+[chara_new name="ターナー" storage="ターナー" jname = "ターナー" x=3]
 
 [show name = "カーラ"]
+[playse storage="間抜け2"]
 #カーラ
 ここがこの遺跡の一番奥？[p]
 
 #？？？
 そうだよ、お嬢さん方[p]
 
-[show name = "シャルロット"]
+[show name = "シャルロット" time=0.3]
+[playse storage="登場1"]
 #シャルロット
 誰！？[p]
 
@@ -38,12 +40,14 @@
 お嬢さん方は何をしに？[r]
 ここは女子会をするには物騒だよ[p]
 
+[playse storage="キメ2"]
 #シャルロット
 あたしたちは肌年齢を若返らせに来たの！[p]
 
 #ターナー
 何のことだい？[p]
 
+[playse storage="ポコ"]
 #カーラ
 えぇっと、今のは忘れてください[l][r]
 私たちは願いが叶うと言われている財宝を探しに来たんです[p]
