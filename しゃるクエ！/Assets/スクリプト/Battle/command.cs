@@ -224,11 +224,11 @@ public class command : MonoBehaviour
         {
             if (IDList[count] != 0)
             {
-                //if (charLV >= PS.sheets[0].list[IDList[count] - 1].Lv)
-                //{
+                if (charLV >= PS.sheets[0].list[IDList[count] - 1].Lv)
+                {
                     supportText.GetChild(count).gameObject.SetActive(true);
                     supportText.GetChild(count).gameObject.GetComponent<Text>().text = PS.sheets[0].list[IDList[count] - 1].skillName;
-                //}
+                }
             }
         }
         SkillID = (int)PC.sheets[0].list[charID].SupportSkill1 - 1;
