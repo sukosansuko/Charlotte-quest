@@ -19,10 +19,11 @@ public class battleMass : MonoBehaviour {
             if (stageMass.MassName == "battle1")
             {
 
+                SceneNavigator.Instance.Change("タイトル");
             }
             if (stageMass.MassName == "battle2")
             {
-
+                SceneNavigator.Instance.Change("ホーム");
             }
         }
         if (mapChar.activScene == "W2")
