@@ -19,9 +19,19 @@ public class EnemyAction : MonoBehaviour
     [SerializeField] private Sprite esp10;
     [SerializeField] private Sprite esp11;
     [SerializeField] private Sprite esp12;
+    [SerializeField] private Sprite esp13;
+    [SerializeField] private Sprite esp14;
+    [SerializeField] private Sprite esp15;
+    [SerializeField] private Sprite esp16;
+    [SerializeField] private Sprite esp17;
+    [SerializeField] private Sprite esp18;
+    [SerializeField] private Sprite esp19;
+    [SerializeField] private Sprite esp20;
+    [SerializeField] private Sprite esp21;
+    [SerializeField] private Sprite esp22;
 
     private int charID;
-
+    
     enemy_charaList EC;
     enemy_skillList ES;
 
@@ -137,17 +147,30 @@ public class EnemyAction : MonoBehaviour
         }
         else
         {
+            GameObject receive1 = null;
+            GameObject receive2 = null;
+
+            List<GameObject> ReceiveList = new List<GameObject>();
+
             if (SkillTarget.Contains("1"))
             {
-                targetID = rnd.Next(1, battleManager.GetComponent<command>().GetPlayerCount() + 1);
+                //  生きてるプレイヤーをリストに追加
+                if(battleManager.GetComponent<command>().GetPlayerChild(0).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                {
+                    ReceiveList.Add(battleManager.GetComponent<command>().GetPlayerChild(0));
+                }
+                if (battleManager.GetComponent<command>().GetPlayerChild(1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                {
+                    ReceiveList.Add(battleManager.GetComponent<command>().GetPlayerChild(1));
+                }
+                if (battleManager.GetComponent<command>().GetPlayerChild(2).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                {
+                    ReceiveList.Add(battleManager.GetComponent<command>().GetPlayerChild(2));
+                }
 
-                //  死んでないプレイヤーが選ばれるまで選び続ける
-                //while(battleManager.GetComponent<command>().GetPlayerChild(targetID - 1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
-                //{
-                //    targetID = rnd.Next(1, battleManager.GetComponent<command>().GetPlayerCount() + 1);
-                //}
-                receive = battleManager.GetComponent<command>().GetPlayerChild(targetID - 1);
-                characterID.GetComponent<Status>().SaveReceive(receive);
+                targetID = rnd.Next(1, ReceiveList.Count + 1);
+
+                characterID.GetComponent<Status>().SaveReceive(ReceiveList[targetID - 1]);
             }
             else if (SkillTarget.Contains("2"))
             {
@@ -155,19 +178,57 @@ public class EnemyAction : MonoBehaviour
             }
             else
             {
-
                 if (GetComponent<command>().GetPlayerCount() == 3)
                 {
                     characterID.GetComponent<Status>().SaveReceive(battleManager.GetComponent<command>().GetPlayerChild(0),
                     battleManager.GetComponent<command>().GetPlayerChild(1), battleManager.GetComponent<command>().GetPlayerChild(2));
                 }
-                else if (GetComponent<command>().GetPlayerCount() == 2)
-                {
-                    characterID.GetComponent<Status>().SaveReceive(battleManager.GetComponent<command>().GetPlayerChild(0), battleManager.GetComponent<command>().GetPlayerChild(1));
-                }
                 else
                 {
-                    characterID.GetComponent<Status>().SaveReceive(battleManager.GetComponent<command>().GetPlayerChild(0));
+                    //  相手が死んでなければ標的にするのを許可する！
+                    if (battleManager.GetComponent<command>().GetPlayerChild(0).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                    {
+                        receive1 = battleManager.GetComponent<command>().GetPlayerChild(0);
+                    }
+                    else if (battleManager.GetComponent<command>().GetPlayerChild(1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                    {
+                        receive1 = battleManager.GetComponent<command>().GetPlayerChild(1);
+                    }
+                    else if (battleManager.GetComponent<command>().GetPlayerChild(2).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD)
+                    {
+                        receive1 = battleManager.GetComponent<command>().GetPlayerChild(2);
+                    }
+                    else
+                    {
+                    }
+
+                    if (GetComponent<command>().GetPlayerCount() == 2)
+                    {
+                        if (battleManager.GetComponent<command>().GetPlayerChild(0).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD
+                            && battleManager.GetComponent<command>().GetPlayerChild(0) != receive1)
+                        {
+                            receive2 = battleManager.GetComponent<command>().GetPlayerChild(0);
+                        }
+                        else if (battleManager.GetComponent<command>().GetPlayerChild(1).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD
+                             && battleManager.GetComponent<command>().GetPlayerChild(1) != receive1)
+                        {
+                            receive2 = battleManager.GetComponent<command>().GetPlayerChild(1);
+                        }
+                        else if (battleManager.GetComponent<command>().GetPlayerChild(2).GetComponent<Status>().GetState() != Status.STATE.ST_DEAD
+                             && battleManager.GetComponent<command>().GetPlayerChild(2) != receive1)
+                        {
+                            receive2 = battleManager.GetComponent<command>().GetPlayerChild(2);
+                        }
+                        else
+                        {
+                        }
+
+                        characterID.GetComponent<Status>().SaveReceive(receive1, receive2);
+                    }
+                    else
+                    {
+                        characterID.GetComponent<Status>().SaveReceive(receive1);
+                    }
                 }
             }
         }
@@ -212,6 +273,36 @@ public class EnemyAction : MonoBehaviour
                 break;
             case 12:
                 obj.GetComponent<Image>().sprite = esp12;
+                break;
+            case 13:
+                obj.GetComponent<Image>().sprite = esp13;
+                break;
+            case 14:
+                obj.GetComponent<Image>().sprite = esp14;
+                break;
+            case 15:
+                obj.GetComponent<Image>().sprite = esp15;
+                break;
+            case 16:
+                obj.GetComponent<Image>().sprite = esp16;
+                break;
+            case 17:
+                obj.GetComponent<Image>().sprite = esp17;
+                break;
+            case 18:
+                obj.GetComponent<Image>().sprite = esp18;
+                break;
+            case 19:
+                obj.GetComponent<Image>().sprite = esp19;
+                break;
+            case 20:
+                obj.GetComponent<Image>().sprite = esp20;
+                break;
+            case 21:
+                obj.GetComponent<Image>().sprite = esp21;
+                break;
+            case 22:
+                obj.GetComponent<Image>().sprite = esp22;
                 break;
             default:
                 break;
