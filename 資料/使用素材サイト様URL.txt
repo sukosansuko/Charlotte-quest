@@ -1,0 +1,12 @@
+クレジット表記
+
+・エフェクト
+	ぴぽや https://pipoya.net/			※必須ではない
+
+・BGM
+	魔王魂 https://maoudamashii.jokersounds.com/	※必須ではない
+	甘茶の音楽工房 https://amachamusic.chagasi.com/	※必須ではない
+
+・SE
+	魔王魂
+	効果音ラボhttps://soundeffect-lab.info/		※必須ではない
