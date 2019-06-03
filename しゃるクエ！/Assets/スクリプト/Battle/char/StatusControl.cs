@@ -42,7 +42,10 @@ public class StatusControl : MonoBehaviour
         StatusInit();
         playerList.Add(1);
         playerList.Add(2);
+        playerList.Add(3);
         playerList.Add(4);
+        playerList.Add(5);
+        playerList.Add(6);
     }
 
     void StatusInit()
@@ -112,7 +115,7 @@ public class StatusControl : MonoBehaviour
         luk = StatusList[id].LUK + StatusGrowList[id].LUK * (lv - 1);
     }
 
-    public void GetLvExp(int id,int exp)
+    public void GetExp(int id,int exp)
     {
         exp = StatusList[id].EXP;
     }
@@ -151,6 +154,7 @@ public class StatusControl : MonoBehaviour
         enemyList.Add(char3);
     }
 
+    //  戦闘用
     public void GetPlayerList(ref int char1,ref int char2,ref int char3)
     {
         char1 = playerList[0];
@@ -158,10 +162,58 @@ public class StatusControl : MonoBehaviour
         char3 = playerList[2];
     }
 
+    //  編成用
+    public void GetPlayerList(ref int char1, ref int char2, ref int char3, ref int char4, ref int char5, ref int char6)
+    {
+        char1 = playerList[0];
+        char2 = playerList[1];
+        char3 = playerList[2];
+        char4 = playerList[3];
+        char5 = playerList[4];
+        char6 = playerList[5];
+    }
+
+    //  編成用
+    public int GetLV(int id)
+    {
+        return StatusList[id - 1].LV;
+    }
+
     public void GetEnemyList(ref int char1, ref int char2, ref int char3)
     {
         char1 = enemyList[0];
         char2 = enemyList[1];
         char3 = enemyList[2];
+    }
+
+    //  編成画面用(numberは編成の何番目か)
+    public void ChangePlayerList(int number1,int number2)
+    {
+        Debug.Log(number1);
+        Debug.Log(number2);
+
+        int id1 = playerList[number1 - 1];
+        int id2 = playerList[number2 - 1];
+
+        playerList.Remove(id1);
+        playerList.Remove(id2);
+
+        if (number1 > number2)
+        {
+            playerList.Insert(number2 - 1, id1);
+            playerList.Insert(number1 - 1, id2);
+        }
+        else
+        {
+            playerList.Insert(number1 - 1, id2);
+            playerList.Insert(number2 - 1, id1);
+        }
+
+        //Debug.Log(playerList[0]);
+        //Debug.Log(playerList[1]);
+        //Debug.Log(playerList[2]);
+        //Debug.Log(playerList[3]);
+        //Debug.Log(playerList[4]);
+        //Debug.Log(playerList[5]);
     }
 }

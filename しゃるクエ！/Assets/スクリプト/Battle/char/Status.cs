@@ -205,122 +205,6 @@ public class Status : MonoBehaviour
         //animator.SetTrigger("Dead");
     }
 
-    private void TLManager()
-    {
-        Vector3 pos = TLIcon.transform.position;
-        pos = new Vector3(tmp.x + TLProgress / 40,tmp.y,tmp.z);
-        TLIcon.transform.position = pos;
-
-        //  ActiveChooseがtrueの間は進行度は増えない
-        if (battleManager.GetComponent<BattleScene>().GetComponent<BattleScene>().GetActiveChoose() == false)
-        {
-            if (battleManager.GetComponent<BattleScene>().GetComponent<BattleScene>().GetActionFlag() == false)
-            {
-                //  移動
-                float ProgressSPD = SPD / 20;
-                if (ProgressSPD <= 0)
-                {
-                    //ProgressSPD = 0;
-                    ProgressSPD = 1;
-                }
-                TLProgress += ProgressSPD;
-            }
-
-            //  行動選択開始
-            if (TLProgress >= 200 && !progressEnd)
-            {
-                TLProgress = 200;
-
-                if (playerProof)
-                {
-                    battleManager.GetComponent<command>().SetCharID(charID - 1);
-                    battleManager.GetComponent<command>().SetLV(LV);
-                    battleManager.GetComponent<BattleScene>().SetActiveChoose(true);
-                    battleManager.GetComponent<command>().commandDisplay();
-                    //  ポインターの表示
-                    turnPointer.GetComponent<Image>().enabled = true;
-                }
-                else
-                {
-                    battleManager.GetComponent<EnemyAction>().SetCharID(charID - 1);
-                    battleManager.GetComponent<EnemyAction>().CommandSelect(this.gameObject);
-                }
-                battleManager.GetComponent<BattleScene>().SetActivePlayer(this.gameObject);
-                progressEnd = true;
-            }
-
-            //  行動開始
-            if (TLProgress >= 300)
-            {
-                waitTime++;
-                if (!actionFlag)
-                {
-                    battleManager.GetComponent<BattleScene>().SetAttackObj(this.gameObject);
-                    LoadSkill();
-                    battleManager.GetComponent<command>().ActionStart();
-
-                    battleManager.GetComponent<BattleScene>().TakeAction(spCost,HPCtlFlag,AttackType,HealPercent);
-
-                    //  色の変更
-                    battleManager.GetComponent<command>().changeColor(color2);
-                    image.color = color1;
-                    if (ReceiveChara1 != null)
-                    {
-                        ReceiveChara1.GetComponent<Image>().color = color1;
-                    }
-                    if (ReceiveChara2 != null)
-                    {
-                        ReceiveChara2.GetComponent<Image>().color = color1;
-                    }
-                    if (ReceiveChara3 != null)
-                    {
-                        ReceiveChara3.GetComponent<Image>().color = color1;
-                    }
-
-                    battleManager.GetComponent<BattleScene>().SetActionFlag(true);
-
-                    actionFlag = true;
-                }
-
-
-                if(waitTime >= 100)
-                {
-                    battleManager.GetComponent<command>().ActionEnd();
-                    if (ReceiveChara1 != null && ReceiveChara1.GetComponent<Status>().GetHP() <= 0)
-                    {
-                        ReceiveChara1.GetComponent<Status>().Dead();
-                    }
-                    if (ReceiveChara2 != null && ReceiveChara2.GetComponent<Status>().GetHP() <= 0)
-                    {
-                        ReceiveChara2.GetComponent<Status>().Dead();
-                    }
-                    if (ReceiveChara3 != null && ReceiveChara3.GetComponent<Status>().GetHP() <= 0)
-                    {
-                        ReceiveChara3.GetComponent<Status>().Dead();
-                    }
-
-                    TLProgress = 0;
-                    actionFlag = false;
-                    progressEnd = false;
-                    battleManager.GetComponent<BattleScene>().SetActionFlag(false);
-                    waitTime = 0;
-                    CheckBuff();
-                    battleManager.GetComponent<command>().changeColor(color1);
-                    battleManager.GetComponent<BattleScene>().SetReceiveObj(null, null, null);
-                }
-            }
-
-            if(battleManager.GetComponent<command>().GetCommandEnd())
-            {
-                if (playerProof)
-                {
-                    //  ポインターの表示
-                    turnPointer.GetComponent<Image>().enabled = false;
-                }
-            }
-        }
-    }
-
     public void SetChara()
     {
         battleManager = GameObject.Find("BattleManager");
@@ -459,6 +343,122 @@ public class Status : MonoBehaviour
         }
 
         state = STATE.ST_STAND;
+    }
+
+    private void TLManager()
+    {
+        Vector3 pos = TLIcon.transform.position;
+        pos = new Vector3(tmp.x + TLProgress / 40, tmp.y, tmp.z);
+        TLIcon.transform.position = pos;
+
+        //  ActiveChooseがtrueの間は進行度は増えない
+        if (battleManager.GetComponent<BattleScene>().GetComponent<BattleScene>().GetActiveChoose() == false)
+        {
+            if (battleManager.GetComponent<BattleScene>().GetComponent<BattleScene>().GetActionFlag() == false)
+            {
+                //  移動
+                float ProgressSPD = SPD / 20;
+                if (ProgressSPD <= 0)
+                {
+                    //ProgressSPD = 0;
+                    ProgressSPD = 1;
+                }
+                TLProgress += ProgressSPD;
+            }
+
+            //  行動選択開始
+            if (TLProgress >= 200 && !progressEnd)
+            {
+                TLProgress = 200;
+
+                if (playerProof)
+                {
+                    battleManager.GetComponent<command>().SetCharID(charID - 1);
+                    battleManager.GetComponent<command>().SetLV(LV);
+                    battleManager.GetComponent<BattleScene>().SetActiveChoose(true);
+                    battleManager.GetComponent<command>().commandDisplay();
+                    //  ポインターの表示
+                    turnPointer.GetComponent<Image>().enabled = true;
+                }
+                else
+                {
+                    battleManager.GetComponent<EnemyAction>().SetCharID(charID - 1);
+                    battleManager.GetComponent<EnemyAction>().CommandSelect(this.gameObject);
+                }
+                battleManager.GetComponent<BattleScene>().SetActivePlayer(this.gameObject);
+                progressEnd = true;
+            }
+
+            //  行動開始
+            if (TLProgress >= 300)
+            {
+                waitTime++;
+                if (!actionFlag)
+                {
+                    battleManager.GetComponent<BattleScene>().SetAttackObj(this.gameObject);
+                    LoadSkill();
+                    battleManager.GetComponent<command>().ActionStart();
+
+                    battleManager.GetComponent<BattleScene>().TakeAction(spCost, HPCtlFlag, AttackType, HealPercent);
+
+                    //  色の変更
+                    battleManager.GetComponent<command>().changeColor(color2);
+                    image.color = color1;
+                    if (ReceiveChara1 != null)
+                    {
+                        ReceiveChara1.GetComponent<Image>().color = color1;
+                    }
+                    if (ReceiveChara2 != null)
+                    {
+                        ReceiveChara2.GetComponent<Image>().color = color1;
+                    }
+                    if (ReceiveChara3 != null)
+                    {
+                        ReceiveChara3.GetComponent<Image>().color = color1;
+                    }
+
+                    battleManager.GetComponent<BattleScene>().SetActionFlag(true);
+
+                    actionFlag = true;
+                }
+
+
+                if (waitTime >= 100)
+                {
+                    battleManager.GetComponent<command>().ActionEnd();
+                    if (ReceiveChara1 != null && ReceiveChara1.GetComponent<Status>().GetHP() <= 0)
+                    {
+                        ReceiveChara1.GetComponent<Status>().Dead();
+                    }
+                    if (ReceiveChara2 != null && ReceiveChara2.GetComponent<Status>().GetHP() <= 0)
+                    {
+                        ReceiveChara2.GetComponent<Status>().Dead();
+                    }
+                    if (ReceiveChara3 != null && ReceiveChara3.GetComponent<Status>().GetHP() <= 0)
+                    {
+                        ReceiveChara3.GetComponent<Status>().Dead();
+                    }
+
+                    TLProgress = 0;
+                    actionFlag = false;
+                    progressEnd = false;
+                    battleManager.GetComponent<BattleScene>().SetActionFlag(false);
+                    waitTime = 0;
+                    CheckBuff();
+                    battleManager.GetComponent<command>().changeColor(color1);
+                    battleManager.GetComponent<BattleScene>().SetReceiveObj(null, null, null);
+                }
+            }
+
+            if (battleManager.GetComponent<command>().GetCommandEnd())
+            {
+                if (playerProof)
+                {
+                    //  ポインターの表示
+                    turnPointer.GetComponent<Image>().enabled = false;
+                }
+            }
+        }
     }
 
     //  ターゲットの切り替え用

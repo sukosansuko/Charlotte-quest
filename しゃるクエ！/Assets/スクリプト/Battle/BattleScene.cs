@@ -21,12 +21,12 @@ public class BattleScene : MonoBehaviour
     public GameObject Enemy3;
 
 
-    /*[SerializeField] */private int pID1;
-    /*[SerializeField] */private int pID2;
-    /*[SerializeField] */private int pID3;
-    /*[SerializeField] */private int eID1;
-    /*[SerializeField] */private int eID2;
-    /*[SerializeField] */private int eID3;
+    private int pID1;
+    private int pID2;
+    private int pID3;
+    private int eID1;
+    private int eID2;
+    private int eID3;
 
     private command co;
 
