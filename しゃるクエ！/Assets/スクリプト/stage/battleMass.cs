@@ -40,6 +40,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[0].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1,enemy2,enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[0].BGM);
                 sceneNavigator.GetComponent<StatusControl>().SetStageID(1);
                 SceneNavigator.Instance.Change("BattleScene");
             }
@@ -58,6 +59,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[1].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[1].BGM);
                 sceneNavigator.GetComponent<StatusControl>().SetStageID(1);
                 SceneNavigator.Instance.Change("BattleScene");
             }
@@ -79,6 +81,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[3].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[3].BGM);
                 sceneNavigator.GetComponent<StatusControl>().SetStageID(2);
                 SceneNavigator.Instance.Change("BattleScene");
             }
@@ -97,6 +100,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[4].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[4].BGM);
                 sceneNavigator.GetComponent<StatusControl>().SetStageID(2);
                 SceneNavigator.Instance.Change("BattleScene");
             }
@@ -118,6 +122,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[7].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[7].BGM);
                 sceneNavigator.GetComponent<StatusControl>().SetStageID(3);
                 SceneNavigator.Instance.Change("BattleScene");
             }
@@ -136,6 +141,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[8].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[8].BGM);
                 sceneNavigator.GetComponent<StatusControl>().SetStageID(3);
                 SceneNavigator.Instance.Change("BattleScene");
             }
@@ -157,6 +163,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[12].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[12].BGM);
                 sceneNavigator.GetComponent<StatusControl>().SetStageID(4);
                 SceneNavigator.Instance.Change("BattleScene");
             }
@@ -175,6 +182,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[13].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[13].BGM);
                 sceneNavigator.GetComponent<StatusControl>().SetStageID(4);
                 SceneNavigator.Instance.Change("BattleScene");
             }

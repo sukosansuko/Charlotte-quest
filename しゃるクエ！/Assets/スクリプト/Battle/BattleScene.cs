@@ -54,6 +54,8 @@ public class BattleScene : MonoBehaviour
 
     public GameObject Fade;
 
+    private bool SEFlag;
+
     public struct Action
     {
         //public Performance p;
@@ -79,6 +81,8 @@ public class BattleScene : MonoBehaviour
         Enemy1.GetComponent<Status>().SetChara();
         Enemy2.GetComponent<Status>().SetChara();
         Enemy3.GetComponent<Status>().SetChara();
+
+        SEFlag = false;
     }
 
     void Update()
@@ -88,6 +92,11 @@ public class BattleScene : MonoBehaviour
         {
             Fade.GetComponent<Image>().color = fadeColor2;
             winner.GetComponent<Image>().color = fadeColor3;
+            if (!SEFlag)
+            {
+                sceneNavigator.GetComponent<BGMselect>().SetSE("クリア時");
+                SEFlag = true;
+            }
         }
         //  プレイヤーが全滅した時の処理
         else if (!GetComponent<command>().PlayerAlive())

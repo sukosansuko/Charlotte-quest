@@ -39,6 +39,8 @@ public class StatusControl : MonoBehaviour
 
     private int stageID;
 
+    private int BGMID;
+
     void Start()
     {
         StatusInit();
@@ -50,6 +52,7 @@ public class StatusControl : MonoBehaviour
         playerList.Add(6);
 
         stageID = 1;
+        BGMID = 1;
     }
 
     void StatusInit()
@@ -228,5 +231,15 @@ public class StatusControl : MonoBehaviour
     public int GetStageID()
     {
         return stageID;
+    }
+
+    public void SetBGMID(int id)
+    {
+        BGMID = id;
+    }
+
+    public int GetBGMID()
+    {
+        return BGMID;
     }
 }

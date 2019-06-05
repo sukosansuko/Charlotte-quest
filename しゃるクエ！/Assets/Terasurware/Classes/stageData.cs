@@ -27,6 +27,7 @@ public class stageData : ScriptableObject
 		public int enemy6;
 		public int enemy7;
 		public int enemy8;
+		public int BGM;
 	}
 }
 

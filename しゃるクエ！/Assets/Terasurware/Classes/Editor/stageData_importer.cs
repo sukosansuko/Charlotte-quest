@@ -60,6 +60,7 @@ public class stageData_importer : AssetPostprocessor {
 					cell = row.GetCell(8); p.enemy6 = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(9); p.enemy7 = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(10); p.enemy8 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(11); p.BGM = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

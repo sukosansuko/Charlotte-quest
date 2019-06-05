@@ -10,7 +10,10 @@ public class BGMselect : SingletonMonoBehaviour<BGMselect>
 
 
     string activScene;
+
+    //  前回のシーン
     string prevScene;
+
     string worldNum;
 
     // Start is called before the first frame update
@@ -44,74 +47,111 @@ public class BGMselect : SingletonMonoBehaviour<BGMselect>
     {
         activScene = SceneManager.GetActiveScene().name;
         worldNum = WorldMass.stageName;
-        //if(activScene != prevScene)
-        //{
-        //    AudioManager.Instance.StopBGM();
-        //}
-        //if (activScene == "タイトル")
-        //{
-        //    AudioManager.Instance.PlayBGM("高槻ワンサイドラバー");
-        //}
-        //if (activScene == "ホーム")
-        //{
-        //    AudioManager.Instance.PlayBGM("");
-        //}
-        //if (activScene == "編成")
-        //{
-        //    AudioManager.Instance.PlayBGM("");
-        //}
-        //if (activScene == "ワールドマップ")
-        //{
-        //    AudioManager.Instance.PlayBGM("");
-        //}
-        //if (activScene == "W1")
-        //{
-        //    AudioManager.Instance.PlayBGM("");
-        //}
-        //if (activScene == "W2")
-        //{
-        //    AudioManager.Instance.PlayBGM("");
-        //}
-        //if (activScene == "W3")
-        //{
-        //    AudioManager.Instance.PlayBGM("");
-        //}
-        //if (activScene == "W4")
-        //{
-        //    AudioManager.Instance.PlayBGM("");
-        //}
-        //if (worldNum == "W1")
-        //{
-        //    if (activScene == "BattleScene")
-        //    {
-        //        AudioManager.Instance.PlayBGM("");
-        //    }
-        //}
-        //if (worldNum == "W2")
-        //{
-        //    if (activScene == "BattleScene")
-        //    {
-        //        AudioManager.Instance.PlayBGM("");
-        //    }
-        //}
-        //if (worldNum == "W3")
-        //{
-        //    if (activScene == "BattleScene")
-        //    {
-        //        AudioManager.Instance.PlayBGM("");
-        //    }
-        //}
-        //if (worldNum == "W4")
-        //{
-        //    if (activScene == "BattleScene")
-        //    {
-        //        AudioManager.Instance.PlayBGM("");
-        //    }
-        //}
+        if (activScene != prevScene)
+        {
+            //if(activScene != prevScene)
+            //{
+            //    AudioManager.Instance.StopBGM();
+            //}
+            //if (activScene == "タイトル")
+            //{
+            //    AudioManager.Instance.PlayBGM("高槻ワンサイドラバー");
+            //}
+            if (activScene == "ホーム")
+            {
+                if (prevScene != "編成")
+                {
+                    AudioManager.Instance.StopBGM();
+                    AudioManager.Instance.PlayBGM("ホーム");
+                }
+            }
+            if (activScene == "編成")
+            {
+                if(prevScene != "ホーム")
+                {
+                    AudioManager.Instance.StopBGM();
+                    AudioManager.Instance.PlayBGM("ホーム");
+                }
+            }
+            if (activScene == "ワールドマップ")
+            {
+                AudioManager.Instance.StopBGM();
+                AudioManager.Instance.PlayBGM("木2");
+            }
+            if (activScene == "BattleScene")
+            {
+                SetBattleBGM(GetComponent<StatusControl>().GetBGMID());
+            }
+            //if (activScene == "W1")
+            //{
+            //    AudioManager.Instance.PlayBGM("");
+            //}
+            //if (activScene == "W2")
+            //{
+            //    AudioManager.Instance.PlayBGM("");
+            //}
+            //if (activScene == "W3")
+            //{
+            //    AudioManager.Instance.PlayBGM("");
+            //}
+            //if (activScene == "W4")
+            //{
+            //    AudioManager.Instance.PlayBGM("");
+            //}
+            //if (worldNum == "W1")
+            //{
+            //    if (activScene == "BattleScene")
+            //    {
+            //        AudioManager.Instance.PlayBGM("");
+            //    }
+            //}
+            //if (worldNum == "W2")
+            //{
+            //    if (activScene == "BattleScene")
+            //    {
+            //        AudioManager.Instance.PlayBGM("");
+            //    }
+            //}
+            //if (worldNum == "W3")
+            //{
+            //    if (activScene == "BattleScene")
+            //    {
+            //        AudioManager.Instance.PlayBGM("");
+            //    }
+            //}
+            //if (worldNum == "W4")
+            //{
+            //    if (activScene == "BattleScene")
+            //    {
+            //        AudioManager.Instance.PlayBGM("");
+            //    }
+            //}
+        }
         prevScene = activScene;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
+    }
+
+    private void SetBattleBGM(int id)
+    {
+        AudioManager.Instance.StopBGM();
+        switch (id)
+        {
+            case 1:
+                AudioManager.Instance.PlayBGM("戦闘1");
+                break;
+            case 2:
+                AudioManager.Instance.PlayBGM("戦闘2");
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void SetSE(string name)
+    {
+        AudioManager.Instance.PlaySE(name);
     }
 }

@@ -25,6 +25,7 @@ MonoBehaviour:
       enemy6: 0
       enemy7: 0
       enemy8: 0
+      BGM: 1
     - stage: 12
       enemy_count: 3
       enemy1: 1
@@ -35,6 +36,7 @@ MonoBehaviour:
       enemy6: 0
       enemy7: 0
       enemy8: 0
+      BGM: 1
     - stage: 13
       enemy_count: 1
       enemy1: 7
@@ -45,6 +47,7 @@ MonoBehaviour:
       enemy6: 0
       enemy7: 0
       enemy8: 0
+      BGM: 1
     - stage: 21
       enemy_count: 3
       enemy1: 1
@@ -55,6 +58,7 @@ MonoBehaviour:
       enemy6: 0
       enemy7: 0
       enemy8: 0
+      BGM: 2
     - stage: 22
       enemy_count: 3
       enemy1: 1
@@ -65,6 +69,7 @@ MonoBehaviour:
       enemy6: 0
       enemy7: 0
       enemy8: 0
+      BGM: 2
     - stage: 23
       enemy_count: 3
       enemy1: 1
@@ -75,6 +80,7 @@ MonoBehaviour:
       enemy6: 0
       enemy7: 0
       enemy8: 0
+      BGM: 2
     - stage: 24
       enemy_count: 1
       enemy1: 8
@@ -85,6 +91,7 @@ MonoBehaviour:
       enemy6: 0
       enemy7: 0
       enemy8: 0
+      BGM: 2
     - stage: 31
       enemy_count: 3
       enemy1: 9
@@ -95,6 +102,7 @@ MonoBehaviour:
       enemy6: 0
       enemy7: 0
       enemy8: 0
+      BGM: 2
     - stage: 32
       enemy_count: 3
       enemy1: 9
@@ -105,6 +113,7 @@ MonoBehaviour:
       enemy6: 0
       enemy7: 0
       enemy8: 0
+      BGM: 2
     - stage: 33
       enemy_count: 3
       enemy1: 9
@@ -115,6 +124,7 @@ MonoBehaviour:
       enemy6: 0
       enemy7: 0
       enemy8: 0
+      BGM: 2
     - stage: 34
       enemy_count: 3
       enemy1: 9
@@ -125,6 +135,7 @@ MonoBehaviour:
       enemy6: 0
       enemy7: 0
       enemy8: 0
+      BGM: 2
     - stage: 35
       enemy_count: 1
       enemy1: 15
@@ -135,6 +146,7 @@ MonoBehaviour:
       enemy6: 0
       enemy7: 0
       enemy8: 0
+      BGM: 2
     - stage: 41
       enemy_count: 3
       enemy1: 13
@@ -145,6 +157,7 @@ MonoBehaviour:
       enemy6: 19
       enemy7: 20
       enemy8: 21
+      BGM: 2
     - stage: 42
       enemy_count: 3
       enemy1: 13
@@ -155,6 +168,7 @@ MonoBehaviour:
       enemy6: 19
       enemy7: 20
       enemy8: 21
+      BGM: 2
     - stage: 43
       enemy_count: 3
       enemy1: 13
@@ -165,6 +179,7 @@ MonoBehaviour:
       enemy6: 19
       enemy7: 20
       enemy8: 21
+      BGM: 2
     - stage: 44
       enemy_count: 3
       enemy1: 13
@@ -175,6 +190,7 @@ MonoBehaviour:
       enemy6: 19
       enemy7: 20
       enemy8: 21
+      BGM: 2
     - stage: 45
       enemy_count: 3
       enemy1: 13
@@ -185,6 +201,7 @@ MonoBehaviour:
       enemy6: 19
       enemy7: 20
       enemy8: 21
+      BGM: 2
     - stage: 46
       enemy_count: 1
       enemy1: 22
@@ -195,3 +212,4 @@ MonoBehaviour:
       enemy6: 0
       enemy7: 0
       enemy8: 0
+      BGM: 2
