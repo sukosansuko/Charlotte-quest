@@ -19,6 +19,8 @@ public class BattleScene : MonoBehaviour
     public GameObject Enemy1;
     public GameObject Enemy2;
     public GameObject Enemy3;
+    public GameObject winner;
+    public GameObject loser;
 
 
     private int pID1;
@@ -42,6 +44,16 @@ public class BattleScene : MonoBehaviour
 
     public Transform TL;
 
+    //  win!とlose表示時用
+    //  透明
+    Color fadeColor1 = new Color(1.0f, 1.0f, 1.0f, 0);
+    //  薄暗い
+    Color fadeColor2 = new Color(0.5f, 0.5f, 0.5f, 0.4f);
+    //  通常時の色
+    Color fadeColor3 = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+
+    public GameObject Fade;
+
     public struct Action
     {
         //public Performance p;
@@ -55,13 +67,6 @@ public class BattleScene : MonoBehaviour
         sceneNavigator = GameObject.Find("SceneNavigator");
         sceneNavigator.GetComponent<StatusControl>().GetPlayerList(ref pID1, ref pID2, ref pID3);
         sceneNavigator.GetComponent<StatusControl>().GetEnemyList(ref eID1, ref eID2, ref eID3);
-
-        //Player1 = GameObject.Find("player1");
-        //Player2 = GameObject.Find("player2");
-        //Player3 = GameObject.Find("player3");
-        //Enemy1 = GameObject.Find("enemy1");
-        //Enemy2 = GameObject.Find("enemy2");
-        //Enemy3 = GameObject.Find("enemy3");
 
         battleQueue = new Queue<Action>();
         foreach (Transform child in TL)
@@ -78,7 +83,24 @@ public class BattleScene : MonoBehaviour
 
     void Update()
     {
-
+        //  敵が全滅した時の処理
+        if (GetComponent<command>().GetEnemyCount() == 0)
+        {
+            Fade.GetComponent<Image>().color = fadeColor2;
+            winner.GetComponent<Image>().color = fadeColor3;
+        }
+        //  プレイヤーが全滅した時の処理
+        else if (!GetComponent<command>().PlayerAlive())
+        {
+            Fade.GetComponent<Image>().color = fadeColor2;
+            loser.GetComponent<Image>().color = fadeColor3;
+        }
+        else
+        {
+            winner.GetComponent<Image>().color = fadeColor1;
+            loser.GetComponent<Image>().color = fadeColor1;
+            Fade.GetComponent<Image>().color = fadeColor1;
+        }
     }
 
     public void TakeAction(int spcost, int HpFlag, int AttackType, double healPercent)
@@ -277,7 +299,7 @@ public class BattleScene : MonoBehaviour
 
             if (receiveChara1)
             {
-                TotalHeal1 = (int)Math.Round(receiveChara1.GetComponent<Status>().GetHP() * HealPercent);
+                TotalHeal1 = (int)Math.Round(receiveChara1.GetComponent<Status>().GetMAXHP() * HealPercent);
                 if (TotalHeal1 <= 0)
                 {
                     TotalHeal1 = 1;
@@ -290,7 +312,7 @@ public class BattleScene : MonoBehaviour
 
             if (receiveChara2)
             {
-                TotalHeal2 = (int)Math.Round(receiveChara2.GetComponent<Status>().GetHP() * HealPercent);
+                TotalHeal2 = (int)Math.Round(receiveChara2.GetComponent<Status>().GetMAXHP() * HealPercent);
                 if (TotalHeal2 <= 0)
                 {
                     TotalHeal2 = 1;
@@ -303,7 +325,7 @@ public class BattleScene : MonoBehaviour
 
             if (receiveChara3)
             {
-                TotalHeal3 = (int)Math.Round(receiveChara3.GetComponent<Status>().GetHP() * HealPercent);
+                TotalHeal3 = (int)Math.Round(receiveChara3.GetComponent<Status>().GetMAXHP() * HealPercent);
                 if (TotalHeal3 <= 0)
                 {
                     TotalHeal3 = 1;

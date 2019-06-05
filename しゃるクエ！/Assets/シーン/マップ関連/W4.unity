@@ -931,6 +931,42 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 9100784535328152589, guid: e91991efc256e944a852141240665906,
+        type: 3}
+      propertyPath: sp1
+      value: 
+      objectReference: {fileID: 21300000, guid: 903a87259d3bc664d84b637f83dd053b,
+        type: 3}
+    - target: {fileID: 9100784535328152589, guid: e91991efc256e944a852141240665906,
+        type: 3}
+      propertyPath: sp3
+      value: 
+      objectReference: {fileID: 21300000, guid: b591fd8192bac594d988f7acb22c6595,
+        type: 3}
+    - target: {fileID: 9100784535328152589, guid: e91991efc256e944a852141240665906,
+        type: 3}
+      propertyPath: sp6
+      value: 
+      objectReference: {fileID: 21300000, guid: 7c08aa081a9a56246a7160631aa88479,
+        type: 3}
+    - target: {fileID: 9100784535328152589, guid: e91991efc256e944a852141240665906,
+        type: 3}
+      propertyPath: sp4
+      value: 
+      objectReference: {fileID: 21300000, guid: 934032f828eabc14f8a0bd559ace81d1,
+        type: 3}
+    - target: {fileID: 9100784535328152589, guid: e91991efc256e944a852141240665906,
+        type: 3}
+      propertyPath: sp2
+      value: 
+      objectReference: {fileID: 21300000, guid: a2a2017e23860a04999a528ac7546555,
+        type: 3}
+    - target: {fileID: 9100784535328152589, guid: e91991efc256e944a852141240665906,
+        type: 3}
+      propertyPath: sp5
+      value: 
+      objectReference: {fileID: 21300000, guid: bbddaab422b411647ac30695aedf57a2,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e91991efc256e944a852141240665906, type: 3}
 --- !u!1001 &611391783

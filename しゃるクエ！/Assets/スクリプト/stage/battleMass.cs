@@ -40,6 +40,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[0].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1,enemy2,enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetStageID(1);
                 SceneNavigator.Instance.Change("BattleScene");
             }
             if (stageMass.MassName == "battle2")
@@ -57,6 +58,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[1].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetStageID(1);
                 SceneNavigator.Instance.Change("BattleScene");
             }
         }
@@ -77,6 +79,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[3].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetStageID(2);
                 SceneNavigator.Instance.Change("BattleScene");
             }
             if (stageMass.MassName == "battle2")
@@ -94,6 +97,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[4].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetStageID(2);
                 SceneNavigator.Instance.Change("BattleScene");
             }
         }
@@ -114,6 +118,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[7].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetStageID(3);
                 SceneNavigator.Instance.Change("BattleScene");
             }
             if (stageMass.MassName == "battle2")
@@ -131,6 +136,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[8].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetStageID(3);
                 SceneNavigator.Instance.Change("BattleScene");
             }
         }
@@ -151,6 +157,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[12].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetStageID(4);
                 SceneNavigator.Instance.Change("BattleScene");
             }
             if (stageMass.MassName == "battle2")
@@ -168,6 +175,7 @@ public class battleMass : MonoBehaviour {
                     enemy3 = SD.sheets[0].list[13].enemy3;
                 }
                 sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+                sceneNavigator.GetComponent<StatusControl>().SetStageID(4);
                 SceneNavigator.Instance.Change("BattleScene");
             }
         }

@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 253297392}
   - component: {fileID: 253297391}
   m_Layer: 0
-  m_Name: "\u68EE"
+  m_Name: "\u80CC\u666F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,7 +284,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 9fc0943271ecf034084967ad923083ec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 70d820a353146db4c8ca17b6760805f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -303,8 +303,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 253297390}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.0513098, y: 1.483083, z: 1}
+  m_LocalPosition: {x: -0.004, y: 0.029, z: 0}
+  m_LocalScale: {x: 2.313281, y: 2.3353107, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -729,6 +729,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\u30E1\u30CB\u30E5\u30FC\u30DC\u30BF\u30F3"
       objectReference: {fileID: 0}
+    - target: {fileID: 1250879641859842, guid: b341f9ae7b9bcdc47a47ad96b4be1aa8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224478989624189430, guid: b341f9ae7b9bcdc47a47ad96b4be1aa8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -950,7 +954,6 @@ MonoBehaviour:
   sp4: {fileID: 21300000, guid: 934032f828eabc14f8a0bd559ace81d1, type: 3}
   sp5: {fileID: 21300000, guid: bbddaab422b411647ac30695aedf57a2, type: 3}
   sp6: {fileID: 21300000, guid: 7c08aa081a9a56246a7160631aa88479, type: 3}
-  imageCnt: 0
 --- !u!114 &1019430494
 MonoBehaviour:
   m_ObjectHideFlags: 0

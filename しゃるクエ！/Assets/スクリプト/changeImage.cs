@@ -13,14 +13,18 @@ public class changeImage : MonoBehaviour
     public Sprite sp5;
     public Sprite sp6;
 
-    public int imageCnt;
+
+    private GameObject sceneNavigator;
+    private int charID;
     //public bool flag = true;
 
     // Use this for initialization
     void Start()
     {
-        imageCnt = 1;
+        sceneNavigator = GameObject.Find("SceneNavigator");
+        charID = sceneNavigator.GetComponent<StatusControl>().Get1Player();
         image = GetComponent<Image>();
+        SetImage();
     }
 
     // Update is called once per frame
@@ -38,7 +42,7 @@ public class changeImage : MonoBehaviour
         {
             ChangeImage();
         }
-        switch (imageCnt)
+        switch (charID)
         {
             case 1:
                 image.sprite = sp1;
@@ -60,14 +64,39 @@ public class changeImage : MonoBehaviour
                 break;
         }
 
-        if (imageCnt > 6)
+        if (charID > 6)
         {
-            imageCnt = 1;
+            charID = 1;
         }
     }
 
     public void ChangeImage()
     {
-        imageCnt++;
+        charID++;
+    }
+
+    private void SetImage()
+    {
+        switch (charID)
+        {
+            case 1:
+                image.sprite = sp1;
+                break;
+            case 2:
+                image.sprite = sp2;
+                break;
+            case 3:
+                image.sprite = sp3;
+                break;
+            case 4:
+                image.sprite = sp4;
+                break;
+            case 5:
+                image.sprite = sp5;
+                break;
+            case 6:
+                image.sprite = sp6;
+                break;
+        }
     }
 }

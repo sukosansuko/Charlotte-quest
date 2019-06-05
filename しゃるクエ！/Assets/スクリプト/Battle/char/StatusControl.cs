@@ -37,6 +37,8 @@ public class StatusControl : MonoBehaviour
     //  敵格納用リスト
     private List<int> enemyList = new List<int>();
 
+    private int stageID;
+
     void Start()
     {
         StatusInit();
@@ -46,6 +48,8 @@ public class StatusControl : MonoBehaviour
         playerList.Add(4);
         playerList.Add(5);
         playerList.Add(6);
+
+        stageID = 1;
     }
 
     void StatusInit()
@@ -173,6 +177,12 @@ public class StatusControl : MonoBehaviour
         char6 = playerList[5];
     }
 
+    //  戦闘のキャラの取得(ホームやワールドマップ用)
+    public int Get1Player()
+    {
+        return playerList[0];
+    }
+
     //  編成用
     public int GetLV(int id)
     {
@@ -208,12 +218,15 @@ public class StatusControl : MonoBehaviour
             playerList.Insert(number1 - 1, id2);
             playerList.Insert(number2 - 1, id1);
         }
+    }
 
-        //Debug.Log(playerList[0]);
-        //Debug.Log(playerList[1]);
-        //Debug.Log(playerList[2]);
-        //Debug.Log(playerList[3]);
-        //Debug.Log(playerList[4]);
-        //Debug.Log(playerList[5]);
+    public void SetStageID(int id)
+    {
+        stageID = id;
+    }
+
+    public int GetStageID()
+    {
+        return stageID;
     }
 }

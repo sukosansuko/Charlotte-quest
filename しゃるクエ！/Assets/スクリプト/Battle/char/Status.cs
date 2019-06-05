@@ -197,16 +197,6 @@ public class Status : MonoBehaviour
             {
                 TLManager();
             }
-            //  敵が全滅した時の処理
-            if (battleManager.GetComponent<command>().GetEnemyCount() == 0)
-            {
-
-            }
-            //  プレイヤーが全滅した時の処理
-            if(!battleManager.GetComponent<command>().PlayerAlive())
-            {
-
-            }
         }
     }
 
@@ -457,6 +447,7 @@ public class Status : MonoBehaviour
                     waitTime = 0;
                     CheckBuff();
                     battleManager.GetComponent<command>().changeColor(color1);
+
                     battleManager.GetComponent<BattleScene>().SetReceiveObj(null, null, null);
                 }
             }
