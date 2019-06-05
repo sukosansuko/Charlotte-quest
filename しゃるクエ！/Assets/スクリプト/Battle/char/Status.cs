@@ -192,9 +192,20 @@ public class Status : MonoBehaviour
         else
         {
             state = STATE.ST_STAND;
+            //  戦闘が続いている時の処理
             if (battleManager.GetComponent<command>().GetEnemyCount() != 0 && battleManager.GetComponent<command>().PlayerAlive())
             {
                 TLManager();
+            }
+            //  敵が全滅した時の処理
+            if (battleManager.GetComponent<command>().GetEnemyCount() == 0)
+            {
+
+            }
+            //  プレイヤーが全滅した時の処理
+            if(!battleManager.GetComponent<command>().PlayerAlive())
+            {
+
             }
         }
     }
