@@ -29,6 +29,7 @@ public class BattleScene : MonoBehaviour
     public GameObject EEffect2;
     public GameObject EEffect3;
 
+    public GameObject BFinish;
 
     private int pID1;
     private int pID2;
@@ -108,18 +109,21 @@ public class BattleScene : MonoBehaviour
                 sceneNavigator.GetComponent<BGMselect>().SetSE("クリア時");
                 SEFlag = true;
             }
+            BFinish.GetComponent<Image>().enabled = true;
         }
         //  プレイヤーが全滅した時の処理
         else if (!GetComponent<command>().PlayerAlive())
         {
             Fade.GetComponent<Image>().color = fadeColor2;
             loser.GetComponent<Image>().color = fadeColor3;
+            BFinish.GetComponent<Image>().enabled = true;
         }
         else
         {
             winner.GetComponent<Image>().color = fadeColor1;
             loser.GetComponent<Image>().color = fadeColor1;
             Fade.GetComponent<Image>().color = fadeColor1;
+            BFinish.GetComponent<Image>().enabled = false;
         }
     }
 

@@ -53,10 +53,10 @@ public class BGMselect : SingletonMonoBehaviour<BGMselect>
             //{
             //    AudioManager.Instance.StopBGM();
             //}
-            //if (activScene == "タイトル")
-            //{
-            //    AudioManager.Instance.PlayBGM("高槻ワンサイドラバー");
-            //}
+            if (activScene == "タイトル")
+            {
+                AudioManager.Instance.PlayBGM("高槻ワンサイドラバー");
+            }
             if (activScene == "ホーム")
             {
                 if (prevScene != "編成")
@@ -75,29 +75,48 @@ public class BGMselect : SingletonMonoBehaviour<BGMselect>
             }
             if (activScene == "ワールドマップ")
             {
-                AudioManager.Instance.StopBGM();
-                AudioManager.Instance.PlayBGM("木2");
+                if ((prevScene != "W1") && (prevScene != "W2") && (prevScene != "W3") && (prevScene != "W4"))
+                {
+                    AudioManager.Instance.StopBGM();
+                    AudioManager.Instance.PlayBGM("木2");
+                }
             }
             if (activScene == "BattleScene")
             {
                 SetBattleBGM(GetComponent<StatusControl>().GetBGMID());
             }
-            //if (activScene == "W1")
-            //{
-            //    AudioManager.Instance.PlayBGM("");
-            //}
-            //if (activScene == "W2")
-            //{
-            //    AudioManager.Instance.PlayBGM("");
-            //}
-            //if (activScene == "W3")
-            //{
-            //    AudioManager.Instance.PlayBGM("");
-            //}
-            //if (activScene == "W4")
-            //{
-            //    AudioManager.Instance.PlayBGM("");
-            //}
+            if (activScene == "W1")
+            {
+                if (prevScene != "ワールドマップ")
+                {
+                    AudioManager.Instance.StopBGM();
+                    AudioManager.Instance.PlayBGM("木2");
+                }
+            }
+            if (activScene == "W2")
+            {
+                if (prevScene != "ワールドマップ")
+                {
+                    AudioManager.Instance.StopBGM();
+                    AudioManager.Instance.PlayBGM("木2");
+                }
+            }
+            if (activScene == "W3")
+            {
+                if (prevScene != "ワールドマップ")
+                {
+                    AudioManager.Instance.StopBGM();
+                    AudioManager.Instance.PlayBGM("木2");
+                }
+            }
+            if (activScene == "W4")
+            {
+                if (prevScene != "ワールドマップ")
+                {
+                    AudioManager.Instance.StopBGM();
+                    AudioManager.Instance.PlayBGM("木2");
+                }
+            }
             //if (worldNum == "W1")
             //{
             //    if (activScene == "BattleScene")
