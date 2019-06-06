@@ -22,6 +22,13 @@ public class BattleScene : MonoBehaviour
     public GameObject winner;
     public GameObject loser;
 
+    public GameObject PEffect1;
+    public GameObject PEffect2;
+    public GameObject PEffect3;
+    public GameObject EEffect1;
+    public GameObject EEffect2;
+    public GameObject EEffect3;
+
 
     private int pID1;
     private int pID2;
@@ -29,6 +36,7 @@ public class BattleScene : MonoBehaviour
     private int eID1;
     private int eID2;
     private int eID3;
+
 
     private command co;
 
@@ -55,6 +63,8 @@ public class BattleScene : MonoBehaviour
     public GameObject Fade;
 
     private bool SEFlag;
+
+    private string animName;
 
     public struct Action
     {
@@ -83,6 +93,7 @@ public class BattleScene : MonoBehaviour
         Enemy3.GetComponent<Status>().SetChara();
 
         SEFlag = false;
+        animName = "null";
     }
 
     void Update()
@@ -112,8 +123,9 @@ public class BattleScene : MonoBehaviour
         }
     }
 
-    public void TakeAction(int spcost, int HpFlag, int AttackType, double healPercent)
+    public void TakeAction(int spcost, int HpFlag, int AttackType, double healPercent,string AName)
     {
+        animName = AName;
         attackObj.GetComponent<Status>().SetBuff();
         if(receiveObj1 != null)
         {
@@ -194,8 +206,12 @@ public class BattleScene : MonoBehaviour
         public int TotalDamage2;
         public int TotalDamage3;
 
+        GameObject battleManager;
+
         public void processing()
         {
+            battleManager = GameObject.Find("BattleManager");
+
             attackChara.GetComponent<Status>().SetSP(attackChara.GetComponent<Status>().GetSP() - spCost);
             attackChara.GetComponent<Status>().SetState(Status.STATE.ST_ATK);
 
@@ -227,6 +243,7 @@ public class BattleScene : MonoBehaviour
                 Debug.Log(attackChara.gameObject.name + "が" + receiveChara1.gameObject.name + "に" + TotalDamage1 + "ダメージ！");
                 Debug.Log("残りHP" + receiveChara1.GetComponent<Status>().GetHP());
                 receiveChara1.GetComponent<Status>().SetState(Status.STATE.ST_DAMAGE);
+                battleManager.GetComponent<BattleScene>().SetEffect(receiveChara1.name);
             }
 
             if(receiveChara2)
@@ -256,6 +273,7 @@ public class BattleScene : MonoBehaviour
                 Debug.Log(attackChara.gameObject.name + "が" + receiveChara2.gameObject.name + "に" + TotalDamage2 + "ダメージ！");
                 Debug.Log("残りHP" + receiveChara2.GetComponent<Status>().GetHP());
                 receiveChara2.GetComponent<Status>().SetState(Status.STATE.ST_DAMAGE);
+                battleManager.GetComponent<BattleScene>().SetEffect(receiveChara2.name);
             }
 
             if (receiveChara3)
@@ -285,6 +303,7 @@ public class BattleScene : MonoBehaviour
                 Debug.Log(attackChara.gameObject.name + "が" + receiveChara3.gameObject.name + "に" + TotalDamage3 + "ダメージ！");
                 Debug.Log("残りHP" + receiveChara3.GetComponent<Status>().GetHP());
                 receiveChara3.GetComponent<Status>().SetState(Status.STATE.ST_DAMAGE);
+                battleManager.GetComponent<BattleScene>().SetEffect(receiveChara3.name);
             }
         }
     }
@@ -301,8 +320,11 @@ public class BattleScene : MonoBehaviour
         public int TotalHeal2;
         public int TotalHeal3;
 
+        GameObject battleManager;
+        
         public void processing()
         {
+            battleManager = GameObject.Find("BattleManager");
             attackChara.GetComponent<Status>().SetSP(attackChara.GetComponent<Status>().GetSP() - spCost);
             attackChara.GetComponent<Status>().SetState(Status.STATE.ST_ATK);
 
@@ -317,6 +339,7 @@ public class BattleScene : MonoBehaviour
 
                 Debug.Log(receiveChara1.gameObject.name + "のHPが" + TotalHeal1 + "かいふく！");
                 Debug.Log("残りHP" + receiveChara1.GetComponent<Status>().GetHP());
+                battleManager.GetComponent<BattleScene>().SetEffect(receiveChara1.name);
             }
 
             if (receiveChara2)
@@ -330,6 +353,7 @@ public class BattleScene : MonoBehaviour
 
                 Debug.Log(receiveChara2.gameObject.name + "のHPが" + TotalHeal2 + "かいふく！");
                 Debug.Log("残りHP" + receiveChara2.GetComponent<Status>().GetHP());
+                battleManager.GetComponent<BattleScene>().SetEffect(receiveChara2.name);
             }
 
             if (receiveChara3)
@@ -343,6 +367,7 @@ public class BattleScene : MonoBehaviour
 
                 Debug.Log(receiveChara3.gameObject.name + "のHPが" + TotalHeal3 + "かいふく！");
                 Debug.Log("残りHP" + receiveChara3.GetComponent<Status>().GetHP());
+                battleManager.GetComponent<BattleScene>().SetEffect(receiveChara3.name);
             }
         }
     }
@@ -355,23 +380,29 @@ public class BattleScene : MonoBehaviour
         public GameObject receiveChara3;
         public int spCost;
 
+        GameObject battleManager;
+
         public void processing()
         {
+            battleManager = GameObject.Find("BattleManager");
             attackChara.GetComponent<Status>().SetState(Status.STATE.ST_DEF);
             if (receiveChara1)
             {
                 Debug.Log(receiveChara1.gameObject.name + "の"/* + TotalHeal*/ + "が変化！");
                 Debug.Log("残りHP" + receiveChara1.GetComponent<Status>().GetHP());
+                battleManager.GetComponent<BattleScene>().SetEffect(receiveChara1.name);
             }
             if (receiveChara2)
             {
                 Debug.Log(receiveChara2.gameObject.name + "の"/* + TotalHeal*/ + "が変化！");
                 Debug.Log("残りHP" + receiveChara2.GetComponent<Status>().GetHP());
+                battleManager.GetComponent<BattleScene>().SetEffect(receiveChara2.name);
             }
             if (receiveChara3)
             {
                 Debug.Log(receiveChara3.gameObject.name + "の"/* + TotalHeal*/ + "が変化！");
                 Debug.Log("残りHP" + receiveChara3.GetComponent<Status>().GetHP());
+                battleManager.GetComponent<BattleScene>().SetEffect(receiveChara3.name);
             }
         }
     }
@@ -490,4 +521,37 @@ public class BattleScene : MonoBehaviour
         return ActionFlag;
     }
 
+    public void SetEffect(string receive)
+    {
+        if (receive.StartsWith("p"))
+        {
+            if (receive.Contains("1"))
+            {
+                PEffect1.GetComponent<EffectControl>().SetAnimName(animName);
+            }
+            else if (receive.Contains("2"))
+            {
+                PEffect2.GetComponent<EffectControl>().SetAnimName(animName);
+            }
+            else
+            {
+                PEffect3.GetComponent<EffectControl>().SetAnimName(animName);
+            }
+        }
+        else
+        {
+            if (receive.Contains("1"))
+            {
+                EEffect1.GetComponent<EffectControl>().SetAnimName(animName);
+            }
+            else if (receive.Contains("2"))
+            {
+                EEffect2.GetComponent<EffectControl>().SetAnimName(animName);
+            }
+            else
+            {
+                EEffect3.GetComponent<EffectControl>().SetAnimName(animName);
+            }
+        }
+    }
 }
