@@ -146,6 +146,9 @@ public class Status : MonoBehaviour
 
     private Animator anim;
 
+    //  技のエフェクト用
+    private string animName;
+
     void Start()
     {
         Name = this.gameObject.name;
@@ -167,6 +170,7 @@ public class Status : MonoBehaviour
         tmp = TLIcon.transform.position;
         TLIcon.transform.position = new Vector3(tmp.x,tmp.y,tmp.z);
         progressEnd = false;
+        animName = "null";
         //SetChara();
     }
 
@@ -403,7 +407,7 @@ public class Status : MonoBehaviour
                     LoadSkill();
                     battleManager.GetComponent<command>().ActionStart();
 
-                    battleManager.GetComponent<BattleScene>().TakeAction(spCost, HPCtlFlag, AttackType, HealPercent);
+                    battleManager.GetComponent<BattleScene>().TakeAction(spCost, HPCtlFlag, AttackType, HealPercent,animName);
 
                     //  色の変更
                     battleManager.GetComponent<command>().changeColor(color2);
@@ -963,10 +967,12 @@ public class Status : MonoBehaviour
         if(playerProof)
         {
             battleManager.GetComponent<command>().SetActiveSkillText(PS.sheets[0].list[skillID].skillName);
+            animName = PS.sheets[0].list[skillID].effectName;
         }
         else
         {
             battleManager.GetComponent<command>().SetActiveSkillText(ES.sheets[0].list[skillID].skillName);
+            //animName = ES.sheets[0].list[skillID].effectName;
         }
 
         string charaStatus;

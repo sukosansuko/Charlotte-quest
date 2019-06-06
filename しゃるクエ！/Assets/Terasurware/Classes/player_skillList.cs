@@ -20,6 +20,7 @@ public class player_skillList : ScriptableObject
 		public double ID;
 		public string charName;
 		public string skillName;
+		public string effectName;
 		public double Lv;
 		public double power;
 		public string target;
