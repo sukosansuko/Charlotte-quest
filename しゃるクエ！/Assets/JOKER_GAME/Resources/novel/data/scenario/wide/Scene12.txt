@@ -10,12 +10,13 @@
 [text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
 [text_show name="_sp_chara_name"]
 
-[chara_new name = シャルロット storage = シャルロット jname = シャルロット x = -4.5 tag = 1  scale_x = -1]
-[chara_new name = エリザ storage = エリザ jname = エリザ x = -2.5 tag = 1]
-[chara_new name = カーラ storage = カーラ jname = カーラ x = 3 tag = 1]
-[chara_new name = リリー storage = リリー jname = リリー x = 1 tag = 2 scale_x = -1]
-[chara_new name = ディアナ storage = ディアナ jname = ディアナ x = 3.5 tag = 2]
-
+[chara_new name = シャルロット storage = シャルロット layer=Default sort=1 jname = シャルロット x = -4.5 tag = 1  scale_x = -1]
+[chara_new name = エリザ storage = エリザ layer=Default sort=1 jname = エリザ x = -2.5 tag = 1]
+[chara_new name = カーラ storage = カーラ layer=Default sort=1 jname = カーラ x = 3 tag = 1]
+[chara_new name = リリー storage = リリー layer=Default sort=1 jname = リリー x = 1 tag = 2 scale_x = -1]
+[chara_new name = ディアナ storage = ディアナ layer=Default sort=1 jname = ディアナ x = 3.5 tag = 2]
+[bg_new storage="洞窟"]
+[bg_show storage="洞窟"]
 [show tag = 1]
 
 #シャルロット

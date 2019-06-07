@@ -10,11 +10,12 @@
 [text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
 [text_show name="_sp_chara_name"]
 
-[chara_new name="ターナー" storage="ターナー" jname = "ターナー" tag = enemy x=3]
+[chara_new name="ターナー" storage="ターナー" layer=Default sort=1 jname = "ターナー" tag = enemy x=3]
 
-[chara_new name="パンドラリーダーシルエット" storage="パンドラリーダーシルエット" jname = "モルタリア" tag = enemy x=-3.5 scale_x = -1]
+[chara_new name="パンドラリーダーシルエット" storage="パンドラリーダーシルエット" layer=Default sort=1 jname = "モルタリア" tag = enemy x=-3.5 scale_x = -1]
 
-
+[bg_new storage="謎空間1"]
+[bg_show storage="謎空間1"]
 
 [show name = "ターナー"]
 
