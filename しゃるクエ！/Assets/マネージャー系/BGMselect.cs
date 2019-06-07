@@ -55,7 +55,7 @@ public class BGMselect : SingletonMonoBehaviour<BGMselect>
             //}
             if (activScene == "タイトル")
             {
-                AudioManager.Instance.PlayBGM("高槻ワンサイドラバー");
+                AudioManager.Instance.PlayBGM("タイトル");
             }
             if (activScene == "ホーム")
             {

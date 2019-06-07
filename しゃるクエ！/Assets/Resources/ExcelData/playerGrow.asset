@@ -21,7 +21,7 @@ MonoBehaviour:
       GROWSP: 4
       GROWATK: 9
       GROWDEF: 3
-      GROWSPD: 0
+      GROWSPD: 1
       GROWMAT: 1
       GROWMDF: 3
       GROWLUK: 6
@@ -31,7 +31,7 @@ MonoBehaviour:
       GROWSP: 9
       GROWATK: 3
       GROWDEF: 3
-      GROWSPD: 0
+      GROWSPD: 1
       GROWMAT: 8
       GROWMDF: 4
       GROWLUK: 4
@@ -41,7 +41,7 @@ MonoBehaviour:
       GROWSP: 3
       GROWATK: 6
       GROWDEF: 3
-      GROWSPD: 0
+      GROWSPD: 1
       GROWMAT: 1
       GROWMDF: 3
       GROWLUK: 4
@@ -51,7 +51,7 @@ MonoBehaviour:
       GROWSP: 8
       GROWATK: 1
       GROWDEF: 3
-      GROWSPD: 0
+      GROWSPD: 1
       GROWMAT: 9
       GROWMDF: 3
       GROWLUK: 5
@@ -61,7 +61,7 @@ MonoBehaviour:
       GROWSP: 7
       GROWATK: 4
       GROWDEF: 3
-      GROWSPD: 0
+      GROWSPD: 1
       GROWMAT: 7
       GROWMDF: 3
       GROWLUK: 5
@@ -71,7 +71,7 @@ MonoBehaviour:
       GROWSP: 7
       GROWATK: 7
       GROWDEF: 4
-      GROWSPD: 0
+      GROWSPD: 1
       GROWMAT: 8
       GROWMDF: 3
       GROWLUK: 2

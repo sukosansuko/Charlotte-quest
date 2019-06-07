@@ -70,8 +70,8 @@ public class StatusControl : MonoBehaviour
                                                     CharName = PC.sheets[0].list[charID].Name, LV = 99,   HP = (int)PC.sheets[0].list[charID].HP,        SP = (int)PC.sheets[0].list[charID].SP,
                                                     ATK = (int)PC.sheets[0].list[charID].ATK,            DEF = (int)PC.sheets[0].list[charID].DEF,
                                                     SPD = (int)PC.sheets[0].list[charID].SPD,            MAT = (int)PC.sheets[0].list[charID].MAT,
-                                                    MDF = (int)PC.sheets[0].list[charID].MDF,            LUK = (int)PC.sheets[0].list[charID].LUK,      EXP = 0
-                                                 };
+                                                    MDF = (int)PC.sheets[0].list[charID].MDF,            LUK = (int)PC.sheets[0].list[charID].LUK,      EXP = 1200
+            };
 
             StatusGrowList[charID] = new statusData(){
                                                     LV = 1,HP = (int)PG.sheets[0].list[charID].GROWHP,  SP = (int)PG.sheets[0].list[charID].GROWSP,
@@ -127,25 +127,29 @@ public class StatusControl : MonoBehaviour
 
     public void GetNowCharExp(int id,int exp)
     {
-        exp = StatusList[id].EXP;
+        exp = StatusList[id - 1].EXP;
     }
 
     //  経験値の獲得&レベルアップ処理
     public bool AcquisitionExp(int id,int exp)
     {
         bool LevelUpFlag = false;
-        StatusList[id].EXP += exp;
-
-        //  レベルアップするために必要な総経験値
-        int levelUpExp = EL.sheets[0].list[StatusList[id].LV - 1].TotalExp;
-
-        while (StatusList[id].EXP >= levelUpExp)
+        if (StatusList[id - 1].LV < 99)
         {
-            StatusList[id].LV++;
-            levelUpExp = EL.sheets[0].list[StatusList[id].LV - 1].TotalExp;
-            
-            //  レベルアップしたらtrueを返してレベルアップしたことを伝える
-            LevelUpFlag = true;
+            StatusList[id - 1].EXP += exp;
+
+            EL = Resources.Load("ExcelData/EXP_List") as EXP_List;
+            //  レベルアップするために必要な総経験値
+            int levelUpExp = EL.sheets[0].list[StatusList[id - 1].LV - 1].TotalExp;
+
+            while (StatusList[id - 1].EXP >= levelUpExp)
+            {
+                StatusList[id - 1].LV++;
+                levelUpExp = EL.sheets[0].list[StatusList[id - 1].LV - 1].TotalExp;
+
+                //  レベルアップしたらtrueを返してレベルアップしたことを伝える
+                LevelUpFlag = true;
+            }
         }
         return LevelUpFlag;
     }
@@ -159,6 +163,7 @@ public class StatusControl : MonoBehaviour
 
     public void SetEnemyList(int char1,int char2,int char3)
     {
+        enemyList.Clear();
         enemyList.Add(char1);
         enemyList.Add(char2);
         enemyList.Add(char3);

@@ -16,12 +16,7 @@ public class EffectControl : MonoBehaviour
 
     void Update()
     {
-        SetAnim();
-    }
-
-    public void SetAnim()
-    {
-        if(animName == "空き")
+        if (animName == "空き")
         {
             anim.SetBool(animName, true);
         }
@@ -29,6 +24,11 @@ public class EffectControl : MonoBehaviour
         {
             anim.SetBool("空き", false);
         }
+    }
+
+    public void SetAnim()
+    {
+
 
         //  単体攻撃
         if (animName == "ひっかく")
@@ -218,6 +218,6 @@ public class EffectControl : MonoBehaviour
     public void SetAnimName(string name)
     {
         animName = name;
-        Debug.Log(animName);
+        SetAnim();
     }
 }

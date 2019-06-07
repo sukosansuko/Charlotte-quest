@@ -137,6 +137,7 @@ public class battleMass : MonoBehaviour {
         sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[count].BGM);
         sceneNavigator.GetComponent<StatusControl>().SetEXP((int)SD.sheets[0].list[count].EXP);
         sceneNavigator.GetComponent<StatusControl>().SetStageID(stageID);
+        Debug.Log("カウント" + count);
         SceneNavigator.Instance.Change("BattleScene");
     }
 }
