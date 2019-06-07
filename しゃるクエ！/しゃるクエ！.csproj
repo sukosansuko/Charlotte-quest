@@ -377,11 +377,13 @@
     <Compile Include="Assets\Terasurware\Classes\playerGrow.cs" />
     <Compile Include="Assets\Terasurware\Classes\stageData.cs" />
     <Compile Include="Assets\スクリプト\Battle\backImage.cs" />
+    <Compile Include="Assets\スクリプト\Battle\BattleFinish.cs" />
     <Compile Include="Assets\スクリプト\Battle\BattleScene.cs" />
     <Compile Include="Assets\スクリプト\Battle\cameraShake.cs" />
     <Compile Include="Assets\スクリプト\Battle\char\Status.cs" />
     <Compile Include="Assets\スクリプト\Battle\char\StatusControl.cs" />
     <Compile Include="Assets\スクリプト\Battle\command.cs" />
+    <Compile Include="Assets\スクリプト\Battle\EffectControl.cs" />
     <Compile Include="Assets\スクリプト\Battle\EnemyAction.cs" />
     <Compile Include="Assets\スクリプト\Battle\HPText.cs" />
     <Compile Include="Assets\スクリプト\Battle\StatusWindow.cs" />
