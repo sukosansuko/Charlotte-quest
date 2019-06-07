@@ -19,6 +19,7 @@ public class stageData : ScriptableObject
 		
 		public int stage;
 		public int enemy_count;
+		public string extra;
 		public int enemy1;
 		public int enemy2;
 		public int enemy3;
@@ -28,6 +29,7 @@ public class stageData : ScriptableObject
 		public int enemy7;
 		public int enemy8;
 		public int BGM;
+		public double EXP;
 	}
 }
 
