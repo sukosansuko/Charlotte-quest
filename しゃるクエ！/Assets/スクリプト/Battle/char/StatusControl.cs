@@ -37,9 +37,12 @@ public class StatusControl : MonoBehaviour
     //  敵格納用リスト
     private List<int> enemyList = new List<int>();
 
+    //  ステージのID
     private int stageID;
-
+    //  BGMのID
     private int BGMID;
+    //  そのステージでもらえる経験値
+    private int Exp;
 
     void Start()
     {
@@ -64,7 +67,7 @@ public class StatusControl : MonoBehaviour
         for (int charID = 0; charID < 6; charID++)
         {
             StatusList[charID] = new statusData(){
-                                                    CharName = PC.sheets[0].list[charID].Name, LV = 8,   HP = (int)PC.sheets[0].list[charID].HP,        SP = (int)PC.sheets[0].list[charID].SP,
+                                                    CharName = PC.sheets[0].list[charID].Name, LV = 99,   HP = (int)PC.sheets[0].list[charID].HP,        SP = (int)PC.sheets[0].list[charID].SP,
                                                     ATK = (int)PC.sheets[0].list[charID].ATK,            DEF = (int)PC.sheets[0].list[charID].DEF,
                                                     SPD = (int)PC.sheets[0].list[charID].SPD,            MAT = (int)PC.sheets[0].list[charID].MAT,
                                                     MDF = (int)PC.sheets[0].list[charID].MDF,            LUK = (int)PC.sheets[0].list[charID].LUK,      EXP = 0
@@ -122,13 +125,13 @@ public class StatusControl : MonoBehaviour
         luk = StatusList[id].LUK + StatusGrowList[id].LUK * (lv - 1);
     }
 
-    public void GetExp(int id,int exp)
+    public void GetNowCharExp(int id,int exp)
     {
         exp = StatusList[id].EXP;
     }
 
     //  経験値の獲得&レベルアップ処理
-    private bool SetExp(int id,int exp)
+    public bool AcquisitionExp(int id,int exp)
     {
         bool LevelUpFlag = false;
         StatusList[id].EXP += exp;
@@ -241,5 +244,15 @@ public class StatusControl : MonoBehaviour
     public int GetBGMID()
     {
         return BGMID;
+    }
+
+    public void SetEXP(int number)
+    {
+        Exp = number;
+    }
+
+    public int GetEXP()
+    {
+        return Exp;
     }
 }

@@ -10,8 +10,7 @@ public class EffectControl : MonoBehaviour
     private string animName;
     void Start()
     {
-        anim = gameObject.AddComponent<Animator>();
-        anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("エフェクトアニメ/SingleEffect");
+        anim = gameObject.GetComponent<Animator>();
         animName = "空き";
     }
 
@@ -30,6 +29,8 @@ public class EffectControl : MonoBehaviour
         {
             anim.SetBool("空き", false);
         }
+
+        //  単体攻撃
         if (animName == "ひっかく")
         {
             anim.SetBool(animName, true);
@@ -45,14 +46,6 @@ public class EffectControl : MonoBehaviour
         else
         {
             anim.SetBool("シャイニングなんちゃら", false);
-        }
-        if (animName == "ジャッジメント・デイ")
-        {
-            anim.SetBool(animName, true);
-        }
-        else
-        {
-            anim.SetBool("ジャッジメント・デイ", false);
         }
         if (animName == "プロテクト")
         {
@@ -86,14 +79,6 @@ public class EffectControl : MonoBehaviour
         {
             anim.SetBool("回復", false);
         }
-        if (animName == "地面")
-        {
-            anim.SetBool(animName, true);
-        }
-        else
-        {
-            anim.SetBool("地面", false);
-        }
         if (animName == "氷1")
         {
             anim.SetBool(animName, true);
@@ -110,22 +95,6 @@ public class EffectControl : MonoBehaviour
         {
             anim.SetBool("氷2", false);
         }
-        if (animName == "氷3")
-        {
-            anim.SetBool(animName, true);
-        }
-        else
-        {
-            anim.SetBool("氷3", false);
-        }
-        if (animName == "煉獄斬")
-        {
-            anim.SetBool(animName, true);
-        }
-        else
-        {
-            anim.SetBool("煉獄斬", false);
-        }
         if (animName == "爆発1")
         {
             anim.SetBool(animName, true);
@@ -141,14 +110,6 @@ public class EffectControl : MonoBehaviour
         else
         {
             anim.SetBool("爆発2", false);
-        }
-        if (animName == "爆発3")
-        {
-            anim.SetBool(animName, true);
-        }
-        else
-        {
-            anim.SetBool("爆発3", false);
         }
         if (animName == "通常攻撃(魔法)")
         {
@@ -198,6 +159,42 @@ public class EffectControl : MonoBehaviour
         {
             anim.SetBool("雷2", false);
         }
+
+
+
+        //  全体攻撃
+        if (animName == "ジャッジメント・デイ")
+        {
+            anim.SetBool(animName, true);
+        }
+        else
+        {
+            anim.SetBool("ジャッジメント・デイ", false);
+        }
+        if (animName == "地面")
+        {
+            anim.SetBool(animName, true);
+        }
+        else
+        {
+            anim.SetBool("地面", false);
+        }
+        if (animName == "煉獄斬")
+        {
+            anim.SetBool(animName, true);
+        }
+        else
+        {
+            anim.SetBool("煉獄斬", false);
+        }
+        if (animName == "氷3")
+        {
+            anim.SetBool(animName, true);
+        }
+        else
+        {
+            anim.SetBool("氷3", false);
+        }
         if (animName == "雷3")
         {
             anim.SetBool(animName, true);
@@ -206,6 +203,15 @@ public class EffectControl : MonoBehaviour
         {
             anim.SetBool("雷3", false);
         }
+        if (animName == "爆発3")
+        {
+            anim.SetBool(animName, true);
+        }
+        else
+        {
+            anim.SetBool("爆発3", false);
+        }
+
         animName = "空き";
     }
 
