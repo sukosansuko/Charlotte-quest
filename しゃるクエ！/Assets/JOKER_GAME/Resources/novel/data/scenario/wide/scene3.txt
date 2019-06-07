@@ -10,14 +10,15 @@
 [text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
 [text_show name="_sp_chara_name"]
 
-[chara_new name="シャルロット" storage="シャルロット" tag = "chara" jname = "シャルロット" x=-3.5 scale_x=-1]
+[chara_new name="シャルロット" storage="シャルロット" tag = "chara" layer=Default sort=1 jname = "シャルロット" x=-3.5 scale_x=-1]
 
-[chara_new name="カーラ" storage="カーラ" tag = "chara" jname = "カーラ" x=-0.5 scale_x=-1]
+[chara_new name="カーラ" storage="カーラ" tag = "chara" layer=Default sort=1 jname = "カーラ" x=-0.5 scale_x=-1]
 
-[chara_new name="ターナー" storage="ターナー" tag = "chara" jname = "ターナー" x=3]
+[chara_new name="ターナー" storage="ターナー" tag = "chara" layer=Default sort=1 jname = "ターナー" x=3]
 
+[bg_new storage="遺跡1"]
+[bg_show storage="遺跡1"]
 [chara_show tag = "chara"]
-
 [playse storage="剣1"]
 #ターナー
 ば、馬鹿な......[r]

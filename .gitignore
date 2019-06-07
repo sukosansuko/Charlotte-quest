@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /しゃるクエ！/UnityPackageManager
 /しゃるクエ！/Library
 /しゃるクエ！/Logs
@@ -7,3 +8,11 @@
 /しゃるクエ！/obj
 /.gitignore
 /しゃるクエ！/Temp
+=======
+/しゃるクエ！/Library
+/しゃるクエ！/.vs
+/しゃるクエ！/Logs
+/しゃるクエ！/Packages
+/しゃるクエ！/UnityPackageManager
+/しゃるクエ！/ProjectSettings
+>>>>>>> a27a768890a283bd29cb4ac20d081be9bb60c891

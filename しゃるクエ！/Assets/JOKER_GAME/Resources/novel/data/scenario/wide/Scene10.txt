@@ -10,13 +10,14 @@
 [text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
 [text_show name="_sp_chara_name"]
 
-[chara_new name="シャルロット" storage="シャルロット" jname = "シャルロット" tag = 1 x = -3.5 scale_x = -1]
-[chara_new name="ディアナ" storage="ディアナ" jname = "ディアナ" tag = 1 x = -1.5 scale_x = -1]
-[chara_new name="カーラ" storage="カーラ" jname = "カーラ" tag = 1 x = 1.5]
-[chara_new name="リリー" storage="リリー" jname = "リリー" tag = 1 x = 3.5]
-[chara_new name="アーデン" storage="アーデン" jname = "アーデン" tag = 2 x = 3.5]
+[chara_new name="シャルロット" storage="シャルロット" layer=Default sort=1 jname = "シャルロット" tag = 1 x = -3.5 scale_x = -1]
+[chara_new name="ディアナ" storage="ディアナ" layer=Default sort=1 jname = "ディアナ" tag = 1 x = -1.5 scale_x = -1]
+[chara_new name="カーラ" storage="カーラ" layer=Default sort=1 jname = "カーラ" tag = 1 x = 1.5]
+[chara_new name="リリー" storage="リリー" layer=Default sort=1 jname = "リリー" tag = 1 x = 3.5]
+[chara_new name="アーデン" storage="アーデン" layer=Default sort=1 jname = "アーデン" tag = 2 x = 3.5]
 [chara_new name="幕間" storage="幕間" sort=2 scale=15]
-
+[bg_new storage="洞窟3"]
+[bg_show storage="洞窟3"]
 [show tag = 2 time = 0.3 wait = false]
 [show name="ディアナ" time = 0.3]
 #アーデン
@@ -63,7 +64,9 @@
 早くいくわよ！！[p]
 
 [show name="幕間"]
-
+[bg_remove]
+[bg_new storage="草原1"]
+[bg_show storage="草原1" time=0]
 #
 ...[p]
 ......[p]

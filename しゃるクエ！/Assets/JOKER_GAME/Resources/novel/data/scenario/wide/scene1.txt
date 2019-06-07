@@ -13,12 +13,15 @@
 [text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
 [text_show name="_sp_chara_name"]
 
-[chara_new name="シャルロット" storage="シャルロット" jname = "シャルロット" x=-3.5 scale_x=-1]
+[bg_new storage="洞窟1"]
 
-[chara_new name="カーラ" storage="カーラ" jname = "カーラ" x=-0.5 scale_x=-1]
+[chara_new name="シャルロット" storage="シャルロット" layer=Default sort=1 jname = "シャルロット" x=-3.5 scale_x=-1]
 
+[chara_new name="カーラ" storage="カーラ"  layer=Default sort=1 jname = "カーラ" x=-0.5 scale_x=-1]
 
+[bg_show storage="洞窟1"]
 [playbgm storage="レヴィ戦"] 
+
 [show name="シャルロット"]
 #シャルロット
 さあ着いたわよカーラ！[p]

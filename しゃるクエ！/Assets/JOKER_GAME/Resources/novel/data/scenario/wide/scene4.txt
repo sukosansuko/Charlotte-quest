@@ -13,12 +13,13 @@
 [text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
 [text_show name="_sp_chara_name"]
 
-[chara_new name="シャルロット_反転" storage="シャルロット_反転" tag = "party" jname="シャルロット" x=-3.5]
+[chara_new name="シャルロット_反転" storage="シャルロット_反転" tag = "party" layer=Default sort=1 jname="シャルロット" x=-3.5]
 
-[chara_new name="カーラ_反転" storage="カーラ_反転" tag = "party" jname="カーラ" x=-1]
+[chara_new name="カーラ_反転" storage="カーラ_反転" tag = "party" layer=Default sort=1 jname="カーラ" x=-1]
 
-[chara_new name="アーデン" storage="アーデン" jname = "アーデン" x=3]
-
+[chara_new name="アーデン" storage="アーデン" layer=Default sort=1 jname = "アーデン" x=3]
+[bg_new storage="洞窟"]
+[bg_show storage="洞窟"]
 
 [chara_show tag = "party"]
 

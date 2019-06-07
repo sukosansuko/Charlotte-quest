@@ -10,12 +10,14 @@
 [text_new name=_sp_chara_name layer=ui x="-168" y=-108.5 val="" color="DDFF00" fontsize=16 anchor="MiddleLeft"]
 [text_show name="_sp_chara_name"]
 
-[chara_new name="レヴィ" storage="レヴィ" jname = "レヴィ" tag = 2 x = 3.5]
-[chara_new name="シャルロット" storage="シャルロット" jname = "シャルロット" tag = 2 x = -3.5 scale_x = -1]
-[chara_new name="カーラ" storage="カーラ" jname = "カーラ" tag = 1 x = -1.5 scale_x = -1]
-[chara_new name="リリー" storage=リリー"" jname = "リリー" tag = 1 x = 1.5]
-[chara_new name="ディアナ" storage="ディアナ" jname = "ディアナ" tag = 1 x = 3.5]
+[chara_new name="レヴィ" storage="レヴィ" layer=Default sort=1 jname = "レヴィ" tag = 2 x = 3.5]
+[chara_new name="シャルロット" storage="シャルロット" layer=Default sort=1 jname = "シャルロット" tag = 2 x = -3.5 scale_x = -1]
+[chara_new name="カーラ" storage="カーラ" layer=Default sort=1 jname = "カーラ" tag = 1 x = -1.5 scale_x = -1]
+[chara_new name="リリー" storage=リリー" layer=Default sort=1 jname = "リリー" tag = 1 x = 1.5]
+[chara_new name="ディアナ" storage="ディアナ" layer=Default sort=1 jname = "ディアナ" tag = 1 x = 3.5]
 
+[bg_new storage="洞窟1"]
+[bg_show storage="洞窟1"]
 [show tag = 2]
 [playse storage="剣1"]
 #レヴィ
