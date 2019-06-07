@@ -19,6 +19,7 @@ public class enemy_skillList : ScriptableObject
 		
 		public double ID;
 		public string skillName;
+		public string effectName;
 		public double power;
 		public string target;
 		public string useChara;

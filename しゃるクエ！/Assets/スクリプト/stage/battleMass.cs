@@ -6,7 +6,7 @@ public class battleMass : MonoBehaviour {
 
     string activScene;      // 現在のｼｰﾝ名
     private GameObject sceneNavigator;
-    stageData SD;
+    private stageData SD;
 
     // Use this for initialization
     void Start()
@@ -16,176 +16,127 @@ public class battleMass : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-        int enemy1 = 0;
-        int enemy2 = 0;
-        int enemy3 = 0;
+    void Update ()
+    {
+        //  ステージのカウント用
+        int count = 0;
+        //  ワールドのID
+        int WorldID = 0;
 
         SD = Resources.Load("ExcelData/stageData") as stageData;
 
         if (mapChar.activScene == "W1")
         {
+            WorldID = 1;
             if (stageMass.MassName == "battle1")
             {
-                if (SD.sheets[0].list[0].enemy_count == 1)
-                {
-                    enemy1 = 0;
-                    enemy2 = SD.sheets[0].list[0].enemy1;
-                    enemy3 = 0;
-                }
-                if(SD.sheets[0].list[0].enemy_count == 3)
-                {
-                    enemy1 = SD.sheets[0].list[0].enemy1;
-                    enemy2 = SD.sheets[0].list[0].enemy2;
-                    enemy3 = SD.sheets[0].list[0].enemy3;
-                }
-                sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1,enemy2,enemy3);
-                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[0].BGM);
-                sceneNavigator.GetComponent<StatusControl>().SetStageID(1);
-                SceneNavigator.Instance.Change("BattleScene");
+                Create(count, WorldID);
             }
+            count++;
             if (stageMass.MassName == "battle2")
             {
-                if (SD.sheets[0].list[1].enemy_count == 1)
-                {
-                    enemy1 = 0;
-                    enemy2 = SD.sheets[0].list[1].enemy1;
-                    enemy3 = 0;
-                }
-                if (SD.sheets[0].list[1].enemy_count == 3)
-                {
-                    enemy1 = SD.sheets[0].list[1].enemy1;
-                    enemy2 = SD.sheets[0].list[1].enemy2;
-                    enemy3 = SD.sheets[0].list[1].enemy3;
-                }
-                sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
-                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[1].BGM);
-                sceneNavigator.GetComponent<StatusControl>().SetStageID(1);
-                SceneNavigator.Instance.Change("BattleScene");
+                Create(count, WorldID);
             }
         }
+        
         if (mapChar.activScene == "W2")
         {
+            count = 3;
+            WorldID = 2;
             if (stageMass.MassName == "battle1")
             {
-                if (SD.sheets[0].list[3].enemy_count == 1)
-                {
-                    enemy1 = 0;
-                    enemy2 = SD.sheets[0].list[3].enemy1;
-                    enemy3 = 0;
-                }
-                if (SD.sheets[0].list[3].enemy_count == 3)
-                {
-                    enemy1 = SD.sheets[0].list[3].enemy1;
-                    enemy2 = SD.sheets[0].list[3].enemy2;
-                    enemy3 = SD.sheets[0].list[3].enemy3;
-                }
-                sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
-                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[3].BGM);
-                sceneNavigator.GetComponent<StatusControl>().SetStageID(2);
-                SceneNavigator.Instance.Change("BattleScene");
+                Create(count, WorldID);
             }
+            count++;
             if (stageMass.MassName == "battle2")
             {
-                if (SD.sheets[0].list[4].enemy_count == 1)
-                {
-                    enemy1 = 0;
-                    enemy2 = SD.sheets[0].list[4].enemy1;
-                    enemy3 = 0;
-                }
-                if (SD.sheets[0].list[4].enemy_count == 3)
-                {
-                    enemy1 = SD.sheets[0].list[4].enemy1;
-                    enemy2 = SD.sheets[0].list[4].enemy2;
-                    enemy3 = SD.sheets[0].list[4].enemy3;
-                }
-                sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
-                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[4].BGM);
-                sceneNavigator.GetComponent<StatusControl>().SetStageID(2);
-                SceneNavigator.Instance.Change("BattleScene");
+                Create(count, WorldID);
+            }
+            count++;
+            if (stageMass.MassName == "battle3")
+            {
+                Create(count, WorldID);
             }
         }
+
         if (mapChar.activScene == "W3")
         {
+            count = 7;
+            WorldID = 3;
             if (stageMass.MassName == "battle1")
             {
-                if (SD.sheets[0].list[7].enemy_count == 1)
-                {
-                    enemy1 = 0;
-                    enemy2 = SD.sheets[0].list[7].enemy1;
-                    enemy3 = 0;
-                }
-                if (SD.sheets[0].list[7].enemy_count == 3)
-                {
-                    enemy1 = SD.sheets[0].list[7].enemy1;
-                    enemy2 = SD.sheets[0].list[7].enemy2;
-                    enemy3 = SD.sheets[0].list[7].enemy3;
-                }
-                sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
-                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[7].BGM);
-                sceneNavigator.GetComponent<StatusControl>().SetStageID(3);
-                SceneNavigator.Instance.Change("BattleScene");
+                Create(count, WorldID);
             }
+            count++;
             if (stageMass.MassName == "battle2")
             {
-                if (SD.sheets[0].list[8].enemy_count == 1)
-                {
-                    enemy1 = 0;
-                    enemy2 = SD.sheets[0].list[8].enemy1;
-                    enemy3 = 0;
-                }
-                if (SD.sheets[0].list[8].enemy_count == 3)
-                {
-                    enemy1 = SD.sheets[0].list[8].enemy1;
-                    enemy2 = SD.sheets[0].list[8].enemy2;
-                    enemy3 = SD.sheets[0].list[8].enemy3;
-                }
-                sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
-                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[8].BGM);
-                sceneNavigator.GetComponent<StatusControl>().SetStageID(3);
-                SceneNavigator.Instance.Change("BattleScene");
+                Create(count, WorldID);
+            }
+            count++;
+            if (stageMass.MassName == "battle3")
+            {
+                Create(count, WorldID);
+            }
+            count++;
+            if (stageMass.MassName == "battle4")
+            {
+                Create(count, WorldID);
             }
         }
+
         if (mapChar.activScene == "W4")
         {
+            count = 12;
+            WorldID = 4;
             if (stageMass.MassName == "battle1")
             {
-                if (SD.sheets[0].list[12].enemy_count == 1)
-                {
-                    enemy1 = 0;
-                    enemy2 = SD.sheets[0].list[12].enemy1;
-                    enemy3 = 0;
-                }
-                if (SD.sheets[0].list[12].enemy_count == 3)
-                {
-                    enemy1 = SD.sheets[0].list[12].enemy1;
-                    enemy2 = SD.sheets[0].list[12].enemy2;
-                    enemy3 = SD.sheets[0].list[12].enemy3;
-                }
-                sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
-                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[12].BGM);
-                sceneNavigator.GetComponent<StatusControl>().SetStageID(4);
-                SceneNavigator.Instance.Change("BattleScene");
+                Create(count, WorldID);
             }
+            count++;
             if (stageMass.MassName == "battle2")
             {
-                if (SD.sheets[0].list[13].enemy_count == 1)
-                {
-                    enemy1 = 0;
-                    enemy2 = SD.sheets[0].list[13].enemy1;
-                    enemy3 = 0;
-                }
-                if (SD.sheets[0].list[13].enemy_count == 3)
-                {
-                    enemy1 = SD.sheets[0].list[13].enemy1;
-                    enemy2 = SD.sheets[0].list[13].enemy2;
-                    enemy3 = SD.sheets[0].list[13].enemy3;
-                }
-                sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
-                sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[13].BGM);
-                sceneNavigator.GetComponent<StatusControl>().SetStageID(4);
-                SceneNavigator.Instance.Change("BattleScene");
+                Create(count, WorldID);
+            }
+            count++;
+            if (stageMass.MassName == "battle3")
+            {
+                Create(count, WorldID);
+            }
+            count++;
+            if (stageMass.MassName == "battle4")
+            {
+                Create(count, WorldID);
+            }
+            count++;
+            if (stageMass.MassName == "battle5")
+            {
+                Create(count, WorldID);
             }
         }
+    }
+
+    private void Create(int count,int stageID)
+    {
+        int enemy1 = 0;
+        int enemy2 = 0;
+        int enemy3 = 0;
+
+        if (SD.sheets[0].list[count].enemy_count == 1)
+        {
+            enemy1 = 0;
+            enemy2 = SD.sheets[0].list[count].enemy1;
+            enemy3 = 0;
+        }
+        if (SD.sheets[0].list[count].enemy_count == 3)
+        {
+            enemy1 = SD.sheets[0].list[count].enemy1;
+            enemy2 = SD.sheets[0].list[count].enemy2;
+            enemy3 = SD.sheets[0].list[count].enemy3;
+        }
+        sceneNavigator.GetComponent<StatusControl>().SetEnemyList(enemy1, enemy2, enemy3);
+        sceneNavigator.GetComponent<StatusControl>().SetBGMID(SD.sheets[0].list[count].BGM);
+        sceneNavigator.GetComponent<StatusControl>().SetEXP((int)SD.sheets[0].list[count].EXP);
+        sceneNavigator.GetComponent<StatusControl>().SetStageID(stageID);
+        SceneNavigator.Instance.Change("BattleScene");
     }
 }

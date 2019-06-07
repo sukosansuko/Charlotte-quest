@@ -148,6 +148,8 @@ public class Status : MonoBehaviour
 
     //  技のエフェクト用
     private string animName;
+    //  全体技かどうかの判断用
+    private bool targetFlag;
 
     void Start()
     {
@@ -407,7 +409,7 @@ public class Status : MonoBehaviour
                     LoadSkill();
                     battleManager.GetComponent<command>().ActionStart();
 
-                    battleManager.GetComponent<BattleScene>().TakeAction(spCost, HPCtlFlag, AttackType, HealPercent,animName);
+                    battleManager.GetComponent<BattleScene>().TakeAction(spCost, HPCtlFlag, AttackType, HealPercent,animName,targetFlag);
 
                     //  色の変更
                     battleManager.GetComponent<command>().changeColor(color2);
@@ -431,7 +433,7 @@ public class Status : MonoBehaviour
                 }
 
 
-                if (waitTime >= 100)
+                if (waitTime >= 80)
                 {
                     battleManager.GetComponent<command>().ActionEnd();
                     if (ReceiveChara1 != null && ReceiveChara1.GetComponent<Status>().GetHP() <= 0)
@@ -968,11 +970,19 @@ public class Status : MonoBehaviour
         {
             battleManager.GetComponent<command>().SetActiveSkillText(PS.sheets[0].list[skillID].skillName);
             animName = PS.sheets[0].list[skillID].effectName;
+            if(int.Parse(Regex.Replace(PS.sheets[0].list[skillID].target, @"[^0-9]", "")) == 3)
+            {
+                targetFlag = true;
+            }
         }
         else
         {
             battleManager.GetComponent<command>().SetActiveSkillText(ES.sheets[0].list[skillID].skillName);
-            //animName = ES.sheets[0].list[skillID].effectName;
+            animName = ES.sheets[0].list[skillID].effectName;
+            if (int.Parse(Regex.Replace(ES.sheets[0].list[skillID].target, @"[^0-9]", "")) == 3)
+            {
+                targetFlag = true;
+            }
         }
 
         string charaStatus;

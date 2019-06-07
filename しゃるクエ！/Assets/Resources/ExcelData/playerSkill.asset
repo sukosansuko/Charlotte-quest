@@ -120,7 +120,7 @@ MonoBehaviour:
     - ID: 7
       charName: "\u30B7\u30E3\u30EB\u30ED\u30C3\u30C8"
       skillName: "\u56DE\u8EE2\u5207\u308A"
-      effectName: "\u901A\u5E38\u653B\u6483(\u7269\u7406)"
+      effectName: "\u7206\u767A3"
       Lv: 22
       power: 0.9
       target: E3
@@ -154,7 +154,7 @@ MonoBehaviour:
     - ID: 9
       charName: "\u30B7\u30E3\u30EB\u30ED\u30C3\u30C8"
       skillName: "\u7149\u7344\u65AC"
-      effectName: "\u30B7\u30E3\u30A4\u30CB\u30F3\u30B0\u306A\u3093\u3061\u3083\u3089"
+      effectName: "\u7149\u7344\u65AC"
       Lv: 45
       power: 1.2
       target: E3
@@ -171,7 +171,7 @@ MonoBehaviour:
     - ID: 10
       charName: "\u30B7\u30E3\u30EB\u30ED\u30C3\u30C8"
       skillName: "\u30A8\u30AF\u30B9\u30AB\u30EA\u30D0\u30FC"
-      effectName: "\u30B7\u30E3\u30A4\u30CB\u30F3\u30B0\u306A\u3093\u3061\u3083\u3089"
+      effectName: "\u7149\u7344\u65AC"
       Lv: 81
       power: 2
       target: E3
@@ -375,7 +375,7 @@ MonoBehaviour:
     - ID: 22
       charName: "\u30C7\u30A3\u30A2\u30CA"
       skillName: "\u60AA\u9B54\u547C\u3073"
-      effectName: "\u95C71"
+      effectName: "\u5730\u9762"
       Lv: 15
       power: 0.7
       target: E3
@@ -426,7 +426,7 @@ MonoBehaviour:
     - ID: 25
       charName: "\u30C7\u30A3\u30A2\u30CA"
       skillName: "\u9B54\u795E\u53EC\u559A"
-      effectName: "\u95C72"
+      effectName: "\u7206\u767A3"
       Lv: 81
       power: 4
       target: E3
@@ -511,7 +511,7 @@ MonoBehaviour:
     - ID: 30
       charName: "\u30EA\u30EA\u30FC"
       skillName: "\u30E1\u30AC\u2606\u30B5\u30F3\u30C0\u30FC"
-      effectName: "\u96F71"
+      effectName: "\u96F73"
       Lv: 22
       power: 1.5
       target: E3
@@ -528,7 +528,7 @@ MonoBehaviour:
     - ID: 31
       charName: "\u30EA\u30EA\u30FC"
       skillName: "\u30E1\u30AC\u2606\u30D5\u30ED\u30B9\u30C8"
-      effectName: "\u6C371"
+      effectName: "\u6C373"
       Lv: 22
       power: 1.5
       target: E3
@@ -545,7 +545,7 @@ MonoBehaviour:
     - ID: 32
       charName: "\u30EA\u30EA\u30FC"
       skillName: "\u30AE\u30AC\u2606\u30D5\u30A1\u30A4\u30A2"
-      effectName: "\u7206\u767A2"
+      effectName: "\u7206\u767A3"
       Lv: 38
       power: 1.8
       target: E3
@@ -562,7 +562,7 @@ MonoBehaviour:
     - ID: 33
       charName: "\u30EA\u30EA\u30FC"
       skillName: "\u30AE\u30AC\u2606\u30B5\u30F3\u30C0\u30FC"
-      effectName: "\u96F72"
+      effectName: "\u96F73"
       Lv: 38
       power: 1.8
       target: E3
@@ -579,7 +579,7 @@ MonoBehaviour:
     - ID: 34
       charName: "\u30EA\u30EA\u30FC"
       skillName: "\u30AE\u30AC\u2606\u30D5\u30ED\u30B9\u30C8"
-      effectName: "\u6C372"
+      effectName: "\u6C373"
       Lv: 38
       power: 1.8
       target: E3
@@ -596,7 +596,7 @@ MonoBehaviour:
     - ID: 35
       charName: "\u30EA\u30EA\u30FC"
       skillName: "\u30D5\u30EC\u30A2"
-      effectName: "\u7206\u767A2"
+      effectName: "\u7206\u767A3"
       Lv: 42
       power: 1.6
       target: E3
@@ -613,7 +613,7 @@ MonoBehaviour:
     - ID: 36
       charName: "\u30EA\u30EA\u30FC"
       skillName: "\u30E1\u30C6\u30AA"
-      effectName: "\u7206\u767A2"
+      effectName: "\u30B8\u30E3\u30C3\u30B8\u30E1\u30F3\u30C8\u30FB\u30C7\u30A4"
       Lv: 81
       power: 2.5
       target: E3
@@ -868,7 +868,7 @@ MonoBehaviour:
     - ID: 51
       charName: "\u30E2\u30EB\u30BF\u30EA\u30A2"
       skillName: "\u6F06\u5F0F\u9B54\u5C0E\u9663\u30FB\u9B54\u795E\u53EC\u559A"
-      effectName: "\u546A\u3044"
+      effectName: "\u30B8\u30E3\u30C3\u30B8\u30E1\u30F3\u30C8\u30FB\u30C7\u30A4"
       Lv: 81
       power: 3.2
       target: E3

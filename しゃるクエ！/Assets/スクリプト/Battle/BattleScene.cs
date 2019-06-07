@@ -29,6 +29,9 @@ public class BattleScene : MonoBehaviour
     public GameObject EEffect2;
     public GameObject EEffect3;
 
+    public GameObject PAllEffect;
+    public GameObject EAllEffect;
+
     public GameObject BFinish;
 
     private int pID1;
@@ -65,7 +68,10 @@ public class BattleScene : MonoBehaviour
 
     private bool SEFlag;
 
+    //  エフェクトの名前
     private string animName;
+    //  エフェクトを単体か全体のどちらかを使うかの判断用
+    private bool allTarget;
 
     public struct Action
     {
@@ -95,6 +101,7 @@ public class BattleScene : MonoBehaviour
 
         SEFlag = false;
         animName = "null";
+        allTarget = false;
     }
 
     void Update()
@@ -107,6 +114,9 @@ public class BattleScene : MonoBehaviour
             if (!SEFlag)
             {
                 sceneNavigator.GetComponent<BGMselect>().SetSE("クリア時");
+                sceneNavigator.GetComponent<StatusControl>().AcquisitionExp(pID1,sceneNavigator.GetComponent<StatusControl>().GetEXP());
+                sceneNavigator.GetComponent<StatusControl>().AcquisitionExp(pID2, sceneNavigator.GetComponent<StatusControl>().GetEXP());
+                sceneNavigator.GetComponent<StatusControl>().AcquisitionExp(pID3, sceneNavigator.GetComponent<StatusControl>().GetEXP());
                 SEFlag = true;
             }
             BFinish.GetComponent<Image>().enabled = true;
@@ -127,9 +137,10 @@ public class BattleScene : MonoBehaviour
         }
     }
 
-    public void TakeAction(int spcost, int HpFlag, int AttackType, double healPercent,string AName)
+    public void TakeAction(int spcost, int HpFlag, int AttackType, double healPercent,string AName,bool targetFlag)
     {
         animName = AName;
+        allTarget = targetFlag;
         attackObj.GetComponent<Status>().SetBuff();
         if(receiveObj1 != null)
         {
@@ -156,6 +167,9 @@ public class BattleScene : MonoBehaviour
         //  2ならHPを回復する処理
         else if(HpFlag == 2)
         {
+            //  回復時は全体演出ではなく単体演出を使う
+            allTarget = false;
+
             Action action1 = new Action()
             {
                 heal = new Heal { attackChara = attackObj, receiveChara1 = receiveObj1, receiveChara2 = receiveObj2, receiveChara3 = receiveObj3, spCost = spcost, HealPercent = healPercent}
@@ -174,6 +188,8 @@ public class BattleScene : MonoBehaviour
         //  バフ、デバフ系の処理
         else
         {
+            //  バフ、デバフ時は全体演出ではなく単体演出を使う
+            allTarget = false;
             Action action1 = new Action()
             {
                 buff = new Buff { attackChara = attackObj, receiveChara1 = receiveObj1, receiveChara2 = receiveObj2, receiveChara3 = receiveObj3, spCost = spcost }
@@ -309,6 +325,20 @@ public class BattleScene : MonoBehaviour
                 receiveChara3.GetComponent<Status>().SetState(Status.STATE.ST_DAMAGE);
                 battleManager.GetComponent<BattleScene>().SetEffect(receiveChara3.name);
             }
+
+            //  全体攻撃用エフェクト(味方か敵かの判別が必要なのでどれか一つの名前が入ればいい)
+            if(receiveChara1)
+            {
+                battleManager.GetComponent<BattleScene>().SetAllEffect(receiveChara1.name);
+            }
+            else if (receiveChara2)
+            {
+                battleManager.GetComponent<BattleScene>().SetAllEffect(receiveChara2.name);
+            }
+            else
+            {
+                battleManager.GetComponent<BattleScene>().SetAllEffect(receiveChara3.name);
+            }
         }
     }
 
@@ -331,7 +361,7 @@ public class BattleScene : MonoBehaviour
             battleManager = GameObject.Find("BattleManager");
             attackChara.GetComponent<Status>().SetSP(attackChara.GetComponent<Status>().GetSP() - spCost);
             attackChara.GetComponent<Status>().SetState(Status.STATE.ST_ATK);
-
+            
             if (receiveChara1)
             {
                 TotalHeal1 = (int)Math.Round(receiveChara1.GetComponent<Status>().GetMAXHP() * HealPercent);
@@ -373,6 +403,20 @@ public class BattleScene : MonoBehaviour
                 Debug.Log("残りHP" + receiveChara3.GetComponent<Status>().GetHP());
                 battleManager.GetComponent<BattleScene>().SetEffect(receiveChara3.name);
             }
+
+            //  全体攻撃用エフェクト(味方か敵かの判別が必要なのでどれか一つの名前が入ればいい)
+            if (receiveChara1)
+            {
+                battleManager.GetComponent<BattleScene>().SetAllEffect(receiveChara1.name);
+            }
+            else if (receiveChara2)
+            {
+                battleManager.GetComponent<BattleScene>().SetAllEffect(receiveChara2.name);
+            }
+            else
+            {
+                battleManager.GetComponent<BattleScene>().SetAllEffect(receiveChara3.name);
+            }
         }
     }
 
@@ -407,6 +451,20 @@ public class BattleScene : MonoBehaviour
                 Debug.Log(receiveChara3.gameObject.name + "の"/* + TotalHeal*/ + "が変化！");
                 Debug.Log("残りHP" + receiveChara3.GetComponent<Status>().GetHP());
                 battleManager.GetComponent<BattleScene>().SetEffect(receiveChara3.name);
+            }
+
+            //  全体攻撃用エフェクト(味方か敵かの判別が必要なのでどれか一つの名前が入ればいい)
+            if (receiveChara1)
+            {
+                battleManager.GetComponent<BattleScene>().SetAllEffect(receiveChara1.name);
+            }
+            else if (receiveChara2)
+            {
+                battleManager.GetComponent<BattleScene>().SetAllEffect(receiveChara2.name);
+            }
+            else
+            {
+                battleManager.GetComponent<BattleScene>().SetAllEffect(receiveChara3.name);
             }
         }
     }
@@ -525,36 +583,56 @@ public class BattleScene : MonoBehaviour
         return ActionFlag;
     }
 
+    //  単体攻撃時
     public void SetEffect(string receive)
     {
-        if (receive.StartsWith("p"))
+        if (!allTarget)
         {
-            if (receive.Contains("1"))
+            if (receive.StartsWith("p"))
             {
-                PEffect1.GetComponent<EffectControl>().SetAnimName(animName);
-            }
-            else if (receive.Contains("2"))
-            {
-                PEffect2.GetComponent<EffectControl>().SetAnimName(animName);
+                if (receive.Contains("1"))
+                {
+                    PEffect1.GetComponent<EffectControl>().SetAnimName(animName);
+                }
+                else if (receive.Contains("2"))
+                {
+                    PEffect2.GetComponent<EffectControl>().SetAnimName(animName);
+                }
+                else
+                {
+                    PEffect3.GetComponent<EffectControl>().SetAnimName(animName);
+                }
             }
             else
             {
-                PEffect3.GetComponent<EffectControl>().SetAnimName(animName);
+                if (receive.Contains("1"))
+                {
+                    EEffect1.GetComponent<EffectControl>().SetAnimName(animName);
+                }
+                else if (receive.Contains("2"))
+                {
+                    EEffect2.GetComponent<EffectControl>().SetAnimName(animName);
+                }
+                else
+                {
+                    EEffect3.GetComponent<EffectControl>().SetAnimName(animName);
+                }
             }
         }
-        else
+    }
+
+    //  全体攻撃時
+    public void SetAllEffect(string receive)
+    {
+        if (allTarget)
         {
-            if (receive.Contains("1"))
+            if (receive.StartsWith("p"))
             {
-                EEffect1.GetComponent<EffectControl>().SetAnimName(animName);
-            }
-            else if (receive.Contains("2"))
-            {
-                EEffect2.GetComponent<EffectControl>().SetAnimName(animName);
+                PAllEffect.GetComponent<EffectControl>().SetAnimName(animName);
             }
             else
             {
-                EEffect3.GetComponent<EffectControl>().SetAnimName(animName);
+                EAllEffect.GetComponent<EffectControl>().SetAnimName(animName);
             }
         }
     }

@@ -41,25 +41,25 @@ public class BattleFinish : MonoBehaviour
                 switch (sceneNavigator.GetComponent<StatusControl>().GetStageID())
                 {
                     case 1:
-                        SceneNavigator.Instance.Change("W1");
+                        sceneNavigator.GetComponent<SceneNavigator>().Change("W1");
                         break;
                     case 2:
-                        SceneNavigator.Instance.Change("W2");
+                        sceneNavigator.GetComponent<SceneNavigator>().Change("W2");
                         break;
                     case 3:
-                        SceneNavigator.Instance.Change("W3");
+                        sceneNavigator.GetComponent<SceneNavigator>().Change("W3");
                         break;
                     case 4:
-                        SceneNavigator.Instance.Change("W4");
+                        sceneNavigator.GetComponent<SceneNavigator>().Change("W4");
                         break;
                     case 5:
-                        SceneNavigator.Instance.Change("W5");
+                        sceneNavigator.GetComponent<SceneNavigator>().Change("W5");
                         break;
                     case 6:
-                        SceneNavigator.Instance.Change("W6");
+                        sceneNavigator.GetComponent<SceneNavigator>().Change("W6");
                         break;
                     case 7:
-                        SceneNavigator.Instance.Change("W7");
+                        sceneNavigator.GetComponent<SceneNavigator>().Change("W7");
                         break;
                     default:
                         break;
